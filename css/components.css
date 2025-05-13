@@ -422,6 +422,27 @@ button:hover {
     transform: scale(1.05);
 }
 
+/* デバッグボタンのスタイル - 開発環境専用 */
+.debug-button {
+    background: linear-gradient(135deg, #ffecb3, #ffc107);
+    border: 1px solid #ffa000;
+    color: #5d4037;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 3px 8px rgba(255, 193, 7, 0.4);
+}
+
+.debug-button:hover {
+    background: linear-gradient(135deg, #ffd740, #ffab00);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(255, 193, 7, 0.6);
+}
+
 /* 統計アイテム */
 .stat-item {
     padding: 10px 15px;
@@ -458,6 +479,7 @@ button:hover {
     align-items: center;
     position: relative;
     color: #6a5acd;
+    flex-wrap: wrap; /* フレックスアイテムの折り返しを許可 */
 }
 
 #streak-container.hidden {
@@ -472,18 +494,21 @@ button:hover {
 }
 
 #streak-count {
-    font-size: 1.2em;
-    color: #97aec0; /* より薄い色に変更 */
-    font-weight: bold;
+    font-size: 1.5em;  /* 1.2emから拡大 */
+    color: #8a70d6;    /* 薄い色から学園カラーの紫に変更 */
+    font-weight: 800;  /* 太字をさらに強調 */
     transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(138, 112, 214, 0.3); /* テキストシャドウ追加 */
+    padding: 0 5px;    /* 周囲にスペースを追加 */
+    display: inline-block;
 }
 
 #streak-message {
-    display: block;
     font-size: 0.8em;
-    margin-top: 5px;
+    margin-left: 8px; /* マージントップからマージンレフトに変更 */
     color: #555;
     font-style: italic;
+    display: inline; /* ブロックからインラインに変更 */
 }
 
 /* ゲームモード説明文 */
@@ -520,6 +545,7 @@ button:hover {
 #mode-description-text {
     display: block;
     padding: 2px 0;
+    font-size: 1.1rem; /* 新しいサイズを追加 - より大きく明確に */
 }
 
 /* フィードバック */

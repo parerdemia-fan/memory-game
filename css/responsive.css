@@ -253,19 +253,20 @@
     }
     
     #streak-count {
-        font-size: 1rem;
+        font-size: 1.3rem; /* 1remから拡大 */
         margin: 0 3px;
+        font-weight: 800;  /* 太字をさらに強調 */
+        text-shadow: 0 0 4px rgba(138, 112, 214, 0.3); /* テキストシャドウ追加 */
+        color: #8a70d6;    /* パレデミア学園カラーの紫系 */
     }
     
     #streak-message {
-        width: 100%;
-        text-align: center;
-        font-size: 0.7rem;
-        margin-top: 2px;
+        font-size: 0.8rem; /* 0.65remから0.8remに拡大 */
+        margin-left: 4px;
     }
     
     #mode-description-text {
-        font-size: 0.85rem;
+        font-size: 1rem; /* 0.85remから1remに拡大 */
         text-align: center;
         width: 100%;
     }
@@ -474,7 +475,7 @@
     }
     
     #streak-message {
-        font-size: 0.7em;
+        font-size: 0.8rem; /* 0.65remから0.8remに拡大 */
     }
 
     /* モバイル表示時の画像選択肢を完璧に中央揃えに！ */
@@ -705,7 +706,7 @@
         box-sizing: border-box; /* 境界線とパディングを含めたサイズ計算 */
         min-height: 28px; /* 高さの最小値も指定 */
         max-height: 28px; /* 高さの最大値も指定 */
-        overflow: hidden; /* はみ出た内容を隠す */
+        overflow: hidden; /* はみ出した内容を隠す */
     }
     
     #settings-toggle svg, .settings-gear svg {
@@ -852,6 +853,18 @@
     
     #timer-text {
         font-size: 0.8rem;
+    }
+    
+    #streak-container {
+        padding: 5px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    #streak-message {
+        font-size: 0.8rem; /* 0.65remから0.8remに拡大 */
+        margin-left: 4px;
     }
     
     #feedback-container {

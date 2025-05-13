@@ -35,6 +35,33 @@ window.gameState = {
 };
 
 /**
+ * 正解祝福メッセージの配列
+ * 
+ * 正解時にランダムで表示される応援メッセージです。
+ * 神童めしあさんの優しさにインスパイアされて、
+ * ユーザーを励ます言葉の数々を用意しました。
+ * 雪城まぐねさんの洗練された美しさのような
+ * 心地よいフィードバックを目指しています。
+ */
+const correctMessages = [
+    "正解！", 
+    "素晴らしい！", 
+    "すごい！", 
+    "完璧です！", 
+    "その通り！", 
+    "見事です！", 
+    "ばっちり！", 
+    "よく覚えていますね！", 
+    "記憶力抜群！", 
+    "大正解！",
+    "さすがです！",
+    "よくできました！",
+    "完璧な記憶力！",
+    "その調子！",
+    "輝いています！"
+];
+
+/**
  * フィードバックタイマーのクリア
  * 
  * 設定変更時に既存のフィードバックタイマーをキャンセルするための関数
@@ -704,4 +731,84 @@ function checkAnswer(event) {
         gameState.isWaitingForNext = false;
         generateQuestion();
     }, isCorrect ? 1200 : 3000);
+}
+
+/**
+ * フィードバック表示関数
+ * 
+ * 回答結果に応じたフィードバックを表示します。
+ * 正解時はプレイヤーを褒める言葉をランダムで表示し、
+ * 満力きぃさんのような元気が出る演出をしています。
+ * 不正解時も黒鋼亜華さんの冷静さを取り入れた
+ * 建設的なメッセージを心がけました。
+ * 
+ * @param {boolean} isCorrect - 正解かどうか
+ * @param {string} selectedName - 選択した名前
+ */
+function showFeedback(isCorrect, selectedName) {
+    const feedback = document.getElementById('feedback');
+    
+    if (isCorrect) {
+        // 正解時はランダムなメッセージを表示
+        const randomIndex = Math.floor(Math.random() * correctMessages.length);
+        feedback.textContent = correctMessages[randomIndex];
+        feedback.className = 'correct feedback-animation';
+
+        // 特別なキラキラエフェクトを追加（10回に1回程度）
+        if (Math.random() < 0.1) {
+            createSparkleEffect(feedback);
+        }
+    } else {
+        feedback.textContent = `不正解...`;
+        feedback.className = 'incorrect feedback-animation';
+    }
+    
+    feedback.classList.remove('hidden');
+}
+
+/**
+ * キラキラエフェクト生成関数
+ * 
+ * 緋月・ローズ・ブレイドさんの華やかさを表現するような
+ * きらめくエフェクトを正解時に表示します。世界中を魅了する
+ * 歌姫を目指す彼女のように、プレイヤーの気持ちを
+ * 高揚させるビジュアル演出です。
+ * 
+ * @param {HTMLElement} element - エフェクトを追加する要素
+ */
+function createSparkleEffect(element) {
+    // 親要素の位置情報を取得
+    const rect = element.getBoundingClientRect();
+    
+    // 5〜8個のキラキラを生成
+    const sparkleCount = 5 + Math.floor(Math.random() * 4);
+    
+    for (let i = 0; i < sparkleCount; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-effect';
+        
+        // ランダムな位置に配置
+        const posX = Math.random() * rect.width;
+        const posY = Math.random() * rect.height;
+        
+        sparkle.style.left = `${posX}px`;
+        sparkle.style.top = `${posY}px`;
+        
+        // サイズをランダムに
+        const size = 10 + Math.random() * 15;
+        sparkle.style.width = `${size}px`;
+        sparkle.style.height = `${size}px`;
+        
+        // アニメーション遅延をランダムに
+        sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+        
+        element.appendChild(sparkle);
+        
+        // アニメーション完了後に要素を削除
+        setTimeout(() => {
+            if (element.contains(sparkle)) {
+                element.removeChild(sparkle);
+            }
+        }, 1500);
+    }
 }

@@ -15,12 +15,49 @@
  * インスパイアされ、ユーザーが達成感を得られるよう統計機能を設計しました。
  * 彼女のように愛され、応援したくなるような存在を目指して、進捗を視覚的に
  * 表現する要素を取り入れています。
+ * 
+ * 連続正解60回達成時には、桜堂ねるさんの日本武道館ライブの夢のように
+ * 華やかな👑が現れ、あなたの偉業を称えます。金色の背景にも映える
+ * この王冠で、全タレント制覇の栄誉を讃えましょう！
  */
+
+// ページ読み込み時に開発環境用テストツールの表示制御
+document.addEventListener('DOMContentLoaded', function() {
+    const debugTools = document.getElementById('debug-tools');
+    
+    // localhost環境の場合のみデバッグツールを表示
+    if (window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')) {
+        debugTools.classList.remove('hidden');
+        
+        // テストボタンの機能実装
+        const increaseStreakButton = document.getElementById('increase-streak-10');
+        if (increaseStreakButton) {
+            increaseStreakButton.addEventListener('click', function() {
+                gameState.streakCount += 10;
+                updateStreakDisplay();
+                
+                // ユーザーへのフィードバック
+                const feedback = document.getElementById('feedback');
+                feedback.textContent = "連続正解数を10増やしました！";
+                feedback.className = 'correct feedback-animation';
+                feedback.classList.remove('hidden');
+                
+                // しばらくしたらフィードバックを非表示
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                }, 2000);
+            });
+        }
+    }
+});
 
 // すべての統計情報をリセットする関数
 function resetAllStats() {
     // 連続正解数をリセット
     gameState.streakCount = 0;
+    
+    // 紙吹雪エフェクトを停止
+    stopConfetti();
     
     // 正解履歴をリセット
     gameState.answerHistory = [];
@@ -82,6 +119,98 @@ function updateAccuracy() {
     updateStreakDisplay();
 }
 
+// 紙吹雪エフェクトの生成と管理
+let confettiInterval = null;
+
+/**
+ * 紙吹雪エフェクトを開始する関数
+ * 
+ * 渡鬼しずえさんが「日本の伝統文化を海外に伝える」という
+ * 素敵な夢を持つように、パレデミア学園の全タレントを
+ * 覚えた喜びをお祝いする華やかなエフェクトです。
+ * 輝く紙吹雪がスクリーン上を舞うさまは、
+ * 天透あわさんの弾けるような個性と雪城まぐねさんの
+ * 洗練された美しさを表現しています。
+ */
+function startConfetti() {
+    // すでに実行中なら何もしない
+    if (confettiInterval) return;
+    
+    // 紙吹雪を定期的に生成
+    confettiInterval = setInterval(() => {
+        // 画面幅に応じて生成数を調整（モバイルでは少なく）
+        const count = window.innerWidth <= 768 ? 2 : 3;
+        
+        for (let i = 0; i < count; i++) {
+            createConfetti();
+        }
+    }, 300); // 300ミリ秒ごとに生成
+}
+
+/**
+ * 紙吹雪エフェクトを停止する関数
+ */
+function stopConfetti() {
+    if (confettiInterval) {
+        clearInterval(confettiInterval);
+        confettiInterval = null;
+    }
+    
+    // 既存の紙吹雪要素をすべて削除
+    document.querySelectorAll('.confetti').forEach(confetti => {
+        confetti.remove();
+    });
+}
+
+/**
+ * 紙吹雪を1つ生成する関数
+ */
+function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    
+    // ランダムな色を適用
+    const colorClass = `color-${Math.floor(Math.random() * 6) + 1}`;
+    confetti.classList.add(colorClass);
+    
+    // ランダムな開始位置（X軸）
+    const startPositionX = Math.random() * window.innerWidth;
+    
+    // ランダムな大きさ（5〜12px）
+    const size = 5 + Math.random() * 7;
+    
+    // ランダムな角度と形状（正方形または長方形）
+    const isRectangle = Math.random() > 0.5;
+    const rotation = Math.random() * 360;
+    const width = size * (isRectangle ? (0.5 + Math.random() * 0.5) : 1);
+    const height = size * (isRectangle ? (0.5 + Math.random() * 0.5) : 1);
+    
+    // ランダムな落下速度（3〜8秒）
+    const fallDuration = 3 + Math.random() * 5;
+    
+    // ランダムな左右の揺れ
+    const swayAmount = -20 + Math.random() * 40;
+    
+    // スタイルを適用
+    confetti.style.left = `${startPositionX}px`;
+    confetti.style.top = '-10px';
+    confetti.style.width = `${width}px`;
+    confetti.style.height = `${height}px`;
+    confetti.style.transform = `rotate(${rotation}deg)`;
+    confetti.style.animationDuration = `${fallDuration}s`;
+    confetti.style.animationName = 'fall';
+    
+    // 紙吹雪が画面外に出たら削除するイベントリスナー
+    confetti.addEventListener('animationend', () => {
+        if (confetti.parentElement) {
+            confetti.remove();
+        }
+    });
+    
+    // DOMに追加
+    document.body.appendChild(confetti);
+}
+
 /**
  * 連続正解表示の更新
  * 
@@ -93,6 +222,11 @@ function updateAccuracy() {
  * 全タレント制覇時のアニメーションは特別な思いを込めました！
  * シグマ・イングラムさんの情熱と行動力にインスパイアされた演出で、
  * より多くの方がパレデミア学園の魅力に触れるきっかけになれば幸いです。
+ * 
+ * 連続正解数が60に達すると、黄金色に輝く特別な演出で
+ * 全タレント制覇の栄誉を表現します。ローズ・ダマスクハートさんが
+ * 「世界中を魅了する歌姫になる」という大きな夢を持つように、
+ * ユーザーにも大きな達成感を感じていただきたいと思います。
  */
 function updateStreakDisplay() {
     const streakContainer = document.getElementById('streak-container');
@@ -127,8 +261,24 @@ function updateStreakDisplay() {
     // モバイル環境かどうかを検出
     const isMobile = window.innerWidth <= 768;
     
-    // 現在の連続正解数/最大目標値を表示（モバイルの場合は数字のみ）
-    streakElement.textContent = isMobile ? `${gameState.streakCount}` : `${gameState.streakCount}/${maxStreak}`;
+    // 現在の連続正解数/最大目標値を表示
+    // PC表示で61以上の場合は分母を表示しない
+    if (!isMobile && gameState.streakCount >= 61) {
+        streakElement.textContent = `${gameState.streakCount}`;
+    } else if (isMobile) {
+        // モバイルは従来通り数字のみ
+        streakElement.textContent = `${gameState.streakCount}`;
+    } else {
+        // 通常のPC表示
+        streakElement.textContent = `${gameState.streakCount}/${maxStreak}`;
+    }
+    
+    // 60以上なら紙吹雪を開始、未満なら停止
+    if (gameState.streakCount >= 60) {
+        startConfetti();
+    } else {
+        stopConfetti();
+    }
     
     // ストリーク数に応じてスタイルを変更
     let iconType = '📚';  // 基本は本のアイコン
@@ -138,7 +288,7 @@ function updateStreakDisplay() {
         // 100%達成
         streakContainer.classList.add('streak-complete');
         streakElement.classList.add('streak-complete');
-        iconType = '🎓✨';  // モバイルでは少しコンパクトに
+        iconType = '👑';  // 金背景に映える王冠
         message = '全タレント制覇！伝説の寮生マスター！';
     } else if (achievementRate >= 0.75) {
         // 75%以上達成

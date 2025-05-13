@@ -412,7 +412,7 @@
 
 /* フィードバック表示の強化 */
 #feedback.correct {
-    background: linear-gradient(135deg, #e8f5ff, #e0f0ff);
+    background: linear-gradient(135deg, #f0f8ff, #e0f0ff, #d5e6ff);
     color: #5d7ad6;
     font-weight: bold;
     padding: 15px 20px;
@@ -420,15 +420,35 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     border-left: 5px solid #8a70d6;
     z-index: 50;
-    animation: pulseGlow 1.5s infinite alternate;
+    position: relative;
+    overflow: hidden;
 }
 
-@keyframes pulseGlow {
-    from {
-        box-shadow: 0 5px 15px rgba(138, 112, 214, 0.3);
+#feedback.correct::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    animation: feedback-shine 3s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+@keyframes feedback-shine {
+    0% {
+        transform: rotate(0deg);
+        opacity: 0;
     }
-    to {
-        box-shadow: 0 8px 25px rgba(138, 112, 214, 0.5);
+    25% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: rotate(360deg);
+        opacity: 0;
     }
 }
 

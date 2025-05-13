@@ -65,34 +65,44 @@
 
 #streak-count.streak-medium {
     color: #8a70d6;
-    font-size: 1.3em;
+    font-size: 1.4em;
+    text-shadow: 0 0 5px rgba(138, 112, 214, 0.5); /* シャドウ追加 */
 }
 
 #streak-count.streak-high {
     color: #7a60c6;
-    font-size: 1.4em;
+    font-size: 1.5em;
+    text-shadow: 0 0 8px rgba(122, 96, 198, 0.6); /* シャドウ強化 */
 }
 
 #streak-count.streak-amazing {
     color: #6a50b6;
-    font-size: 1.5em;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    font-size: 1.6em;
+    text-shadow: 0 0 10px rgba(106, 80, 182, 0.7), 0 0 20px rgba(255, 255, 255, 0.5); /* 二重シャドウ効果 */
+    letter-spacing: 1px; /* 文字間隔を広げる */
 }
 
-/* 全タレント制覇時のスタイル */
+/* 全タレント制覇時のスタイル - 金色豪華バージョン */
 #streak-container.streak-complete {
-    background: linear-gradient(135deg, #f0e5ff, #e5d0ff, #d0e5ff);
-    box-shadow: 0 10px 30px rgba(138, 112, 214, 0.5);
-    border-left: 5px solid #b090fb;
+    background: linear-gradient(135deg, #fff8e1, #ffe57f, #ffd740, #ffca28);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+    border-left: 5px solid #ffc107;
     transform: scale(1.15);
-    color: #6a50b6;
-    animation: celebrate 1.2s ease-in-out infinite, rainbow-border 2s linear infinite;
+    color: #5d4037;
+    animation: celebrate 1.2s ease-in-out infinite, gold-glow 2s linear infinite;
 }
 
 #streak-count.streak-complete {
-    color: #6a50b6;
+    color: #5d4037;
     font-size: 1.6em;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+/* 金色の輝きアニメーション - より豪華なバージョン */
+@keyframes gold-glow {
+    0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4) inset; }
+    50% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.6) inset; }
+    100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.4) inset; }
 }
 
 /* 虹色のアニメーション */
@@ -287,4 +297,88 @@
         transform: scale(1) translate(var(--tx), var(--ty));
         opacity: 0;
     }
+}
+
+/* 紙吹雪エフェクト */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: #f2f2f2;
+    opacity: 0.8;
+    border-radius: 0;
+    z-index: 10000;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* 紙吹雪の色バリエーション */
+.confetti.color-1 { background-color: #fcf403; }
+.confetti.color-2 { background-color: #62efff; }
+.confetti.color-3 { background-color: #ff5252; }
+.confetti.color-4 { background-color: #43ff64; }
+.confetti.color-5 { background-color: #ff96ff; }
+.confetti.color-6 { background-color: #6a5acd; }
+
+/* 正解時のキラキラエフェクト */
+.sparkle-effect {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23ffd700' d='M12,0 L14,8 L22,8 L16,13 L18,22 L12,17 L6,22 L8,13 L2,8 L10,8 Z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 1000;
+    animation: sparkle-animation 1.5s forwards;
+    opacity: 0;
+}
+
+@keyframes sparkle-animation {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    25% {
+        transform: scale(1.2) rotate(45deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1) rotate(90deg);
+        opacity: 0.8;
+    }
+    75% {
+        transform: scale(1.1) rotate(135deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(0) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+/* 正解フィードバックの強化アニメーション */
+#feedback.correct {
+    animation: feedback-glow 1.2s infinite alternate, feedback-scale 0.5s ease-out;
+}
+
+@keyframes feedback-glow {
+    from {
+        box-shadow: 0 0 10px rgba(138, 112, 214, 0.4), 0 0 20px rgba(138, 112, 214, 0.2) inset;
+    }
+    to {
+        box-shadow: 0 0 15px rgba(138, 112, 214, 0.7), 0 0 30px rgba(138, 112, 214, 0.4) inset;
+    }
+}
+
+@keyframes feedback-scale {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
 }

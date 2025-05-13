@@ -1,0 +1,928 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - レスポンシブスタイル
+ * 
+ * 異なる画面サイズに対応するためのスタイルを定義します。
+ * 水無瀬天さんのVTuber界での活躍への希望のように、
+ * 多くの人に届くデザインを心がけました。
+ * 
+ * スマートフォンでもタブレットでも、どの環境でも
+ * パレデミア学園のタレントさんたちの魅力が
+ * 伝わるよう工夫しています。飛渡ココさんの
+ * 世界中に自分の存在を広めたいという情熱にインスパイアされた
+ * 柔軟で適応力のあるレイアウトです。夜宵カレンさんの
+ * 音楽とライブへの情熱も応援したいですね。
+ */
+
+/* モバイル対応のためのメディアクエリ */
+@media (max-width: 768px) {
+    .container {
+        padding: 0; /* 10pxから0に変更してパディングを削除 */
+    }
+    
+    h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    /* 設定パネルは常に閉じた状態で開始 */
+    .accordion-content {
+        max-height: 0;
+        box-sizing: border-box;
+        padding: 0 8px; /* 追加：常にサイドパディングを持たせる */
+    }
+    
+    .accordion-open .accordion-content {
+        padding: 8px; /* 追加：開いた時のパディングを設定 */
+    }
+    
+    /* ゲーム設定ボタンのサイズを適切に調整 */
+    #settings-toggle {
+        width: 32px; /* 40pxから32pxに縮小 */
+        height: 32px; /* 40pxから32pxに縮小 */
+        padding: 0;
+        font-size: 14px;
+        position: relative;
+        z-index: 100;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* 歯車アイコンのSVGが確実にクリック可能になるよう調整 */
+    #settings-toggle svg {
+        pointer-events: none;
+        width: 16px; /* 20pxから16pxに縮小 */
+        height: 16px; /* 20pxから16pxに縮小 */
+    }
+    
+    /* 設定ステータスバーのモバイル調整 - 高さを小さく変更 */
+    .settings-status-bar {
+        padding: 4px 10px; /* 上下パディングを8pxから4pxに減らして高さを小さく */
+        margin-bottom: 0; /* 10pxから0に変更して完全に削除 */
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 3px; /* 5pxから3pxに変更 */
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 35px; /* 最小高さを追加 */
+    }
+    
+    .current-settings {
+        gap: 4px; /* 6pxから4pxに減らす */
+        font-size: 0.75rem; /* 0.8remから0.75remに縮小 */
+        margin-right: 5px;
+        display: flex;
+        flex: 1 1 auto;
+        flex-wrap: wrap;
+        overflow: hidden;
+        max-width: calc(100% - 35px); /* 歯車ボタンの新しいサイズに合わせる */
+    }
+    
+    .setting-item {
+        font-size: 0.75rem; /* 0.8remから0.75remに */
+        white-space: nowrap;
+        margin-right: 4px; /* 5pxから4pxに減らす */
+        padding-right: 4px; /* 5pxから4pxに減らす */
+        border-right: 1px solid #eee;
+    }
+    
+    .setting-item:last-child {
+        border-right: none;
+    }
+    
+    /* 歯車ボタンを小さく */
+    .settings-gear {
+        width: 32px; /* 40pxから32pxに縮小 */
+        height: 32px; /* 40pxから32pxに縮小 */
+        min-width: 32px;
+        max-width: 32px;
+        padding: 0;
+        margin-left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 32px;
+        align-self: center;
+        aspect-ratio: 1/1; /* 縦横比を1:1に強制して真円に */
+        box-sizing: border-box; /* 境界線とパディングを含めたサイズ計算 */
+        min-height: 32px; /* 高さの最小値も指定 */
+        max-height: 32px; /* 高さの最大値も指定 */
+        overflow: hidden; /* はみ出た内容を隠す */
+    }
+    
+    .settings-gear svg {
+        width: 16px; /* 20pxから16pxに縮小 */
+        height: 16px; /* 20pxから16pxに縮小 */
+    }
+    
+    /* モーダルの調整 - 改善版 */
+    .modal-content {
+        margin: 5% auto;
+        width: 92%;
+        max-height: 90vh;
+        overflow-y: auto;
+        overflow-x: hidden; /* 横スクロールを防止 */
+    }
+    
+    .help-modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
+        padding: 15px 12px;
+    }
+    
+    .modal-header {
+        padding: 10px 12px;
+    }
+    
+    .close-button {
+        font-size: 18px;
+        width: 40px; /* モバイルでタッチしやすいように大きく */
+        height: 40px;
+        margin-left: 8px;
+        flex: 0 0 40px; /* width と同じ値で固定 */
+        margin-right: 0; /* ネガティブマージンを削除 */
+    }
+    
+    .modal-body {
+        padding: 15px;
+    }
+    
+    /* ゲーム設定モーダル内のボタン調整 */
+    .modal-body .controls button {
+        padding: 10px 8px;
+        font-size: 14px;
+        flex: 1;
+        margin: 3px;
+        min-width: 80px; /* 0から80pxに変更してタッチしやすく */
+    }
+    
+    /* ボタングループのレイアウト調整 */
+    .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+    }
+    
+    .modal-body .controls h3 {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+    
+    .mode-selector, .options-selector, .difficulty-selector {
+        margin-bottom: 15px;
+    }
+    
+    /* コントロールを縦並びに */
+    .controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    /* モバイル表示ではボタンの最大幅を調整 */
+    button {
+        padding: 10px;
+        margin: 3px;
+        font-size: 14px;
+        max-width: none;
+        flex: 1;
+    }
+    
+    /* 統計情報をコンパクトに - 1行レイアウトに変更 */
+    .stats-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 3px;
+        width: 100%;
+        margin-bottom: 0; /* 5pxから0に変更して完全に削除 */
+    }
+    
+    /* 統計部分の下マージンを小さくする */
+    .stats {
+        margin-bottom: 0; /* マージンを完全に削除 */
+    }
+    
+    .stat-item {
+        padding: 3px 5px;
+        width: 24%; /* 4項目を均等に配置 */
+        font-size: 0.75rem;
+        margin: 0; /* 上下マージンを削除 */
+    }
+    
+    /* ラベルと値を縦に並べてさらにコンパクトに */
+    .stat-item p {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        line-height: 1.1;
+    }
+    
+    .stat-item .stat-label {
+        font-size: 0.65rem;
+        color: #666;
+    }
+    
+    .stat-item .stat-value {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    
+    /* 連続正解表示も横幅いっぱいに効率的に */
+    #streak-container, .mode-description {
+        padding: 5px 8px;
+        min-height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 50px;
+        margin-top: 0; /* 5pxから0に変更して上マージンを削除 */
+    }
+    
+    .streak-container-wrapper {
+        height: 50px !important;
+        margin-top: 0 !important; /* 5pxから0に変更して上マージンを完全に削除 */
+    }
+    
+    #streak-count {
+        font-size: 1rem;
+        margin: 0 3px;
+    }
+    
+    #streak-message {
+        width: 100%;
+        text-align: center;
+        font-size: 0.7rem;
+        margin-top: 2px;
+    }
+    
+    #mode-description-text {
+        font-size: 0.85rem;
+        text-align: center;
+        width: 100%;
+    }
+    
+    /* ゲームエリアのパディングを減らす */
+    .game-area {
+        padding: 0; /* 10pxから0に変更 */
+    }
+    
+    #question-container {
+        margin-bottom: 0; /* 15pxから0に変更 */
+        padding: 0; /* 5px 0 から 0に変更して余白を完全に削除 */
+    }
+    
+    /* 誰の夢？モードの夢テキスト表示最適化 */
+    .talent-dream {
+        font-size: 16px;
+        margin: 5px 10px 10px; /* マージンを大幅削減 */
+        padding: 8px 20px; /* 左右のパディングを15pxから20pxに増加 */
+        max-height: none; /* 高さ制限を削除 */
+        overflow-y: visible; /* スクロールを不要に */
+    }
+    
+    /* 誰の夢？モードでの夢テキストのマージンを0に設定 */
+    #options-container.dream-select-mode ~ .game-area .talent-dream,
+    body:has(#options-container.dream-select-mode) .talent-dream,
+    .game-area:has(#options-container.dream-select-mode) .talent-dream {
+        margin: 0;
+    }
+    
+    /* 夢テキストの引用符のサイズ調整 */
+    .talent-dream::before,
+    .talent-dream::after {
+        font-size: 18px;
+    }
+    
+    #question-text {
+        font-size: 18px; /* 20pxから18pxに縮小 */
+        margin-bottom: 0; /* 下マージンを削除 */
+        line-height: 1.2; /* 行間を狭く */
+        padding: 2px 0; /* 上下のパディングを小さく */
+    }
+    
+    /* 誰の夢？モードでのquestion-textの下マージンを確実に0に */
+    #options-container.dream-select-mode ~ #question-text,
+    body:has(#options-container.dream-select-mode) #question-text,
+    .game-area:has(#options-container.dream-select-mode) #question-text {
+        margin-bottom: 0 !important;
+    }
+    
+    /* 誰の夢？モードでの.talent-infoのパディングを削除（セレクタを修正） */
+    #options-container.dream-select-mode ~ #question-container .talent-info,
+    .game-area:has(#options-container.dream-select-mode) #question-container .talent-info {
+        padding: 0;
+    }
+    
+    /* 名前当てモード用の質問画像調整 */
+    #question-image {
+        padding: 2px 0; /* 上下のパディングを小さく */
+    }
+    
+    #question-image img {
+        max-height: 180px; /* 画像の最大高さを制限 */
+    }
+    
+    /* 選択肢のサイズを調整 */
+    .option img {
+        width: 140px;
+        height: 140px;
+    }
+    
+    /* モバイル用のみ選択肢を2列グリッドに変更 - PCの設定を上書きするため !important を使用 */
+    #options-container,
+    #options-container.image-select-mode,
+    #options-container.image-select-mode.four-options {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0; /* 10pxから0に変更 */
+    }
+    
+    .option {
+        width: 100%;
+        height: auto;
+    }
+    
+    /* 画像選択モードの選択肢を正方形に調整 */
+    .option.image-option {
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%; /* 幅と同じ高さになるよう設定（正方形） */
+        position: relative;
+        overflow: hidden; /* はみ出した画像を隠す */
+    }
+    
+    /* 画像を正方形コンテナの中央に配置し、枠いっぱいに表示 */
+    .option.image-option img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* 画像を枠に合わせる */
+        margin: 0 !important; /* 余分なマージンを削除 */
+    }
+    
+    /* タレント情報の上マージンを削除 */
+    .talent-info {
+        margin-top: 0 !important; /* 上マージンを0に設定 */
+    }
+    
+    /* 名前選択モード用 */
+    .option.name-option {
+        width: 100%;
+        height: 150px; /* 120pxから150pxに高さを増加 */
+    }
+    
+    /* 選択肢数にかかわらず、常に2列レイアウト（名前選択モードと誰の夢モード） */
+    #options-container.name-select-mode,
+    #options-container.dream-select-mode {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0; /* 10pxから0に変更 */
+    }
+    
+    #options-container.name-select-mode.four-options,
+    #options-container.dream-select-mode.four-options {
+        display: grid;
+        flex-wrap: wrap;
+    }
+    
+    .option.name-option.four-options,
+    .option.name-option.three-options,
+    .option.dream-option.four-options,
+    .option.dream-option.three-options {
+        width: 100%;
+        height: 120px;
+    }
+    
+    /* 選択肢が3つの場合、3つ目（最後の子要素）を中央寄せ */
+    #options-container .option:nth-child(3):last-child {
+        grid-column: 1 / -1; /* 行全体を使用 */
+        justify-self: center; /* 水平方向の中央寄せ */
+        max-width: calc(50% - 5px); /* 幅を制限して視覚的にも中央に見えるようにする */
+    }
+    
+    /* 選択肢が3つの場合の画像選択モードにおける3つ目の選択肢を正方形に */
+    #options-container.image-select-mode .option.image-option:nth-child(3):last-child {
+        padding-bottom: calc(50% - 5px); /* max-widthと同じ値で正方形に */
+        height: 0;
+    }
+    
+    /* 誰の夢モードにおける3つ目の選択肢の調整 */
+    #options-container.dream-select-mode .option.dream-option:nth-child(3):last-child,
+    #options-container.dream-select-mode .option.image-option:nth-child(3):last-child {
+        padding-bottom: calc(50% - 5px);
+        height: 0;
+    }
+    
+    /* 名前選択モードで選択肢が3つの場合、3つ目の選択肢の高さを適切に調整 */
+    #options-container.name-select-mode .option.name-option:nth-child(3):last-child {
+        height: 150px; /* 120pxから150pxに高さを増加 */
+    }
+    
+    /* 誰の夢モードの名前選択肢で選択肢が3つの場合、3つ目の選択肢の高さを適切に調整 */
+    #options-container.dream-select-mode .option.name-option:nth-child(3):last-child {
+        height: 150px; /* 120pxから150pxに高さを増加 */
+    }
+
+    /* 名前当てモードで選択肢が3つの場合、特別なレイアウトを適用 */
+    #options-container.name-select-mode:has(.option:nth-child(3):last-child) {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* 3列均等グリッドに変更 */
+        gap: 0;
+    }
+
+    /* 名前当てモードで選択肢が3つの場合、すべての選択肢を同じサイズに */
+    #options-container.name-select-mode:has(.option:nth-child(3):last-child) .option.name-option {
+        width: 100% !important;
+        height: 150px !important; /* 120pxから150pxに高さを増加 */
+        max-width: none !important; /* max-width制限を解除 */
+        grid-column: auto !important; /* grid-column上書き */
+        justify-self: stretch !important; /* 幅いっぱいに伸ばす */
+    }
+
+    /* 名前当てモードで選択肢が3つの場合、特に3つ目の選択肢のスタイルをリセット */
+    #options-container.name-select-mode .option.name-option:nth-child(3):last-child {
+        grid-column: auto !important; /* 行全体使用をキャンセル */
+        max-width: none !important; /* 幅制限をキャンセル */
+        width: 100% !important; /* 幅を100%に */
+    }
+
+    /* テキストサイズの調整 */
+    .talent-name {
+        font-size: 1.2rem;
+    }
+    
+    .talent-kana, .talent-dormitory {
+        font-size: 12px;
+    }
+    
+    /* 連続正解表示の調整 */
+    #streak-container {
+        margin-top: 0; /* 8pxから0に変更して上マージンを削除 */
+        padding: 8px;
+        min-height: auto;
+    }
+    
+    #streak-message {
+        font-size: 0.7em;
+    }
+
+    /* モバイル表示時の画像選択肢を完璧に中央揃えに！ */
+    .image-option {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100% !important;
+        margin: 0 !important;
+        overflow: hidden; /* はみ出した画像を隠す */
+    }
+    
+    #options-container .option.image-option {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* タイトルのレスポンシブ対応 */
+    .game-title-main {
+        font-size: 1.4rem;
+    }
+    
+    .game-title-sub {
+        font-size: 1rem;
+    }
+    
+    .game-title-inner {
+        padding: 8px 15px;
+    }
+    
+    .game-title-divider {
+        margin: 0 8px;
+    }
+    
+    .dorm-icon {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+    
+    .game-title-decoration {
+        gap: 10px;
+    }
+
+    /* モバイル表示での余白最適化 */
+    .settings-accordion {
+        margin-bottom: 8px; /* 15pxから8pxに減らしてよりコンパクトに */
+    }
+    
+    /* ストリークとフィードバック */
+    #streak-container {
+        margin-top: 0; /* 8pxから0に変更して上マージンを削除 */
+        padding: 8px 10px;
+        min-height: 50px;
+    }
+    
+    #feedback {
+        padding: 10px;
+        margin-top: 10px;
+    }
+    
+    /* ゲームタイトル */
+    .game-title-container {
+        margin: 0; /* 上下左右のマージンを完全に削除（0 0 8pxから変更） */
+    }
+    
+    .game-title-inner {
+        padding: 3px 10px;
+    }
+    
+    /* ボタンとUIコントロール */
+    button, .difficulty-btn {
+        padding: 6px 10px;
+        margin: 0 3px;
+    }
+    
+    /* 統計表示 */
+    .stat-item {
+        padding: 4px 8px;
+        margin: 3px 0;
+    }
+    
+    /* 選択肢とゲーム要素 */
+    .option, .game-container > div {
+        margin-bottom: 0; /* 8pxから0に変更 */
+    }
+
+    /* タイマーの調整 */
+    #timer-container {
+        width: 150px;
+        height: 25px;
+        margin: 0 auto;
+    }
+    
+    /* フィードバックコンテナの調整 */
+    #feedback-container {
+        min-height: 40px;
+        margin: 10px 0;
+        position: relative;
+    }
+
+    #feedback {
+        position: relative; /* absoluteからrelativeに変更 */
+        top: auto;
+        left: auto;
+        right: auto;
+        padding: 8px 10px; /* パディングを縮小 */
+        font-size: 14px; /* フォントサイズを縮小 */
+        margin: 0 auto; /* 中央寄せ */
+        max-width: 90%; /* 最大幅を制限 */
+        box-sizing: border-box; /* サイズ計算にボーダーとパディングを含める */
+        z-index: 5; /* z-indexは維持 */
+    }
+
+    /* フィードバックコンテナの調整 */
+    #feedback-container {
+        min-height: 40px;
+        margin: 15px 0;
+    }
+
+    #feedback {
+        padding: 10px 15px;
+        font-size: 16px;
+    }
+
+    /* モバイル向けに夢のテキストサイズをさらに調整 */
+    .dream-text-short {
+        font-size: 22px !important;
+        padding: 5px 10px !important; /* パディングを調整 */
+    }
+    
+    .dream-text-medium-short {
+        font-size: 20px !important;
+        padding: 5px 10px !important;
+    }
+    
+    .dream-text-medium {
+        font-size: 16px !important;
+        padding: 5px 10px !important;
+    }
+    
+    .dream-text-medium-long {
+        font-size: 14px !important;
+        padding: 5px 10px !important;
+    }
+    
+    .dream-text-long {
+        font-size: 12px !important;
+        padding: 5px 10px !important;
+    }
+    
+    .dream-text-very-long {
+        font-size: 11px !important;
+        padding: 8px 12px !important;
+    }
+}
+
+/* さらに小さい画面のための追加調整 */
+@media (max-width: 480px) {
+    /* タイトルをさらにコンパクトに */
+    h1 {
+        font-size: 20px;
+    }
+    
+    /* ボタンを横に並べる - 縦並びから変更 */
+    .mode-selector, .options-selector, .difficulty-selector {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    button {
+        width: auto;
+        margin: 3px;
+        padding: 6px 8px;
+        font-size: 13px;
+        min-width: 60px;
+    }
+    
+    /* さらに小さい画面でも歯車ボタンは適切なサイズを維持 */
+    #settings-toggle {
+        width: 28px; /* さらに小さく */
+        height: 28px;
+        padding: 0;
+        font-size: 14px;
+    }
+    
+    #settings-toggle svg {
+        pointer-events: none;
+        width: 14px; /* さらに小さく */
+        height: 14px; /* さらに小さく */
+    }
+    
+    /* 設定ステータスバーをさらに小さい画面向けに調整 */
+    .settings-status-bar {
+        padding: 3px 6px; /* さらに小さく */
+        min-height: 30px; /* 最小高さをさらに小さく */
+        margin-bottom: 0; /* 8pxから0に変更して完全に削除 */
+    }
+    
+    .current-settings {
+        font-size: 0.7rem; /* さらに小さく */
+        gap: 3px;
+    }
+    
+    .setting-item {
+        font-size: 0.7rem;
+        margin-right: 2px;
+        padding-right: 2px;
+    }
+    
+    /* さらに小さい画面でも歯車ボタンは適切なサイズを維持 */
+    #settings-toggle, .settings-gear {
+        width: 28px; /* さらに小さく */
+        height: 28px;
+        flex: 0 0 28px;
+        min-width: 28px;
+        max-width: 28px;
+        aspect-ratio: 1/1; /* 縦横比を1:1に強制して真円に */
+        box-sizing: border-box; /* 境界線とパディングを含めたサイズ計算 */
+        min-height: 28px; /* 高さの最小値も指定 */
+        max-height: 28px; /* 高さの最大値も指定 */
+        overflow: hidden; /* はみ出た内容を隠す */
+    }
+    
+    #settings-toggle svg, .settings-gear svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* モーダル内の余白調整 */
+    .modal-body {
+        padding: 12px 10px;
+    }
+    
+    .modal-header {
+        padding: 8px 10px;
+    }
+    
+    .close-button {
+        width: 36px; /* 小さくするが、タッチしやすいサイズを維持 */
+        height: 36px;
+        flex: 0 0 36px;
+        font-size: 16px;
+    }
+    
+    /* さらに小さい画面での設定ボタン調整 */
+    .modal-body .controls button {
+        padding: 12px 8px; /* 上下パディングを増やしてタッチ領域を拡大 */
+        font-size: 13px;
+        min-width: 70px; /* 最小幅を確保 */
+        flex: 1 1 auto; /* 伸縮性を調整 */
+        height: 44px; /* 高さを固定してタッチしやすく */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* ボタングループのレイアウトをさらに最適化 */
+    .button-group {
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+    
+    /* 画像サイズをさらに縮小 */
+    #question-image img {
+        max-width: 200px;
+        max-height: 200px;
+    }
+    
+    .option img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    /* 選択肢の高さを調整 */
+    .option.name-option {
+        height: 130px; /* 100pxから130pxに高さを増加 */
+    }
+    
+    /* 小さい画面での名前選択モードで選択肢が3つの場合、3つ目の選択肢の高さを調整 */
+    #options-container.name-select-mode .option.name-option:nth-child(3):last-child {
+        height: 130px; /* 100pxから130pxに高さを増加 */
+    }
+    
+    /* 誰の夢モードの名前選択肢で選択肢が3つの場合、3つ目の選択肢の高さを調整 */
+    #options-container.dream-select-mode .option.name-option:nth-child(3):last-child {
+        height: 130px; /* 100pxから130pxに高さを増加 */
+    }
+    
+    /* 誰の夢モードにおける画像選択肢の3つ目の選択肢の調整（小さい画面） */
+    #options-container.dream-select-mode .option.dream-option:nth-child(3):last-child,
+    #options-container.dream-select-mode .option.image-option:nth-child(3):last-child {
+        padding-bottom: calc(50% - 5px);
+        height: 0;
+    }
+
+    /* 480px以下の画面サイズでは名前当てモードを2行レイアウトに戻す */
+    #options-container.name-select-mode:has(.option:nth-child(3):last-child) {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2列グリッドに戻す */
+    }
+
+    /* 480px以下の画面サイズでの3つ目の選択肢は中央配置するが、サイズは同じに */
+    #options-container.name-select-mode:has(.option:nth-child(3):last-child) .option.name-option:nth-child(3):last-child {
+        grid-column: 1 / -1 !important; /* 行全体を使用 */
+        justify-self: center !important; /* 中央寄せ */
+        width: calc(50% - 0px) !important; /* 他の選択肢と同じ幅に */
+        height: 130px !important; /* 高さを調整（小さい画面用） */
+    }
+
+    /* 小さい画面で他の選択肢の高さも調整 */
+    #options-container.name-select-mode:has(.option:nth-child(3):last-child) .option.name-option {
+        height: 130px !important;
+    }
+    
+    /* 統計情報をさらにコンパクトに */
+    .stat-item {
+        padding: 2px 2px;
+        font-size: 0.7rem;
+    }
+    
+    .stat-item .stat-label {
+        font-size: 0.6rem;
+    }
+    
+    .stat-item .stat-value {
+        font-size: 0.9rem;
+    }
+
+    /* タイトルのレスポンシブ対応 */
+    .game-title-main {
+        font-size: 1.2rem;
+    }
+    
+    .game-title-sub {
+        font-size: 0.9rem;
+    }
+    
+    .game-title-inner {
+        padding: 6px 12px;
+    }
+    
+    .game-title-divider {
+        margin: 0 6px;
+        font-size: 0.9rem;
+    }
+    
+    .title-sparkle {
+        font-size: 10px;
+    }
+    
+    .dorm-icon {
+        font-size: 0.65rem;
+        padding: 2px 5px;
+    }
+    
+    .game-title-decoration {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    /* さらに小さい画面でのタイマー調整 */
+    #timer-container {
+        width: 120px;
+        height: 20px;
+    }
+    
+    #timer-text {
+        font-size: 0.8rem;
+    }
+    
+    #feedback-container {
+        min-height: 35px;
+        margin: 8px 0;
+    }
+
+    #feedback {
+        padding: 6px 8px;
+        font-size: 13px;
+        border-radius: 10px; /* 角丸を少し小さく */
+        border-left-width: 3px; /* 左ボーダーも小さく */
+    }
+
+    /* ヘルプボタンをさらに小さく */
+    .help-button {
+        width: 20px;
+        height: 20px;
+        min-width: 20px; /* 追加: min-widthを明示的に設定 */
+        min-height: 20px; /* 追加: min-heightも設定 */
+        max-width: 20px; /* 追加: max-widthも設定 */
+        font-size: 11px;
+        right: 3px;
+        box-sizing: border-box; /* 境界線とパディングを含めたサイズ計算 */
+        line-height: 1; /* テキストの行の高さを調整 */
+        aspect-ratio: 1/1; /* 縦横比を1:1に強制 */
+    }
+    
+    /* ヘルプモーダルの文字サイズ調整 */
+    .help-section h4 {
+        font-size: 13px;
+    }
+    
+    .help-section p, .help-section li {
+        font-size: 12px;
+    }
+    
+    /* さらに小さい画面での夢テキスト調整 */
+    .talent-dream {
+        padding: 6px 18px; /* 左右のパディングを12pxから18pxに増加 */
+        margin: 3px 5px 8px;
+        border-radius: 6px;
+    }
+    
+    .talent-dream::before,
+    .talent-dream::after {
+        font-size: 16px;
+    }
+    
+    /* 極小画面での夢テキストサイズをさらに最適化 */
+    .dream-text-short {
+        padding: 3px 12px !important; /* 左右のパディングを8pxから12pxに増加 */
+    }
+    
+    .dream-text-medium-short {
+        padding: 3px 12px !important; /* 左右のパディングを8pxから12pxに増加 */
+    }
+    
+    .dream-text-medium {
+        padding: 3px 12px !important; /* 左右のパディングを8pxから12pxに増加 */
+    }
+    
+    .dream-text-medium-long {
+        padding: 3px 12px !important; /* 左右のパディングを8pxから12pxに増加 */
+    }
+    
+    .dream-text-long {
+        padding: 3px 12px !important; /* 左右のパディングを8pxから12pxに増加 */
+    }
+    
+    .dream-text-very-long {
+        padding: 6px 14px !important; /* 左右のパディングを10pxから14pxに増加 */
+    }
+}

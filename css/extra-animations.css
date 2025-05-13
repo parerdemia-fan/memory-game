@@ -1,0 +1,82 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - 追加アニメーション
+ * 
+ * より魅力的で華やかなアニメーション効果を追加します。
+ * 音海まいるさんの挑戦的な気持ちと、乙女きゅんさんの
+ * 人々の記憶に深く残りたいという思いにインスパイアされました。
+ */
+
+/* 追加の浮遊アニメーション */
+@keyframes floatDiagonal {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(20px, 20px) rotate(10deg); }
+    50% { transform: translate(30px, 30px) rotate(0deg); }
+    75% { transform: translate(10px, 10px) rotate(-10deg); }
+}
+
+@keyframes floatZigZag {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(15px, -10px) rotate(5deg); }
+    40% { transform: translate(-10px, 15px) rotate(-5deg); }
+    60% { transform: translate(20px, 10px) rotate(10deg); }
+    80% { transform: translate(-5px, -15px) rotate(-10deg); }
+}
+
+@keyframes floatCircular {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(15px, 10px) rotate(90deg); }
+    50% { transform: translate(0, 20px) rotate(180deg); }
+    75% { transform: translate(-15px, 10px) rotate(270deg); }
+    100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+/* 特別なキラキラ効果 */
+.special-sparkle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    animation: special-twinkle 4s ease-in-out infinite;
+}
+
+@keyframes special-twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.1); }
+    50% { opacity: 0.8; transform: scale(1); }
+}
+
+/* スクロール時の背景効果 */
+@keyframes scroll-parallax {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* 要素ホバー時の浮上効果 */
+.hover-float {
+    transition: transform 0.3s ease;
+}
+
+.hover-float:hover {
+    transform: translateY(-5px);
+}
+
+/* パルス効果の強化版 */
+@keyframes enhanced-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+/* 虹色の輝き効果 */
+@keyframes rainbow-glow {
+    0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+    16.6% { box-shadow: 0 0 10px rgba(255, 165, 0, 0.5); }
+    33.3% { box-shadow: 0 0 10px rgba(255, 255, 0, 0.5); }
+    50% { box-shadow: 0 0 10px rgba(0, 255, 0, 0.5); }
+    66.6% { box-shadow: 0 0 10px rgba(0, 0, 255, 0.5); }
+    83.3% { box-shadow: 0 0 10px rgba(75, 0, 130, 0.5); }
+    100% { box-shadow: 0 0 10px rgba(238, 130, 238, 0.5); }
+}

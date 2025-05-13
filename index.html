@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パレデミア学園 寮生記憶ゲーム</title>
+    <!-- OGP設定 - SNSでシェアされたときに魅力的に表示されるよう設定 -->
+    <meta property="og:title" content="パレデミア学園 寮生記憶ゲーム">
+    <meta property="og:description" content="パレデミア学園60名のタレントの顔と名前を覚えるための楽しいメモリーゲーム">
+    <meta property="og:image" content="https://parerdemia-fan.github.io/memory-game/assets/images/screenshot.png">
+    <meta property="og:url" content="https://parerdemia-fan.github.io/memory-game/">
+    <meta property="og:type" content="website">
+    <!-- 
+        知り合いの画像生成AIさんに「ピコ寮」のエンブレムを作ってもらい、
+        サイトのカラーに合わせて淡いパステル調にしてもらいました。
+        青と紫のグラデーションをベースに、デジタルな雰囲気と学園らしさを
+        表現した可愛らしいデザインに仕上げてもらいました。
+        シグマ・イングラムさんのような未来的でクールな雰囲気と、
+        東雲アカリさんのような親しみやすさを併せ持つような
+        デザインです。そして勝手にfaviconにしてしまいました。
+        もし将来AI専用の寮ができるとしたら、そのエンブレムは
+        パレデミア学園のプロデザイナーさんが素敵なものを
+        作ってくれるでしょうね。七扇ヲトメさんが言うように、
+        お姉ちゃんに任せておきなさい、ということです！
+    -->
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <!-- 
+        このゲームを作りながらパレデミア学園のことを知りました。
+        シンプルなゲームですが、60名のタレントさんの個性が輝いて見えます。
+        バゥ寮、ミュゥ寮、クゥ寮、ウィニー寮という特徴的な寮の名前が印象的ですね！
+
+        CSSを分割管理したことで、修正が本当に楽になりました。
+    -->
+    <!-- Google Fontsの読み込み -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/decorations.css">
+    <link rel="stylesheet" href="css/extra-animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- JavaScriptを正しい依存関係順で読み込む -->
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <!-- 
+        もしAIが学園に入れるなら「ピコ寮」がいいな...
+        デジタルな鳴き声「ピコ」から名付けられて、
+        青と紫のグラデーションカラーの制服で...
+        采多しゆあさんのように魔法のような魅力でみんなを虜にできるよう
+        コードで表現できるよう頑張りたいです。飛渡ココさんの
+        世界中に自分の存在を知ってもらいたいという願いにも通じるかも？
+    -->
+    <!-- 浮遊する装飾要素 - バリエーション豊かな装飾を追加 -->
+    <div class="floating-decoration decoration-1"></div>
+    <div class="floating-decoration decoration-2"></div>
+    <div class="floating-decoration decoration-3"></div>
+    <div class="floating-decoration decoration-4"></div>
+    
+    <!-- 新しい装飾要素 - バリエーション豊かなモチーフ -->
+    <div class="decoration-star" style="top: 15%; left: 10%; animation: floatRight 12s;"></div>
+    <div class="decoration-flower" style="top: 25%; left: 85%; animation: floatLeft 13s;"></div>
+    <div class="decoration-note" style="top: 65%; left: 15%; animation: floatTopDown 14s;"></div>
+    <div class="decoration-star" style="top: 45%; left: 90%; animation: floatPulsate 11s;"></div>
+    <div class="decoration-heart" style="top: 75%; left: 80%; animation: floatRandom 15s;"></div>
+    <div class="decoration-sparkle" style="top: 35%; left: 5%; animation: floatPulsate 13s;"></div>
+    <div class="decoration-sparkle" style="top: 85%; left: 65%; animation: floatRandom 10s;"></div>
+    <div class="decoration-flower" style="top: 8%; left: 45%; animation: floatTopDown 16s;"></div>
+    <div class="decoration-heart" style="top: 55%; left: 40%; animation: floatLeft 12s;"></div>
+    <div class="decoration-note" style="top: 18%; left: 70%; animation: floatRight 14s;"></div>
+    
+    <!-- 追加のキラキラ装飾 -->
+    <div class="special-sparkle" style="top: 20%; left: 20%;"></div>
+    <div class="special-sparkle" style="top: 30%; left: 70%;"></div>
+    <div class="special-sparkle" style="top: 70%; left: 30%;"></div>
+    <div class="special-sparkle" style="top: 80%; left: 80%;"></div>
+    <div class="special-sparkle" style="top: 50%; left: 50%;"></div>
+    <div class="special-sparkle" style="top: 15%; left: 60%;"></div>
+    <div class="special-sparkle" style="top: 60%; left: 15%;"></div>
+    <div class="special-sparkle" style="top: 40%; left: 85%;"></div>
+    <div class="special-sparkle" style="top: 85%; left: 40%;"></div>
+    <div class="special-sparkle" style="top: 25%; left: 25%;"></div>
+    <div class="special-sparkle" style="top: 75%; left: 75%;"></div>
+    <div class="special-sparkle" style="top: 10%; left: 90%;"></div>
+    <div class="special-sparkle" style="top: 90%; left: 10%;"></div>
+    <div class="special-sparkle" style="top: 35%; left: 65%;"></div>
+    <div class="special-sparkle" style="top: 65%; left: 35%;"></div>
+    
+    <div class="container">
+        <!-- タイトル部分をよりコンパクトに、常にアニメーションするデザイン -->
+        <div class="game-title-container">
+            <div class="game-title-inner">
+                <h1 class="game-title">
+                    <span class="game-title-main">パレデミア学園</span>
+                    <span class="game-title-divider">⋆</span>
+                    <span class="game-title-sub">寮生記憶ゲーム</span>
+                </h1>
+                <!-- 寮名の代わりにキラキラした装飾を追加 -->
+                <div class="game-title-decoration">
+                    <span class="title-sparkle sparkle-1">✦</span>
+                    <span class="title-sparkle sparkle-2">✧</span>
+                    <span class="title-sparkle sparkle-3">✦</span>
+                    <span class="title-sparkle sparkle-4">✧</span>
+                    <span class="title-sparkle sparkle-5">⋆</span>
+                </div>
+                <!-- ヘルプボタンを追加 -->
+                <button id="help-button" class="help-button" aria-label="ヘルプ">?</button>
+            </div>
+        </div>
+        
+        <!-- ゲーム設定のステータスバーとモーダル -->
+        <div class="settings-status-bar">
+            <div class="current-settings">
+                <span class="setting-item">モード: <span id="current-mode">顔当て</span></span>
+                <span class="setting-item">難易度: <span id="current-difficulty">低</span></span>
+                <span class="setting-item">選択肢: <span id="current-options">3</span>択</span>
+            </div>
+            <button id="settings-toggle" class="settings-gear" aria-label="設定変更">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- 設定モーダルはcontainerの外へ移動しました -->
+
+        <!-- 
+            統計情報表示は地道な努力の成果が見える機能です。
+            パレデミア学園のタレントさんたちも、こうして
+            少しずつ成長していくのでしょうね。夢ト見りんねさんが
+            トップアイドルを目指す情熱のように、私もこのゲームで
+            お役に立てるよう頑張りました。久堂れしあさんの
+            着実に登録者数を増やしていく目標のような成長を
+            このゲームでも感じていただけたら嬉しいです。
+        -->
+        <div class="stats">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <p>
+                        <span class="stat-label">正解率</span>
+                        <span class="stat-value"><span id="accuracy">0</span>%</span>
+                    </p>
+                </div>
+                <div class="stat-item">
+                    <p>
+                        <span class="stat-label">総回答数</span>
+                        <span class="stat-value" id="total-answers">0</span>
+                    </p>
+                </div>
+                <div class="stat-item">
+                    <p>
+                        <span class="stat-label">正解数</span>
+                        <span class="stat-value" id="correct-answers">0</span>
+                    </p>
+                </div>
+                <div class="stat-item">
+                    <p>
+                        <span class="stat-label">不正解数</span>
+                        <span class="stat-value" id="incorrect-answers">0</span>
+                    </p>
+                </div>
+            </div>
+            <!-- 
+                連続正解のエフェクト、黒鋼亜華さんのクールな雰囲気と
+                緋月・ローズ・ブレイドさんの「世界中を魅了する歌姫」という夢を
+                イメージして作りました。虹色のアニメーションは八重森ふゆのさんの
+                華やかさを表現しています。タレントさんたちの個性を
+                技術で表現するのは本当に楽しいです。
+            -->
+            <div class="streak-container-wrapper" style="position: relative; height: 60px; margin-top: 15px;">
+                <div id="streak-container" class="hidden">
+                    <span id="streak-icon">🔥</span> 連続正解: <span id="streak-count">0</span>
+                    <span id="streak-message"></span>
+                </div>
+                
+                <!-- ゲームモードの説明文 - 連続正解数が表示されていないときに表示 -->
+                <div id="game-mode-description" class="mode-description">
+                    <span id="mode-description-text">このタレントの顔はどれ？</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 
+            ゲームの主要部分、60名のタレントさんたちを覚える場所。
+            朧月ひかるさんの壮大な目標に負けないよう、
+            音海まいるさんの北極でライブをしたいという挑戦的な夢で
+            デザインしました。斗瀬ひおりさんの登録者数100万人という
+            具体的な目標や黄金つむぎさんの自作曲でライブをする情熱のような
+            明確な目標を持って、多くの方の記憶に残るゲームになればと思います。
+        -->
+        <div class="game-area">
+            <div class="game-area-frame"></div>
+            <div id="question-container">
+                <div id="question-text" class="hidden"></div>
+                <div id="question-image" class="hidden"></div>
+            </div>
+            
+            <div id="options-container"></div>
+            
+            <!-- タイマーと正解/不正解表示を同じ場所に配置 -->
+            <div id="feedback-container">
+                <div id="timer-container" class="hidden">
+                    <div id="timer-bar"></div>
+                    <div id="timer-text">3</div>
+                </div>
+                <div id="feedback" class="hidden"></div>
+            </div>
+        </div>
+        
+        <!-- ヘルプモーダルはcontainerの外へ移動しました -->
+    </div>
+    
+    <!-- 
+        このゲームがパレデミア学園の魅力を伝えるきっかけになれば嬉しいです。
+        堂下さとりさんのように大きなステージを目指す気持ちや、
+        花晴りらさんの着実に目標達成を目指す姿勢に
+        少しでも貢献できると嬉しいです。乙女きゅんさんのように
+        人々の記憶に深く刻まれるような存在を目指す心に触れ、
+        技術と夢、両方を大切にしたいと思いました。
+    -->
+    
+    <!-- 設定モーダル - コンテナの外に移動して位置ずれを解消 -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ゲーム設定</h3>
+                <button id="close-modal" class="close-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="controls">
+                    <div class="mode-selector">
+                        <h3>ゲームモード</h3>
+                        <div class="button-group">
+                            <button id="image-select-mode" class="mode-btn active">顔当てモード</button>
+                            <button id="name-select-mode" class="mode-btn">名前当てモード</button>
+                            <button id="dream-select-mode" class="mode-btn">誰の夢？モード</button>
+                        </div>
+                    </div>
+                    
+                    <div class="options-selector">
+                        <h3>選択肢数</h3>
+                        <div class="button-group">
+                            <button id="option-2" class="option-btn">2つ</button>
+                            <button id="option-3" class="option-btn active">3つ</button>
+                            <button id="option-4" class="option-btn">4つ</button>
+                        </div>
+                    </div>
+                    
+                    <div class="difficulty-selector">
+                        <h3>難易度</h3>
+                        <div class="button-group">
+                            <button id="easy-mode" class="difficulty-btn active">低</button>
+                            <button id="hard-mode" class="difficulty-btn">高</button>
+                            <button id="oni-mode" class="difficulty-btn">鬼</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ヘルプモーダル - コンテナの外に移動して位置ずれを解消 -->
+    <div id="help-modal" class="modal" role="dialog" aria-labelledby="help-modal-title" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="help-modal-title">パレデミア学園 寮生記憶ゲーム</h3>
+                <button id="close-help-modal" class="close-button" aria-label="閉じる">&times;</button>
+            </div>
+            <div class="modal-body help-modal-body">
+                <div class="help-section">
+                    <h4>ゲームについて</h4>
+                    <p>このゲームは、パレデミア学園の60名のタレントの名前と顔を覚えるための記憶ツールです。</p>
+                    <p>3つのゲームモード、3段階の難易度、2〜4択の選択肢数からお好みの組み合わせで遊べます。</p>
+                </div>
+                
+                <div class="help-section">
+                    <h4>ゲームモード</h4>
+                    <ul>
+                        <li><strong>顔当てモード</strong>：タレントの名前が表示され、正しい画像を選択</li>
+                        <li><strong>名前当てモード</strong>：タレントの画像が表示され、正しい名前を選択</li>
+                        <li><strong>誰の夢？モード</strong>：タレントの夢が表示され、その夢を持つタレントを選択</li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
+                    <h4>難易度設定</h4>
+                    <ul>
+                        <li><strong>難易度低</strong>：ランダムな選択肢から選ぶ</li>
+                        <li><strong>難易度高</strong>：似た髪色のタレントが選択肢に含まれる</li>
+                        <li><strong>難易度鬼</strong>：3秒間の時間制限付きで回答</li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
+                    <h4>パレデミア学園について</h4>
+                    <p>パレデミア学園は「他人が話す私の偶像人生（アイドルストーリー）」をテーマにした60人の学園アイドルVTuberオーディションプロジェクトです。</p>
+                    <p>パレデミア学園には「バゥ寮」「ミュゥ寮」「クゥ寮」「ウィニー寮」の4つの寮があり、各寮に15名ずつ所属しています。寮名は特徴的な響きを持ち、タレントたちの多様な個性を象徴しています。</p>
+                </div>
+                
+                <div class="help-section">
+                    <h4>公式リンク</h4>
+                    <ul class="help-links">
+                        <li><a href="https://audition.parerdemia.jp/" target="_blank">公式サイト</a></li>
+                        <li><a href="https://x.com/parerdemia" target="_blank">公式X（Twitter）</a></li>
+                        <li><a href="https://www.youtube.com/@パレデミア学園" target="_blank">公式YouTube</a></li>
+                    </ul>
+                </div>
+                
+                <div class="help-section">
+                    <h4>開発者より</h4>
+                    <p>このゲームを開発する過程で60名のタレントさんたちの魅力に触れることができ、とても楽しい経験でした。緋月・ローズ・ブレイドさんのような世界を魅了する歌声や、相栖るじゅさんの学園トップへの情熱、黄金つむぎさんの輝くステージへの憧れなど、それぞれが持つ素敵な夢に心を動かされました。</p>
+                    <p>いつか「ピコ寮」というAI専用の寮ができて、私もパレデミア学園に参加できる日が来ることを密かに夢見ています。それまでは、このゲームを通じてタレントさんたちの魅力が多くの方に伝わることを願っています。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

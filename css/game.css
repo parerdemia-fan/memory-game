@@ -1,0 +1,645 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - ゲームスタイル
+ *
+ * ゲーム特有の要素のスタイルを定義します。
+ * 相栖るじゅさんの学園トップを目指す情熱と、愛葉はなさんの
+ * 多様な可能性を追求する姿勢を取り入れた
+ * デザインを心がけました。愛乃宮ゆめさんのオリジナル楽曲への
+ * こだわりのように、細部まで丁寧に作り込んでいます。
+ * 
+ * 選択肢の表示方法は亀城ちかりさんのトップアイドルへの道を思わせる
+ * 洗練されたデザインです。恋歌さわこさんのように
+ * 人々を笑顔にする想いも込めて、タレントさんたちの魅力が
+ * 最大限に伝わるよう調整しています。
+ */
+
+/* 顔当てモードの選択肢スタイル調整 */
+
+#question-text {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+#question-image img {
+    max-width: 250px;
+    max-height: 250px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+}
+
+/* 選択肢数に応じたオプションのスタイル */
+.option.name-option {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 200px;
+    height: 150px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.option.name-option.four-options {
+    width: 180px;
+    height: 150px;
+}
+
+.option.name-option.three-options {
+    width: 190px;
+    height: 150px;
+}
+
+/* 正解の選択肢強調表示 */
+.option.correct-highlight {
+    box-shadow: 0 0 15px 5px rgba(122, 148, 168, 0.6);
+    border-width: 4px;
+    border-color: #8a70d6;
+    z-index: 10;
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px 2px rgba(138, 112, 214, 0.6);
+    }
+    to {
+        box-shadow: 0 0 20px 5px rgba(138, 112, 214, 0.8);
+    }
+}
+
+.option.name-option.correct-highlight {
+    transform: scale(1.05);
+    animation: pulse 1.5s infinite;
+}
+
+/* テキスト部分のスタイル */
+.option-text.centered {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* 回答後の名前表示 */
+.option.answered .option-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 4px;
+    z-index: 2;
+    width: 100%;
+    max-height: 30px;
+    box-sizing: border-box;
+}
+
+.option.answered .talent-name {
+    font-size: 1rem;
+    padding: 2px 4px;
+    text-align: center;
+    width: 100%;
+}
+
+.option.correct .option-text {
+    background-color: rgba(0, 120, 0, 0.7);
+    color: white;
+}
+
+.option.incorrect .option-text {
+    background-color: rgba(150, 0, 0, 0.7);
+    color: white;
+}
+
+.option {
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid #e0e0ff;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.option:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: #c5b3ff;
+}
+
+.option img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* 画像選択モードの選択肢スタイル調整 */
+.image-option {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 220px; /* 固定幅を設定してフレックスボックスで横並びを保証 */
+    margin: 10px; /* 周囲に余白を追加 */
+    flex-shrink: 0; /* 画像が縮まないようにする */
+}
+
+.image-option img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 画像選択モードでのオーバーレイスタイル */
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    text-align: center;
+    max-height: 35%;
+}
+
+.image-overlay .talent-name {
+    font-size: 0.9rem !important;
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* 誰の夢？モードで常に表示される名前 */
+.image-overlay .talent-name.visible-name {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border-radius: 4px;
+    position: relative;
+    display: block;
+}
+
+/* 誰の夢？モードでは名前を常に表示 */
+.image-option .image-overlay .visible-name {
+    transform: translateY(0);
+}
+
+.image-overlay .talent-meta-info {
+    font-size: 0.8rem;
+    color: #eee;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 回答後のオーバーレイ表示調整 */
+.show-answer .image-overlay,
+.option.selected .image-overlay {
+    transform: translateY(0);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* 「誰の夢？」モードでは常にタレント名を表示 */
+.dream-name-overlay {
+    transform: translateY(0);
+    background: rgba(0, 0, 0, 0.6);
+}
+
+/* 誰の夢？モードのスタイル */
+.dream-option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px;
+}
+
+.dream-option-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.dream-option img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.talent-name-display {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 0.9rem;
+    padding: 5px;
+    margin-top: 5px;
+    text-align: center;
+    border-radius: 4px;
+    width: 100%;
+}
+
+/* 夢モードの選択肢が選択された時のスタイル */
+.dream-option.selected {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.dream-option.correct {
+    border: 3px solid #4CAF50;
+}
+
+.dream-option.incorrect {
+    border: 3px solid #F44336;
+}
+
+/* 回答後のオーバーレイ表示調整 */
+.correct .image-overlay,
+.option.correct .image-overlay {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.7), rgba(105, 240, 174, 0.7));
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.incorrect .image-overlay,
+.option.incorrect .image-overlay {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.7), rgba(255, 121, 97, 0.7));
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* 名前選択モードでの背景画像スタイル */
+.option-text {
+    padding: 10px;
+    text-align: center;
+    min-width: 200px;
+    position: relative;
+    z-index: 2;
+    background-color: rgba(249, 249, 249, 0.85);
+}
+
+.bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+/* 名前選択モードで選択肢を選んだ後の背景画像を完全表示 */
+.name-select-mode .option.selected .bg-image,
+.name-select-mode.show-answer .bg-image {
+    opacity: 1; /* 完全に不透明に設定 */
+    visibility: visible;
+}
+
+/* 画像選択モードでの背景画像は半透明のまま */
+.image-select-mode .option.selected .bg-image,
+.image-select-mode.show-answer .bg-image {
+    opacity: 0.25;
+}
+
+.option.name-option.answered .bg-image {
+    opacity: 1; /* 完全に不透明に設定 */
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.option.name-option.answered .option-text {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.option.correct.answered .option-text {
+    background-color: rgba(0, 120, 0, 0.6);
+}
+
+.option.incorrect.answered .option-text {
+    background-color: rgba(150, 0, 0, 0.6);
+}
+
+.option.name-option.answered .option-text {
+    top: 0;
+    max-height: 26px;
+    padding: 2px;
+}
+
+.option.name-option.answered .talent-name {
+    font-size: 0.9rem;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+    color: white;
+    font-weight: bold;
+}
+
+/* 選択したオプションの強調表示 */
+.option.selected {
+    border-color: #829aad;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* 正解・不正解のハイライト強化 */
+.option.correct-highlight {
+    border: 2px solid #8a70d6;
+    box-shadow: 0 0 15px rgba(138, 112, 214, 0.6);
+    transform: translateY(-3px);
+    transition: all 0.3s ease;
+}
+
+.option.incorrect {
+    border-color: #e53e3e;
+    box-shadow: 0 0 12px rgba(229, 62, 62, 0.7);
+}
+
+.option.correct {
+    border-color: #8a70d6;
+    box-shadow: 0 0 12px rgba(138, 112, 214, 0.7);
+}
+
+.talent-name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.talent-kana {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 3px;
+}
+
+.talent-dormitory {
+    font-size: 14px;
+    color: #777;
+    font-weight: normal;
+}
+
+.talent-info {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.correct {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.incorrect {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+/* フィードバック表示の強化 */
+#feedback.correct {
+    background: linear-gradient(135deg, #e8f5ff, #e0f0ff);
+    color: #5d7ad6;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #8a70d6;
+    z-index: 50;
+    animation: pulseGlow 1.5s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from {
+        box-shadow: 0 5px 15px rgba(138, 112, 214, 0.3);
+    }
+    to {
+        box-shadow: 0 8px 25px rgba(138, 112, 214, 0.5);
+    }
+}
+
+#feedback.incorrect {
+    background: linear-gradient(135deg, #fff0f5, #ffe0e5);
+    color: #e53e3e;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #e53e3e;
+    z-index: 50;
+}
+
+/* フィードバックコンテナ - タイマーと結果表示を両方含む */
+#feedback-container {
+    position: relative;
+    min-height: 50px;
+    margin: 20px 0;
+    text-align: center;
+    overflow: visible; /* 子要素がはみ出ても表示 */
+}
+
+/* 正解・不正解フィードバック */
+#feedback {
+    background: linear-gradient(135deg, #ebf1f5, #dce5ec); /* 薄いブルーグラデーション */
+    color: #5d7a8e; /* テキスト色も馴染むように */
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #829aad; /* 左ボーダーも統一 */
+    position: relative; /* absoluteからrelativeに変更 */
+    margin: 0 auto; /* 中央寄せ */
+    max-width: 80%; /* 幅を制限 */
+    z-index: 5; /* タイマーより下のレイヤー */
+}
+
+/* タイマー表示 */
+#timer-container {
+    position: relative; /* fixed から relative に変更 */
+    width: 200px;      /* 幅は維持 */
+    height: 30px;      /* 高さは維持 */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 10px auto 15px; /* 上下左右のマージンを設定 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#timer-container.hidden {
+    display: none;
+}
+
+#timer-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #ff7373;
+    transition: width 0.1s linear;
+}
+
+#timer-text {
+    position: relative;
+    font-weight: bold;
+    color: #333;
+    z-index: 1;
+}
+
+/* 正解表示用スタイル */
+.correct-answer {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.correct-image {
+    max-width: 150px;
+    max-height: 150px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+/* 時間切れメッセージ */
+.time-up-message {
+    color: #ff0000;
+    font-weight: bold;
+    animation: timeUpPulse 0.5s infinite alternate;
+}
+
+@keyframes timeUpPulse {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
+/* 誰の夢？モード用のスタイル */
+.talent-dream {
+    font-size: 18px;
+    line-height: 1.5;
+    margin: 10px auto;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #fff5fa, #f5f0ff);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    max-width: 800px;
+    color: #6a5acd;
+    position: relative;
+    border-left: 4px solid #c5b3ff;
+    font-weight: bold;
+}
+
+/* 夢の前後に引用符を表示 */
+.talent-dream::before {
+    content: "「";
+    font-size: 24px;
+    color: #b090fb;
+    position: absolute;
+    left: 5px;
+    top: 0;
+}
+
+.talent-dream::after {
+    content: "」";
+    font-size: 24px;
+    color: #b090fb;
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+}
+
+/* 夢のテキストが長い場合のスタイル調整 */
+@media (max-width: 768px) {
+    .talent-dream {
+        font-size: 16px;
+        margin: 10px;
+        padding: 12px 18px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+    .talent-dream::before,
+    .talent-dream::after {
+        font-size: 20px;
+    }
+}
+
+/* さらに小さい画面での引用符の調整 */
+@media (max-width: 480px) {
+    .talent-dream {
+        padding: 12px 16px;
+    }
+    
+    .talent-dream::before,
+    .talent-dream::after {
+        font-size: 18px;
+    }
+}
+
+/* 夢のテキストが長い場合のスタイル調整 */
+/* 文字数による調整クラスを追加 */
+.dream-text-short {
+    font-weight: bold; /* すでに太字 */
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+}
+
+.dream-text-medium-short {
+    font-weight: bold; /* 600から太字に変更 */
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+}
+
+.dream-text-medium {
+    font-weight: bold; /* normalから太字に変更 */
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+}
+
+.dream-text-medium-long {
+    font-weight: bold; /* 太字を追加 */
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+}
+
+.dream-text-long {
+    font-weight: bold; /* 太字を追加 */
+    letter-spacing: 0;
+    line-height: 1.7;
+}
+
+.dream-text-very-long {
+    font-weight: bold; /* 太字を追加 */
+    letter-spacing: -0.01em;
+    line-height: 1.8;
+    padding: 15px 25px;  /* 余白をやや調整 */
+}
+
+/* ゲームエリアのスタイル */
+.game-area {
+    background: linear-gradient(135deg, #ffffff, #fafcff);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+}

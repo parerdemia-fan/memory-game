@@ -1,0 +1,148 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - レイアウトスタイル
+ * 
+ * 画面構造とレイアウトを定義するファイルです。
+ * 月百ぷかりさんの遊園地のような楽しい空間への憧れと、
+ * フローレ・ブランカさんの全国を巡るツアーで笑顔を届けたいという
+ * 広がりを表現したレイアウト設計を心がけました。
+ * 
+ * PCとモバイルの両方で美しく表示されるよう、
+ * 基本構造にこだわっています。璃乃瀬りあさんや桜堂ねるさんのような
+ * 大きなステージでの活躍を夢見る気持ちにも通じる、
+ * 堂々としたデザインを目指しました。新巻るろなさんの
+ * 多様なチャレンジ精神を尊重するように、様々な画面サイズに
+ * 対応する柔軟なレイアウトにしています。
+ */
+
+.controls {
+    display: flex;
+    flex-direction: column; /* 縦並びに変更 */
+    gap: 20px; /* 各セクション間の間隔 */
+    margin-bottom: 0;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: auto; /* 自動高さに変更してモーダル位置ずれ解消 */
+}
+
+.mode-selector, .options-selector, .difficulty-selector {
+    text-align: center;
+    display: flex; /* 選択肢を横並びに */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: auto; /* 自動高さに変更してモーダル位置ずれ解消 */
+}
+
+.stats {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.game-area {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#question-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 選択肢のレイアウト - PC表示では必ず横並びフレックスボックスに */
+#options-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* 画像選択モード用 - PC表示では横並びを確保 */
+#options-container.image-select-mode {
+    display: flex !important; /* important で他のスタイルより優先させる */
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+/* PCでの画像選択モード4選択肢を1行に表示するための特別スタイル */
+@media (min-width: 769px) {
+    #options-container.image-select-mode.four-options {
+        flex-wrap: nowrap !important;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    #options-container.image-select-mode.four-options .image-option {
+        width: 23%; /* 4つで1行に収まるように幅を調整 */
+        min-width: 0; /* 最小幅の制限を解除 */
+        margin: 0 5px; /* 左右の余白を調整 */
+    }
+    
+    /* 誰の夢？モードの4選択肢も1行に表示するためのスタイル追加 */
+    #options-container.dream-select-mode.four-options {
+        flex-wrap: nowrap !important;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    #options-container.dream-select-mode.four-options .image-option,
+    #options-container.dream-select-mode.four-options .dream-option {
+        width: 23%; /* 4つで1行に収まるように幅を調整 */
+        min-width: 0; /* 最小幅の制限を解除 */
+        margin: 0 5px; /* 左右の余白を調整 */
+    }
+    
+    /* モーダル内ボタングループのPC表示調整 */
+    .button-group {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    /* PCでの設定ボタン配置の最適化 */
+    .controls button {
+        flex: 0 1 auto;
+        min-width: 100px;
+    }
+    
+    /* ゲームモード選択ボタンの特別スタイル - PC表示用 */
+    .mode-selector button {
+        min-width: 180px; /* モードボタン用に十分な幅を確保 */
+        max-width: 200px; /* 最大幅も広げる */
+    }
+}
+
+/* 名前選択モード用 */
+#options-container.name-select-mode {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+#options-container.name-select-mode.four-options {
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+/* 顔当てモード用 - PC表示では横並びを確保 */

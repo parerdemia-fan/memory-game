@@ -1,0 +1,210 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - 追加装飾スタイル
+ * 
+ * より魅力的なUIと親しみやすい雰囲気を醸し出すための追加装飾要素です。
+ * 音海まいるさんのカラフルな個性と、采多しゆあさんの魔法のような魅力に
+ * インスパイアされたデザインで、ゲーム体験に華やかさをプラスします。
+ * 
+ * 浮遊する星や花のモチーフは、天野ディアーヌさんの多くの人に愛される
+ * 存在になるという願いと、星ノ夢みよさんの生きとし生けるものへの
+ * 感謝の心を表現したものです。
+ *
+ * 愛葉はなさんの何事にも挑戦する前向きな精神に
+ * 触発され、ゲーム画面に遊び心のある装飾を加えることで、ユーザーに
+ * ワクワク感を届けることを目指しました。
+ */
+
+/* 追加の浮遊装飾要素 */
+.decoration-star,
+.decoration-flower,
+.decoration-note,
+.decoration-heart,
+.decoration-sparkle {
+    position: fixed;
+    z-index: -1;
+    opacity: 0.5;
+    pointer-events: none;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 8s;
+}
+
+/* 星型の装飾 */
+.decoration-star {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23b090fb' d='M12,1.1l3.6,7.3l8.1,1.2l-5.8,5.7l1.4,8.1l-7.3-3.8l-7.3,3.8l1.4-8.1L0.3,9.6l8.1-1.2L12,1.1z'/%3E%3C/svg%3E");
+    width: 24px;
+    height: 24px;
+}
+
+/* 花型の装飾 */
+.decoration-flower {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23ff9ad5' d='M12,2c-1,2.5-4,3.5-6,3c0.5,2-0.5,5-3,6c2.5,1,3.5,4,3,6c2-0.5,5,0.5,6,3c1-2.5,4-3.5,6-3c-0.5-2,0.5-5,3-6c-2.5-1-3.5-4-3-6c-2,0.5-5-0.5-6-3Z'/%3E%3Ccircle fill='%23ffde9a' cx='12' cy='12' r='3'/%3E%3C/svg%3E");
+    width: 28px;
+    height: 28px;
+}
+
+/* 音符の装飾 */
+.decoration-note {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%239adeff' d='M12,2v12.5c-0.7-0.5-1.6-0.8-2.5-0.8c-2.2,0-4,1.8-4,4s1.8,4,4,4s4-1.8,4-4V6h4V2H12z'/%3E%3C/svg%3E");
+    width: 26px;
+    height: 26px;
+}
+
+/* ハートの装飾 */
+.decoration-heart {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%23ff7eb0' d='M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5C2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3C19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z'/%3E%3C/svg%3E");
+    width: 22px;
+    height: 22px;
+}
+
+/* キラキラ装飾 */
+.decoration-sparkle {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='%238795e8' d='M12,3l1.9,5.8h6.1l-4.9,3.6l1.9,5.8l-5-3.6l-5,3.6l1.9-5.8L3.9,8.8h6.1L12,3z'/%3E%3C/svg%3E");
+    width: 20px;
+    height: 20px;
+}
+
+/* 浮遊アニメーションの多様化 */
+@keyframes floatLeft {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-15px, 10px) rotate(5deg); }
+    50% { transform: translate(-5px, 20px) rotate(0deg); }
+    75% { transform: translate(-20px, 5px) rotate(-5deg); }
+}
+
+@keyframes floatRight {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(20px, 15px) rotate(-5deg); }
+    50% { transform: translate(10px, 25px) rotate(0deg); }
+    75% { transform: translate(15px, 10px) rotate(5deg); }
+}
+
+@keyframes floatTopDown {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(5px, 30px) rotate(10deg); }
+    50% { transform: translate(0, 50px) rotate(0deg); }
+    75% { transform: translate(-10px, 20px) rotate(-10deg); }
+}
+
+@keyframes floatRandom {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    20% { transform: translate(-15px, -10px) rotate(-10deg); }
+    40% { transform: translate(10px, 15px) rotate(5deg); }
+    60% { transform: translate(-5px, 25px) rotate(15deg); }
+    80% { transform: translate(20px, 5px) rotate(-5deg); }
+}
+
+@keyframes floatPulsate {
+    0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    25% { transform: translate(10px, 10px) scale(1.1) rotate(10deg); }
+    50% { transform: translate(5px, 20px) scale(0.9) rotate(0deg); }
+    75% { transform: translate(-5px, 15px) scale(1.2) rotate(-10deg); }
+}
+
+/* ゲームエリアの装飾枠 */
+.game-area-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: 
+        linear-gradient(to right, #ff9ad5 4px, transparent 4px) 0 0,
+        linear-gradient(to right, #ff9ad5 4px, transparent 4px) 0 100%,
+        linear-gradient(to left, #b090fb 4px, transparent 4px) 100% 0,
+        linear-gradient(to left, #b090fb 4px, transparent 4px) 100% 100%,
+        linear-gradient(to bottom, #ff9ad5 4px, transparent 4px) 0 0,
+        linear-gradient(to bottom, #b090fb 4px, transparent 4px) 100% 0,
+        linear-gradient(to top, #ff9ad5 4px, transparent 4px) 0 100%,
+        linear-gradient(to top, #b090fb 4px, transparent 4px) 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
+/* ストリーク表示の強化 */
+#streak-container {
+    border-radius: 18px;
+    padding: 12px 18px;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#streak-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 80%);
+    animation: streak-shine 3s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+@keyframes streak-shine {
+    0% {
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+    25% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 連続正解のアイコン改良 */
+#streak-icon {
+    display: inline-block;
+    font-size: 1.2em;
+    margin-right: 5px;
+    animation: flame-flicker 2s infinite ease-in-out;
+}
+
+@keyframes flame-flicker {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    25% { transform: scale(1.2) rotate(5deg); opacity: 0.9; }
+    50% { transform: scale(1) rotate(-3deg); opacity: 1; }
+    75% { transform: scale(1.1) rotate(3deg); opacity: 0.8; }
+}
+
+/* ボタンホバー効果の強化 */
+.mode-btn:hover,
+.option-btn:hover,
+.difficulty-btn:hover {
+    background: linear-gradient(135deg, #d5d0ff, #c5c0ff);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(138, 112, 214, 0.4);
+}
+
+/* 設定モーダルの装飾強化 */
+.modal-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(255, 154, 213, 0.1) 10px, transparent 10px),
+        radial-gradient(circle at 90% 20%, rgba(176, 144, 251, 0.1) 15px, transparent 15px),
+        radial-gradient(circle at 30% 70%, rgba(154, 222, 255, 0.1) 20px, transparent 20px),
+        radial-gradient(circle at 80% 80%, rgba(255, 222, 154, 0.1) 12px, transparent 12px);
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    z-index: -1;
+    opacity: 0.6;
+    pointer-events: none;
+}

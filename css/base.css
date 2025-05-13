@@ -1,0 +1,197 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - 基本スタイル
+ * 
+ * 基本的なスタイル設定を行うファイルです。
+ * 星ノ夢みよさんの生きとし生けるものへの感謝の心のように、
+ * 基礎をしっかり固めることで全体の完成度が高まります。
+ * 
+ * フォント選びには鈴木沙透さんの華やかなライブへの憧れと、
+ * 七扇ヲトメさんの誰からも頼られる存在になりたいという
+ * 親しみやすさを意識しました。
+ *
+ * 背景グラデーションには氷雨セイさんが夢見る海が見える豪邸の
+ * 爽やかさと解放感を取り入れ、ユーザーがゲームに集中できる
+ * 優しい雰囲気を作り出しています。
+ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Zen Maru Gothic', 'M PLUS Rounded 1c', 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, Osaka, 'MS Pゴシック', 'MS PGothic', sans-serif;
+}
+
+/* アニメーションされる背景グラデーション */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    background: linear-gradient(135deg, #ffeaf5, #e8f5ff, #f0faff, #ffebf2, #e8f0ff);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    color: #4a4a6a;
+    background-attachment: fixed;
+    position: relative;
+}
+
+/* 背景に装飾パターンを追加 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+        radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 3px, transparent 3px);
+    background-size: 30px 30px, 30px 30px, 60px 60px;
+    z-index: -1;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* モーダル表示中に背景スクロールを無効化 - より確実に */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding-right: 15px; /* スクロールバー分の余白を追加して画面のガタツキを防止 */
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.88);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08), 0 0 20px rgba(138, 112, 214, 0.15) inset;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+/* コンテナ内装飾パターン */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.1) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    z-index: -1;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #4a4a6a;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #6a5acd;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.hidden {
+    display: none;
+}
+
+/* 通常の非表示クラスは従来通り */
+.hidden:not(#streak-container) {
+    display: none;
+}
+
+/* 浮遊する装飾要素 */
+.floating-decoration {
+    position: fixed;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.4;
+    filter: blur(1px);
+}
+
+.decoration-1 {
+    top: 10%;
+    left: 5%;
+    width: 10px;
+    height: 10px;
+    background: #ffade1;
+    border-radius: 50%;
+    animation: float-1 25s infinite ease-in-out;
+}
+
+.decoration-2 {
+    top: 15%;
+    right: 10%;
+    width: 15px;
+    height: 15px;
+    background: #adcfff;
+    border-radius: 50%;
+    animation: float-2 20s infinite ease-in-out;
+}
+
+.decoration-3 {
+    bottom: 20%;
+    left: 15%;
+    width: 8px;
+    height: 8px;
+    background: #b3e6ff;
+    border-radius: 50%;
+    animation: float-3 30s infinite ease-in-out;
+}
+
+.decoration-4 {
+    bottom: 10%;
+    right: 20%;
+    width: 12px;
+    height: 12px;
+    background: #f2d0ff;
+    border-radius: 50%;
+    animation: float-4 22s infinite ease-in-out;
+}
+
+@keyframes float-1 {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(20px, 35px); }
+    50% { transform: translate(40px, 10px); }
+    75% { transform: translate(15px, 40px); }
+}
+
+@keyframes float-2 {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-30px, 20px); }
+    50% { transform: translate(-10px, 40px); }
+    75% { transform: translate(-25px, 10px); }
+}
+
+@keyframes float-3 {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(25px, -15px); }
+    50% { transform: translate(5px, -35px); }
+    75% { transform: translate(30px, -25px); }
+}
+
+@keyframes float-4 {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-15px, -25px); }
+    50% { transform: translate(-35px, -5px); }
+    75% { transform: translate(-10px, -35px); }
+}

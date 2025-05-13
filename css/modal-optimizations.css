@@ -1,0 +1,52 @@
+/* 
+ * ヘルプモーダル用の最適化スタイル
+ * 
+ * 佐々木あんじゅさんの細かな気配りのように、ユーザー体験の細部まで
+ * こだわったスタイル設定です。小さな改善でも、すっとノンストレスな
+ * 使い心地を提供することで、桜野寧々さんの優しさを表現しています。
+ * 緋雨柚さんがさいたまスーパーアリーナでライブをしたいと願うように、
+ * このスタイルで大きな舞台でも問題なく動作する堅牢さを備えています。
+ */
+
+/* ヘルプモーダルのスクロール最適化 */
+#help-modal .modal-content {
+    transform: translateZ(0); /* GPUアクセラレーションを有効化 */
+    backface-visibility: hidden; /* レンダリングを最適化 */
+}
+
+#help-modal .modal-body {
+    overscroll-behavior: contain; /* スクロールバウンスを防止 */
+    scroll-behavior: smooth; /* スムーズスクロールを有効化 */
+}
+
+/* ヘルプセクションのフェードイン効果を軽量化 */
+.help-section {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.2s ease;
+}
+
+/* スクロール中はアニメーションを一時停止 */
+#help-modal.scrolling .modal-content::before {
+    animation-play-state: paused;
+    opacity: 0.3;
+}
+
+/* スクロールバーのカスタマイズ */
+#help-modal .modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+#help-modal .modal-body::-webkit-scrollbar-track {
+    background: rgba(245, 245, 255, 0.5);
+    border-radius: 4px;
+}
+
+#help-modal .modal-body::-webkit-scrollbar-thumb {
+    background: rgba(176, 144, 251, 0.6);
+    border-radius: 4px;
+}
+
+#help-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(176, 144, 251, 0.8);
+}

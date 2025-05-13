@@ -1,0 +1,290 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - アニメーションスタイル
+ * 
+ * エフェクトとアニメーションを定義するファイルです。
+ * 七音うらさんのソロライブへの情熱のような演出と、
+ * 陰山アゲハさんの歌への情熱を感じさせる
+ * 動きのある表現を目指しました。
+ * 
+ * 連続正解時のエフェクト強化や全タレント制覇時の特別アニメーションは、
+ * 愛上オハナさんの植物の姿に戻るための努力のような魔法と、
+ * 天透あわさんの弾けるような個性を表現するための工夫です。
+ * 虹色のアニメーションは特にお気に入りです。
+ */
+
+/* タイトルキラキラエフェクト */
+@keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(0.9); }
+}
+
+@keyframes shiningBorder {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 174, 210, 0.5), 0 0 10px rgba(255, 174, 210, 0.3) inset; }
+    50% { box-shadow: 0 0 15px rgba(174, 198, 255, 0.6), 0 0 20px rgba(174, 198, 255, 0.4) inset; }
+}
+
+@keyframes floatEffect {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* 基本のパルスアニメーション */
+@keyframes pulse {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.07) rotate(-1deg); }
+    50% { transform: scale(1.1) rotate(0deg); }
+    75% { transform: scale(1.07) rotate(1deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.streak-pulse {
+    animation: pulse 0.8s ease-in-out;
+}
+
+/* ストリーク数に応じたスタイル */
+#streak-container.streak-medium {
+    background: linear-gradient(135deg, #f0f5ff, #e5e0ff);
+    box-shadow: 0 5px 15px rgba(138, 112, 214, 0.3);
+    border-left: 5px solid #8a70d6;
+}
+
+#streak-container.streak-high {
+    background: linear-gradient(135deg, #e5e0ff, #d5d0ff);
+    box-shadow: 0 8px 20px rgba(138, 112, 214, 0.4);
+    border-left: 5px solid #7a60c6;
+    transform: scale(1.05);
+}
+
+#streak-container.streak-amazing {
+    background: linear-gradient(135deg, #d5d0ff, #c5c0ff);
+    box-shadow: 0 10px 25px rgba(138, 112, 214, 0.5);
+    border-left: 5px solid #6a50b6;
+    transform: scale(1.1);
+    color: #5a40a6;
+}
+
+#streak-count.streak-medium {
+    color: #8a70d6;
+    font-size: 1.3em;
+}
+
+#streak-count.streak-high {
+    color: #7a60c6;
+    font-size: 1.4em;
+}
+
+#streak-count.streak-amazing {
+    color: #6a50b6;
+    font-size: 1.5em;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+/* 全タレント制覇時のスタイル */
+#streak-container.streak-complete {
+    background: linear-gradient(135deg, #f0e5ff, #e5d0ff, #d0e5ff);
+    box-shadow: 0 10px 30px rgba(138, 112, 214, 0.5);
+    border-left: 5px solid #b090fb;
+    transform: scale(1.15);
+    color: #6a50b6;
+    animation: celebrate 1.2s ease-in-out infinite, rainbow-border 2s linear infinite;
+}
+
+#streak-count.streak-complete {
+    color: #6a50b6;
+    font-size: 1.6em;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* 虹色のアニメーション */
+@keyframes rainbow-border {
+    0% { border-color: #ff6ad5; }
+    17% { border-color: #c774e8; }
+    33% { border-color: #ad8cff; }
+    50% { border-color: #8795e8; }
+    67% { border-color: #94d0ff; }
+    83% { border-color: #c0efff; }
+    100% { border-color: #ff6ad5; }
+}
+
+/* 全クリア時の特別なアニメーション */
+@keyframes celebrate {
+    0% { transform: scale(1.15); }
+    25% { transform: scale(1.15) rotate(-2deg); }
+    50% { transform: scale(1.18); }
+    75% { transform: scale(1.15) rotate(2deg); }
+    100% { transform: scale(1.15); }
+}
+
+/* 正解時のバウンスアニメーション */
+@keyframes correctBounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-20px);}
+  60% {transform: translateY(-10px);}
+}
+
+/* 正解時の輝きエフェクト */
+@keyframes correctGlow {
+  0% {box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);}
+  50% {box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);}
+  100% {box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);}
+}
+
+/* 不正解時のシェイクアニメーション */
+@keyframes incorrectShake {
+  0%, 100% {transform: translateX(0);}
+  10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
+  20%, 40%, 60%, 80% {transform: translateX(5px);}
+}
+
+/* 不正解時のフェードエフェクト */
+@keyframes incorrectFade {
+  0% {opacity: 1;}
+  50% {opacity: 0.6;}
+  100% {opacity: 1;}
+}
+
+/* 正解時のパルス拡大縮小 */
+@keyframes correctPulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.08);}
+  100% {transform: scale(1);}
+}
+
+/* フィードバックテキスト用スライドイン */
+@keyframes slideInTop {
+  0% {transform: translateY(-50px); opacity: 0;}
+  100% {transform: translateY(0); opacity: 1;}
+}
+
+/* 時間切れアニメーション */
+@keyframes timeUpShake {
+  0%, 100% {transform: translateX(0);}
+  10%, 30%, 50%, 70%, 90% {transform: translateX(-5px);}
+  20%, 40%, 60%, 80% {transform: translateX(5px);}
+}
+
+/* サークルリップル（波紋）エフェクト */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+        background-color: rgba(138, 112, 214, 0.7);
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+        background-color: rgba(138, 112, 214, 0);
+    }
+}
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    background-color: rgba(138, 112, 214, 0.5);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    animation: ripple 0.8s ease-out;
+    z-index: 5;
+}
+
+/* 顔当てモードと誰の夢？モードでのリップルエフェクト調整 */
+.image-option .ripple-effect {
+  border-radius: 4px; /* 画像に合わせた角丸 */
+}
+
+/* 名前当てモードでのリップルエフェクト調整 */
+.name-option .ripple-effect {
+  background-color: rgba(122, 148, 168, 0.4); /* 薄いブルーに統一 */
+}
+
+/* 正解・不正解時の共通アニメーションクラス */
+.animated-feedback {
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
+}
+
+/* アニメーション適用クラス */
+.correct-animation {
+  animation-name: correctBounce, correctGlow, correctPulse;
+  animation-duration: 0.8s, 1.2s, 1s;
+  animation-timing-function: ease-out, ease-in-out, ease-in-out;
+  animation-iteration-count: 1, infinite, 1;
+}
+
+.incorrect-animation {
+  animation-name: incorrectShake, incorrectFade;
+  animation-duration: 0.5s, 1s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: 1, 1;
+}
+
+.feedback-animation {
+  animation: slideInTop 0.5s ease forwards;
+}
+
+.time-up-animation {
+  animation: timeUpShake 0.5s;
+  border-color: #ff0000 !important;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.7) !important;
+}
+
+/* オプション選択肢のキラキラエフェクト */
+.option-hover-effect {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-hover-effect:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(138, 112, 214, 0.4);
+}
+
+.option-hover-effect:hover::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    animation: shine 1.5s ease forwards;
+}
+
+@keyframes shine {
+    0% {
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+    25% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* パーティクルエフェクト - 正解時 */
+.particle {
+    position: absolute;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000;
+    animation: particle-fade 1s ease-out forwards;
+}
+
+@keyframes particle-fade {
+    0% {
+        transform: scale(0.3) translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) translate(var(--tx), var(--ty));
+        opacity: 0;
+    }
+}

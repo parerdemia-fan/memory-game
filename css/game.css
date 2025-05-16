@@ -575,7 +575,7 @@
     font-size: 24px;
     color: #b090fb;
     position: absolute;
-    left: 5px;
+    left: -5px;
     top: 0;
 }
 
@@ -584,7 +584,7 @@
     font-size: 24px;
     color: #b090fb;
     position: absolute;
-    right: 5px;
+    right: -5px;
     bottom: 0;
 }
 

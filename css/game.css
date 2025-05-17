@@ -54,17 +54,17 @@
     content: "Happy\A Birthday"; /* リボンのテキスト内容を追加 */
     white-space: pre;
     position: absolute;
-    top: 10px; /* 15pxから10pxに変更して上に移動 */
-    right: -35px; /* -45pxから-35pxに変更して左に移動 */
+    top: 10px; /* 5pxから10pxに変更して調整 */
+    right: -60px; /* -28pxから-60pxに変更してバランス調整 */
     background: linear-gradient(135deg, #ff9ad5, #ff6ad5);
     color: white;
     text-align: center;
-    font-size: 11px;
-    line-height: 1.3;
-    font-weight: bold;
-    width: 160px; /* 140pxから160pxに拡大 */
-    padding: 6px 0;
-    transform: rotate(40deg);
+    font-size: 16px;
+    line-height: 1.1;
+    font-weight: 800;
+    width: 180px;
+    padding: 7px 0;
+    transform: rotate(45deg);
     box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
     z-index: 10;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -87,6 +87,14 @@
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3);
     animation: birthday-icon-animation 1.5s ease-in-out infinite;
     pointer-events: none; /* クリックが装飾に邪魔されないように */
+}
+
+/* 顔当てモード用の斜めリボン調整 - 苺崎あいりさんの細やかな表現にインスパイアされて */
+.option.image-option.talent-birthday::after {
+    top: 10px;
+    right: -55px;
+    line-height: 1;
+    transform: rotate(45deg); /* 角度は45度のまま維持 */
 }
 
 /* 誰の夢？モードでの誕生日装飾 - 七音うらさんの誕生日も特別な日に */
@@ -134,11 +142,11 @@
     background: linear-gradient(135deg, #ff9ad5, #ff6ad5);
     color: white;
     text-align: center;
-    font-size: 10px;
+    font-size: 14px; /* 10pxから14pxに拡大 */
     line-height: 1.2;
     font-weight: bold;
-    width: 140px; /* 120pxから140pxに増加してリボンを長く */
-    padding: 5px 0;
+    width: 160px; /* 140pxから160pxに増加してリボンを長く */
+    padding: 6px 0; /* 5pxから6pxに増加して文字がリボンに収まるように */
     transform: rotate(45deg);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 10;
@@ -149,11 +157,12 @@
 
 /* 夢モードでのリボン調整 - 藤森ちとせさんのような繊細なデザイン感覚で */
 .option.dream-option.talent-birthday::after {
-    top: 15px;
-    right: -50px; /* -40pxから-50pxに変更 */
-    width: 150px; /* 130pxから150pxに増加 */
-    font-size: 9px;
-    transform: rotate(45deg); /* 角度を明示的に設定 */
+    top: 10px;
+    right: -60px; /* -50pxから-60pxに変更 */
+    width: 170px; /* 150pxから170pxに増加して大きな文字が収まるように */
+    font-size: 14px; /* 9pxから14pxに拡大 */
+    transform: rotate(45deg); /* 角度は45度のまま */
+    padding: 7px 0; /* パディングを5pxから7pxに増加して文字が収まるように */
 }
 
 /* モバイル対応 - 満力きぃさんのように観る人に元気を届けるためのレスポンシブデザイン */
@@ -167,14 +176,16 @@
     
     .option.dream-option.talent-birthday::after {
         top: 10px;
-        right: -35px;
-        width: 110px;
+        right: -45px; /* -35pxから-45pxに変更して調整 */
+        width: 130px; /* 110pxから130pxに増加 */
+        font-size: 12px; /* 8pxから12pxに拡大 */
+        padding: 5px 0; /* パディングを追加して大きくなった文字に対応 */
     }
 
     #question-image.birthday-decoration::after {
-        top: 8px; /* 10pxから8pxに変更 */
-        right: -20px; /* -30pxから-20pxに変更して左に移動 */
-        width: 110px; /* 90pxから110pxに拡大 */
+        top: 10px; /* 8pxから10pxに変更して統一感を出す */
+        right: -40px; /* -20pxから-40pxに変更してバランス調整 */
+        width: 110px;
         font-size: 9px;
         padding: 4px 0;
         transform: rotate(38deg);
@@ -755,18 +766,6 @@
     .talent-dream::before,
     .talent-dream::after {
         font-size: 20px;
-    }
-}
-
-/* さらに小さい画面での引用符の調整 */
-@media (max-width: 480px) {
-    .talent-dream {
-        padding: 12px 16px;
-    }
-    
-    .talent-dream::before,
-    .talent-dream::after {
-        font-size: 18px;
     }
 }
 

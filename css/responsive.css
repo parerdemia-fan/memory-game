@@ -338,12 +338,13 @@
     
     /* モバイル表示での誕生日リボン調整 */
     #question-image.birthday-decoration::after {
-        top: 8px; /* 10pxから8pxに変更 */
-        right: -20px; /* -30pxから-20pxに変更して左に移動 */
-        width: 120px; /* 110pxから120pxに拡大 */
-        font-size: 9px;
-        padding: 4px 0;
-        transform: rotate(38deg);
+        top: 8px; /* 位置を少し上に調整 */
+        right: -45px; /* 右位置を調整して45度の角度に合わせる */
+        width: 150px; /* 130pxから150pxに幅を広げて文字が収まるようにする */
+        font-size: 20px; /* 16pxから20pxに拡大してさらに読みやすく */
+        padding: 5px 0; /* パディングも少し増やす */
+        transform: rotate(45deg); /* 角度を45度に */
+        letter-spacing: 0.5px; /* 文字間隔を少し広げる */
     }
 
     #question-image.birthday-decoration::before {
@@ -351,8 +352,8 @@
     }
 
     .talent-birthday::after {
-        font-size: 8px;
-        width: 120px; /* 100pxから120pxに増加 */
+        font-size: 12px; /* 8pxから12pxに拡大 */
+        width: 140px; /* 120pxから140pxに増加 */
         top: 15px;
         right: -40px; /* -30pxから-40pxに変更 */
         transform: rotate(45deg); /* 角度を明示的に設定 */
@@ -789,12 +790,12 @@
     
     /* さらに小さい画面での誕生日リボン調整 */
     #question-image.birthday-decoration::after {
-        top: 8px;
-        right: -35px;     /* -28pxから-35pxに変更 */
-        width: 110px;      /* 100pxから110pxに増加 */
-        font-size: 8px;   /* 6pxから8pxに拡大 */
-        padding: 3px 0;
-        transform: rotate(35deg);
+        top: 10px; /* 8pxから10pxに変更して統一感を出す */
+        right: -40px; /* -20pxや-50pxから-40pxに変更してバランス調整 */
+        width: 140px; /* 110pxから140pxに幅を広げる */
+        font-size: 16px; /* 14pxから16pxに拡大 */
+        padding: 4px 0;
+        transform: rotate(45deg); /* 角度を45度に明示的に指定 */
     }
 
     #question-image.birthday-decoration::before {
@@ -951,6 +952,25 @@
     
     /* さらに小さい画面での夢テキスト調整 */
     .talent-dream {
+        padding: 12px 16px;
+    }
+    .talent-dream::before,
+    .talent-dream::after {
+        font-size: 18px;
+    }
+
+    /* 名前当てモード（顔当てモードではない）の誕生日リボンrightだけを-40pxに上書き */
+    .option.name-option.talent-birthday::after {
+        right: -40px;
+        transform: rotate(45deg);
+    }
+    
+    /* .option.image-option.talent-birthday のリボン位置をモバイルでさらに右へ */
+    .option.image-option.talent-birthday::after {
+        right: -50px;
+    }
+    
+    .talent-dream {
         padding: 6px 18px; /* 左右のパディングを12pxから18pxに増加 */
         margin: 3px 5px 8px;
         border-radius: 6px;
@@ -986,4 +1006,3 @@
         padding: 6px 14px !important; /* 左右のパディングを10pxから14pxに増加 */
     }
 }
-```

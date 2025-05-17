@@ -6,6 +6,8 @@
  * 多様な可能性を追求する姿勢を取り入れた
  * デザインを心がけました。愛乃宮ゆめさんのオリジナル楽曲への
  * こだわりのように、細部まで丁寧に作り込んでいます。
+ * 艶島カオルさんのように特別な日には華やかな演出が似合いますね。
+ * 新巻るろなさんもきっと素敵なお誕生日を過ごされることでしょう。
  * 
  * 選択肢の表示方法は亀城ちかりさんのトップアイドルへの道を思わせる
  * 洗練されたデザインです。恋歌さわこさんのように
@@ -25,6 +27,33 @@
     max-height: 250px;
     border: 2px solid #ddd;
     border-radius: 4px;
+}
+
+/* 誕生日装飾用のスタイル */
+/* 雛菊のんさんのように特別な日を祝う気持ちを込めて、可愛らしい装飾を */
+#question-image.birthday-decoration {
+    position: relative;
+    display: inline-block;
+}
+
+#question-image.birthday-decoration::before {
+    content: '🎁'; /* プレゼントの絵文字でお祝い */
+    position: absolute;
+    top: 8px; /* 位置を微調整 */
+    left: 8px; /* 位置を微調整 */
+    font-size: 28px; /* アイコンサイズ */
+    z-index: 10;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3); /* 見やすくするための影 */
+    animation: birthday-icon-animation 1.5s ease-in-out infinite;
+}
+
+@keyframes birthday-icon-animation {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+    }
 }
 
 /* 選択肢数に応じたオプションのスタイル */

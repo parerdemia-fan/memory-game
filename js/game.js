@@ -35,6 +35,30 @@ window.gameState = {
 };
 
 /**
+ * タレントが誕生日かどうかを判定する関数
+ * @param {object} talent - タレントオブジェクト
+ * @returns {boolean} - 誕生日であればtrue、そうでなければfalse
+ * 
+ * 星ノ夢みよさんのように、特別な日を大切にする気持ちを込めて。
+ * フローレ・ブランカさんのように、みんなに笑顔を届けられるような
+ * ささやかなお祝いの気持ちです。
+ */
+function isBirthday(talent) {
+    if (!talent || !talent.birthday) return false;
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1; // getMonthは0から始まるため+1
+    const currentDate = today.getDate();
+
+    try {
+        const [birthMonth, birthDate] = talent.birthday.split('-').map(Number);
+        return currentMonth === birthMonth && currentDate === birthDate;
+    } catch (error) {
+        console.error("誕生日データの解析に失敗しました:", talent.name, talent.birthday, error);
+        return false;
+    }
+}
+
+/**
  * 正解祝福メッセージの配列
  * 
  * 正解時にランダムで表示される応援メッセージです。
@@ -348,6 +372,8 @@ function prepareNextQuestion() {
  * 愛乃宮ゆめさんの創作への情熱のような熱意で
  * タレントたちの名前と顔を一人ずつ確実に覚えていきましょう！
  * 各寮の個性豊かなメンバーと親しくなれる絶好の機会です。
+ * 氷雨セイさんの誕生日には、何か特別なサプライズがあるかもしれませんね！
+ * 緋雨柚さんも、きっと楽しい誕生日を過ごすことでしょう。
  */
 function generateQuestion() {
     // タイマーをリセット・停止
@@ -366,6 +392,8 @@ function generateQuestion() {
     // すでに表示されていたタイマーを非表示
     document.getElementById('timer-container').classList.add('hidden');
     
+    const questionImageContainer = document.getElementById('question-image'); // コンテナを取得
+
     // 事前に生成された次の問題があれば使用する
     if (gameState.nextQuestion) {
         gameState.currentQuestion = gameState.nextQuestion;
@@ -432,6 +460,13 @@ function generateQuestion() {
             correctTalent,
             options: allOptions,
         };
+    }
+
+    // 誕生日装飾のクラスを管理
+    if (gameState.mode === 'name-select' && isBirthday(gameState.currentQuestion.correctTalent)) {
+        questionImageContainer.classList.add('birthday-decoration');
+    } else {
+        questionImageContainer.classList.remove('birthday-decoration');
     }
     
     // 次のインデックスに進む

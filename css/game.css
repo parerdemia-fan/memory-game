@@ -37,7 +37,7 @@
 }
 
 #question-image.birthday-decoration::before {
-    content: '🎁'; /* プレゼントの絵文字でお祝い */
+    content: '🎂'; /* プレゼントの絵文字からケーキの絵文字に変更 */
     position: absolute;
     top: 8px; /* 位置を微調整 */
     left: 8px; /* 位置を微調整 */
@@ -53,7 +53,7 @@
 }
 
 .option.image-option.talent-birthday::before {
-    content: '🎁';
+    content: '🎂';
     position: absolute;
     top: 8px;
     left: 8px;
@@ -70,7 +70,7 @@
 }
 
 .option.dream-option.talent-birthday::before {
-    content: '🎁';
+    content: '🎂';
     position: absolute;
     top: 8px;
     left: 8px;

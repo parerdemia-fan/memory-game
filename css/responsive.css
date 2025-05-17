@@ -336,36 +336,6 @@
         max-height: 180px; /* 画像の最大高さを制限 */
     }
     
-    /* モバイル表示での誕生日リボン調整 */
-    #question-image.birthday-decoration::after {
-        top: 8px; /* 位置を少し上に調整 */
-        right: -45px; /* 右位置を調整して45度の角度に合わせる */
-        width: 150px; /* 130pxから150pxに幅を広げて文字が収まるようにする */
-        font-size: 20px; /* 16pxから20pxに拡大してさらに読みやすく */
-        padding: 5px 0; /* パディングも少し増やす */
-        transform: rotate(45deg); /* 角度を45度に */
-        letter-spacing: 0.5px; /* 文字間隔を少し広げる */
-    }
-
-    #question-image.birthday-decoration::before {
-        font-size: 32px; /* モバイル表示でも十分な大きさを確保 */
-    }
-
-    .talent-birthday::after {
-        font-size: 12px; /* 8pxから12pxに拡大 */
-        width: 140px; /* 120pxから140pxに増加 */
-        top: 15px;
-        right: -40px; /* -30pxから-40pxに変更 */
-        transform: rotate(45deg); /* 角度を明示的に設定 */
-    }
-    
-    .option.dream-option.talent-birthday::after {
-        top: 10px;
-        right: -45px; /* -35pxから-45pxに変更 */
-        width: 130px; /* 110pxから130pxに増加 */
-        transform: rotate(45deg); /* 角度を明示的に設定 */
-    }
-    
     /* 選択肢のサイズを調整 */
     .option img {
         width: 140px;
@@ -788,20 +758,6 @@
         max-height: 200px;
     }
     
-    /* さらに小さい画面での誕生日リボン調整 */
-    #question-image.birthday-decoration::after {
-        top: 10px; /* 8pxから10pxに変更して統一感を出す */
-        right: -40px; /* -20pxや-50pxから-40pxに変更してバランス調整 */
-        width: 140px; /* 110pxから140pxに幅を広げる */
-        font-size: 16px; /* 14pxから16pxに拡大 */
-        padding: 4px 0;
-        transform: rotate(45deg); /* 角度を45度に明示的に指定 */
-    }
-
-    #question-image.birthday-decoration::before {
-        font-size: 28px; /* 小さい画面でも適切なサイズを維持 */
-    }
-    
     .option img {
         width: 120px;
         height: 120px;
@@ -957,17 +913,6 @@
     .talent-dream::before,
     .talent-dream::after {
         font-size: 18px;
-    }
-
-    /* 名前当てモード（顔当てモードではない）の誕生日リボンrightだけを-40pxに上書き */
-    .option.name-option.talent-birthday::after {
-        right: -40px;
-        transform: rotate(45deg);
-    }
-    
-    /* .option.image-option.talent-birthday のリボン位置をモバイルでさらに右へ */
-    .option.image-option.talent-birthday::after {
-        right: -50px;
     }
     
     .talent-dream {

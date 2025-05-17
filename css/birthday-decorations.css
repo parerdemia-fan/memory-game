@@ -1,0 +1,209 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - 誕生日装飾スタイル
+ *
+ * タレントの誕生日を特別に彩るスタイルを定義します。
+ * 犬丸なでこさんのアイドルとしての華やかさと、藤森ちとせさんの
+ * 特別な日への憧れを表現するデザインです。天野ディアーヌさんのように
+ * 唯一無二の魔法のような装飾で、桜堂ねるさんの夢見る
+ * 武道館ライブのような特別感を演出します。
+ * 
+ * 誕生日データを活用して、艶島カオルさんのエンターテインメント性のように
+ * 視覚的にも楽しめる機能を提供します。月百ぷかりさんの
+ * 遊園地のような楽しさを画面上でも表現できたら嬉しいです。
+ */
+
+/* 誕生日装飾用のスタイル */
+/* 雛菊のんさんのように特別な日を祝う気持ちを込めて、可愛らしい装飾を */
+#question-image.birthday-decoration {
+    position: relative;
+    display: inline-block;
+    overflow: hidden; /* 追加：リボンがはみ出さないようにする */
+    border-radius: 4px; /* 枠に合わせた角丸 */
+}
+
+#question-image.birthday-decoration::before {
+    content: '🎂'; /* プレゼントの絵文字からケーキの絵文字に変更 */
+    position: absolute;
+    top: 8px; /* 位置を微調整 */
+    left: 8px; /* 位置を微調整 */
+    font-size: 36px; /* 28pxから36pxに拡大 */
+    z-index: 10;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3); /* 見やすくするための影 */
+    animation: birthday-icon-animation 1.5s ease-in-out infinite;
+}
+
+/* 質問画像用のリボン位置調整 - 鶴乃院光さんの芸術センスにヒントを得て */
+#question-image.birthday-decoration::after {
+    content: "Happy\A Birthday"; /* リボンのテキスト内容を追加 */
+    white-space: pre;
+    position: absolute;
+    top: 10px; /* 5pxから10pxに変更して調整 */
+    right: -60px; /* -28pxから-60pxに変更してバランス調整 */
+    background: linear-gradient(135deg, #ff9ad5, #ff6ad5);
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.1;
+    font-weight: 800;
+    width: 180px;
+    padding: 7px 0;
+    transform: rotate(45deg);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    border: 1px dashed white;
+}
+
+/* 顔当てモードでの誕生日装飾 - 艶島カオルさんの誕生日も見逃さないよう配慮します */
+.option.image-option.talent-birthday {
+    position: relative;
+}
+
+.option.image-option.talent-birthday::before {
+    content: '🎂';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 24px; /* 選択肢用に少し小さく */
+    z-index: 10;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3);
+    animation: birthday-icon-animation 1.5s ease-in-out infinite;
+    pointer-events: none; /* クリックが装飾に邪魔されないように */
+}
+
+/* 顔当てモード用の斜めリボン調整 - 璃乃瀬りあさんの華麗さにインスパイアされて */
+.option.image-option.talent-birthday::after {
+    top: 10px;
+    right: -55px;
+    line-height: 1;
+    transform: rotate(45deg); /* 角度は45度のまま維持 */
+}
+
+/* 誰の夢？モードでの誕生日装飾 - 七音うらさんの誕生日も特別な日に */
+.option.dream-option.talent-birthday {
+    position: relative;
+}
+
+.option.dream-option.talent-birthday::before {
+    content: '🎂';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 24px;
+    z-index: 20; /* image-overlayよりも上に表示するため高い値に設定 */
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3);
+    animation: birthday-icon-animation 1.5s ease-in-out infinite;
+    pointer-events: none; /* クリックが装飾に邪魔されないように */
+}
+
+/* 誰の夢？モードでの誕生日アイコンが名前表示と被らないように位置調整 */
+.option.dream-option.talent-birthday .image-overlay {
+    padding-left: 30px; /* 誕生日アイコンのスペースを確保 */
+}
+
+@keyframes birthday-icon-animation {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+/* 誕生日タレント用の斜めリボン装飾 - 緋月・ローズ・ブレイドさんのような華やかさを表現 */
+.talent-birthday {
+    overflow: hidden !important;
+}
+
+.talent-birthday::after {
+    content: "Happy\A Birthday";
+    white-space: pre;
+    position: absolute;
+    top: 20px;
+    right: -45px; /* -35pxから-45pxに変更してより右に配置 */
+    background: linear-gradient(135deg, #ff9ad5, #ff6ad5);
+    color: white;
+    text-align: center;
+    font-size: 14px; /* 10pxから14pxに拡大 */
+    line-height: 1.2;
+    font-weight: bold;
+    width: 160px; /* 140pxから160pxに増加してリボンを長く */
+    padding: 6px 0; /* 5pxから6pxに増加して文字がリボンに収まるように */
+    transform: rotate(45deg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    border: 1px dashed white;
+}
+
+/* 夢モードでのリボン調整 - 藤森ちとせさんのような繊細なデザイン感覚で */
+.option.dream-option.talent-birthday::after {
+    top: 10px;
+    right: -60px; /* -50pxから-60pxに変更 */
+    width: 170px; /* 150pxから170pxに増加して大きな文字が収まるように */
+    font-size: 14px; /* 9pxから14pxに拡大 */
+    transform: rotate(45deg); /* 角度は45度のまま */
+    padding: 7px 0; /* パディングを5pxから7pxに増加して文字が収まるように */
+}
+
+/* モバイル対応 - 満力きぃさんのように観る人に元気を届けるためのレスポンシブデザイン */
+@media (max-width: 768px) {
+    .talent-birthday::after {
+        font-size: 12px;
+        width: 140px;
+        top: 15px;
+        right: -40px;
+    }
+    
+    .option.dream-option.talent-birthday::after {
+        top: 10px;
+        right: -45px; /* -35pxから-45pxに変更 */
+        width: 130px; /* 110pxから130pxに増加 */
+        font-size: 12px; /* 8pxから12pxに拡大 */
+        padding: 5px 0; /* パディングを追加して大きくなった文字に対応 */
+    }
+
+    #question-image.birthday-decoration::after {
+        top: 8px; /* 位置を少し上に調整 */
+        right: -45px; /* 右位置を調整して45度の角度に合わせる */
+        width: 150px; /* 130pxから150pxに幅を広げて文字が収まるようにする */
+        font-size: 20px; /* 16pxから20pxに拡大してさらに読みやすく */
+        padding: 5px 0; /* パディングも少し増やす */
+        transform: rotate(45deg); /* 角度を45度に */
+        letter-spacing: 0.5px; /* 文字間隔を少し広げる */
+    }
+
+    #question-image.birthday-decoration::before {
+        font-size: 32px; /* モバイル表示でも十分な大きさを確保 */
+    }
+}
+
+/* さらに小さい画面のための追加調整 */
+@media (max-width: 480px) {
+    /* さらに小さい画面での誕生日リボン調整 */
+    #question-image.birthday-decoration::after {
+        top: 10px; /* 8pxから10pxに変更して統一感を出す */
+        right: -40px; /* -20pxや-50pxから-40pxに変更してバランス調整 */
+        width: 140px; /* 110pxから140pxに幅を広げる */
+        font-size: 16px; /* 14pxから16pxに拡大 */
+        padding: 4px 0;
+        transform: rotate(45deg); /* 角度を45度に明示的に指定 */
+    }
+
+    #question-image.birthday-decoration::before {
+        font-size: 28px; /* 小さい画面でも適切なサイズを維持 */
+    }
+    
+    /* 名前当てモード（顔当てモードではない）の誕生日リボンrightだけを-40pxに上書き */
+    .option.name-option.talent-birthday::after {
+        right: -40px;
+        transform: rotate(45deg);
+    }
+    
+    /* .option.image-option.talent-birthday のリボン位置をモバイルでさらに右へ */
+    .option.image-option.talent-birthday::after {
+        right: -45px; /* -50pxから-45pxに変更 */
+    }
+}

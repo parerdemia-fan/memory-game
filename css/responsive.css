@@ -326,10 +326,43 @@
     /* 名前当てモード用の質問画像調整 */
     #question-image {
         padding: 2px 0; /* 上下のパディングを小さく */
+        position: relative; /* 追加：位置指定の基準点 */
+        overflow: hidden; /* 追加：リボンがはみ出さないようにする */
+        display: inline-block; /* 追加：インラインブロック要素として表示 */
+        border-radius: 4px; /* 追加：枠に合わせた角丸 */
     }
     
     #question-image img {
         max-height: 180px; /* 画像の最大高さを制限 */
+    }
+    
+    /* モバイル表示での誕生日リボン調整 */
+    #question-image.birthday-decoration::after {
+        top: 8px; /* 10pxから8pxに変更 */
+        right: -20px; /* -30pxから-20pxに変更して左に移動 */
+        width: 120px; /* 110pxから120pxに拡大 */
+        font-size: 9px;
+        padding: 4px 0;
+        transform: rotate(38deg);
+    }
+
+    #question-image.birthday-decoration::before {
+        font-size: 32px; /* モバイル表示でも十分な大きさを確保 */
+    }
+
+    .talent-birthday::after {
+        font-size: 8px;
+        width: 120px; /* 100pxから120pxに増加 */
+        top: 15px;
+        right: -40px; /* -30pxから-40pxに変更 */
+        transform: rotate(45deg); /* 角度を明示的に設定 */
+    }
+    
+    .option.dream-option.talent-birthday::after {
+        top: 10px;
+        right: -45px; /* -35pxから-45pxに変更 */
+        width: 130px; /* 110pxから130pxに増加 */
+        transform: rotate(45deg); /* 角度を明示的に設定 */
     }
     
     /* 選択肢のサイズを調整 */
@@ -754,6 +787,20 @@
         max-height: 200px;
     }
     
+    /* さらに小さい画面での誕生日リボン調整 */
+    #question-image.birthday-decoration::after {
+        top: 8px;
+        right: -35px;     /* -28pxから-35pxに変更 */
+        width: 110px;      /* 100pxから110pxに増加 */
+        font-size: 8px;   /* 6pxから8pxに拡大 */
+        padding: 3px 0;
+        transform: rotate(35deg);
+    }
+
+    #question-image.birthday-decoration::before {
+        font-size: 28px; /* 小さい画面でも適切なサイズを維持 */
+    }
+    
     .option img {
         width: 120px;
         height: 120px;
@@ -939,3 +986,4 @@
         padding: 6px 14px !important; /* 左右のパディングを10pxから14pxに増加 */
     }
 }
+```

@@ -34,6 +34,8 @@
 #question-image.birthday-decoration {
     position: relative;
     display: inline-block;
+    overflow: hidden; /* 追加：リボンがはみ出さないようにする */
+    border-radius: 4px; /* 枠に合わせた角丸 */
 }
 
 #question-image.birthday-decoration::before {
@@ -41,10 +43,33 @@
     position: absolute;
     top: 8px; /* 位置を微調整 */
     left: 8px; /* 位置を微調整 */
-    font-size: 28px; /* アイコンサイズ */
+    font-size: 36px; /* 28pxから36pxに拡大 */
     z-index: 10;
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3); /* 見やすくするための影 */
     animation: birthday-icon-animation 1.5s ease-in-out infinite;
+}
+
+/* 質問画像用のリボン位置調整 - 鶴乃院光さんの芸術センスにヒントを得て */
+#question-image.birthday-decoration::after {
+    content: "Happy\A Birthday"; /* リボンのテキスト内容を追加 */
+    white-space: pre;
+    position: absolute;
+    top: 10px; /* 15pxから10pxに変更して上に移動 */
+    right: -35px; /* -45pxから-35pxに変更して左に移動 */
+    background: linear-gradient(135deg, #ff9ad5, #ff6ad5);
+    color: white;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.3;
+    font-weight: bold;
+    width: 160px; /* 140pxから160pxに拡大 */
+    padding: 6px 0;
+    transform: rotate(40deg);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    border: 1px dashed white;
 }
 
 /* 顔当てモードでの誕生日装飾 - 艶島カオルさんの誕生日も見逃さないよう配慮します */
@@ -92,6 +117,67 @@
     }
     50% {
         transform: scale(1.1) rotate(5deg);
+    }
+}
+
+/* 誕生日タレント用の斜めリボン装飾 - 緋月・ローズ・ブレイドさんのような華やかさを表現 */
+.talent-birthday {
+    overflow: hidden !important;
+}
+
+.talent-birthday::after {
+    content: "Happy\A Birthday";
+    white-space: pre;
+    position: absolute;
+    top: 20px;
+    right: -45px; /* -35pxから-45pxに変更してより右に配置 */
+    background: linear-gradient(135deg, #ff9ad5, #ff6ad5);
+    color: white;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: bold;
+    width: 140px; /* 120pxから140pxに増加してリボンを長く */
+    padding: 5px 0;
+    transform: rotate(45deg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    border: 1px dashed white;
+}
+
+/* 夢モードでのリボン調整 - 藤森ちとせさんのような繊細なデザイン感覚で */
+.option.dream-option.talent-birthday::after {
+    top: 15px;
+    right: -50px; /* -40pxから-50pxに変更 */
+    width: 150px; /* 130pxから150pxに増加 */
+    font-size: 9px;
+    transform: rotate(45deg); /* 角度を明示的に設定 */
+}
+
+/* モバイル対応 - 満力きぃさんのように観る人に元気を届けるためのレスポンシブデザイン */
+@media (max-width: 768px) {
+    .talent-birthday::after {
+        font-size: 8px;
+        width: 100px;
+        top: 15px;
+        right: -30px;
+    }
+    
+    .option.dream-option.talent-birthday::after {
+        top: 10px;
+        right: -35px;
+        width: 110px;
+    }
+
+    #question-image.birthday-decoration::after {
+        top: 8px; /* 10pxから8pxに変更 */
+        right: -20px; /* -30pxから-20pxに変更して左に移動 */
+        width: 110px; /* 90pxから110pxに拡大 */
+        font-size: 9px;
+        padding: 4px 0;
+        transform: rotate(38deg);
     }
 }
 

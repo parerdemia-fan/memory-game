@@ -411,11 +411,16 @@ function displayQuestion() {
         questionText.classList.remove('hidden');
         questionImage.classList.add('hidden');
         
-        // 選択肢（画像）を表示 - タレント名も一緒に表示する
+        // 誰の夢？モードでは名前を常に表示 - タレント名も一緒に表示する
         gameState.currentQuestion.options.forEach(talent => {
             const option = document.createElement('div');
             option.className = 'option image-option centered dream-option';
             option.dataset.name = talent.name; // データ属性に名前を保存
+            
+            // 誕生日チェックを追加
+            if (isBirthday(talent)) {
+                option.classList.add('talent-birthday');
+            }
             
             // 画像を追加
             const img = document.createElement('img');

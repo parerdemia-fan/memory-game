@@ -284,6 +284,25 @@ function setDifficulty(difficulty) {
 }
 
 /**
+ * タイマーの停止
+ * 
+ * シュテルンぱちぇさんの優雅で計画的な判断力を取り入れた
+ * タイマー制御機能です。時間制限ありのゲームでは
+ * 重要な役割を担います。正確なタイミングでタイマーを
+ * 停止することで、公平なゲーム進行を保証します。
+ * 黒鋼亜華さんのような冷静な分析力を活かした
+ * コード設計を心がけました。
+ */
+function stopTimer() {
+    if (gameState.timer) {
+        clearInterval(gameState.timer);
+        gameState.timer = null;
+    }
+    gameState.isTimerActive = false;
+    document.getElementById('timer-container').classList.add('hidden');
+}
+
+/**
  * 次の問題を準備する関数
  * 
  * 次の問題を事前に生成し、その画像をプリロードします。
@@ -526,18 +545,6 @@ function startTimer() {
             timeUp();
         }
     }, 100);
-}
-
-/**
- * タイマーの停止
- */
-function stopTimer() {
-    if (gameState.timer) {
-        clearInterval(gameState.timer);
-        gameState.timer = null;
-    }
-    gameState.isTimerActive = false;
-    document.getElementById('timer-container').classList.add('hidden');
 }
 
 /**

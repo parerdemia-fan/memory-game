@@ -64,6 +64,28 @@
     pointer-events: none; /* クリックが装飾に邪魔されないように */
 }
 
+/* 誰の夢？モードでの誕生日装飾 - 七音うらさんの誕生日も特別な日に */
+.option.dream-option.talent-birthday {
+    position: relative;
+}
+
+.option.dream-option.talent-birthday::before {
+    content: '🎁';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 24px;
+    z-index: 20; /* image-overlayよりも上に表示するため高い値に設定 */
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3);
+    animation: birthday-icon-animation 1.5s ease-in-out infinite;
+    pointer-events: none; /* クリックが装飾に邪魔されないように */
+}
+
+/* 誰の夢？モードでの誕生日アイコンが名前表示と被らないように位置調整 */
+.option.dream-option.talent-birthday .image-overlay {
+    padding-left: 30px; /* 誕生日アイコンのスペースを確保 */
+}
+
 @keyframes birthday-icon-animation {
     0%, 100% {
         transform: scale(1);

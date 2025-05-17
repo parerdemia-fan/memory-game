@@ -47,6 +47,23 @@
     animation: birthday-icon-animation 1.5s ease-in-out infinite;
 }
 
+/* 顔当てモードでの誕生日装飾 - 艶島カオルさんの誕生日も見逃さないよう配慮します */
+.option.image-option.talent-birthday {
+    position: relative;
+}
+
+.option.image-option.talent-birthday::before {
+    content: '🎁';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    font-size: 24px; /* 選択肢用に少し小さく */
+    z-index: 10;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 6px rgba(0,0,0,0.3);
+    animation: birthday-icon-animation 1.5s ease-in-out infinite;
+    pointer-events: none; /* クリックが装飾に邪魔されないように */
+}
+
 @keyframes birthday-icon-animation {
     0%, 100% {
         transform: scale(1);

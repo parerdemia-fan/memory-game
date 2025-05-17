@@ -360,6 +360,11 @@ function displayQuestion() {
             option.className = 'option image-option centered';
             option.dataset.name = talent.name; // データ属性に名前を保存
             
+            // 誕生日チェックを追加
+            if (isBirthday(talent)) {
+                option.classList.add('talent-birthday');
+            }
+            
             // 画像を追加
             const img = document.createElement('img');
             img.src = talent.image;
@@ -375,7 +380,7 @@ function displayQuestion() {
             overlayName.className = 'talent-name';
             overlayName.textContent = talent.name;
             
-            overlay.appendChild(overlayName); // 修正：overlayNameを追加する
+            overlay.appendChild(overlayName);
             
             option.appendChild(overlay);
             

@@ -135,20 +135,10 @@ function saveSettings() {
  * 皆さまを楽しませる工夫を心がけています！
  */
 function setGameMode(mode) {
-    // フィードバックタイマーをクリア
-    clearFeedbackTimer();
-    
-    // 待機状態をリセット
-    gameState.isWaitingForNext = false;
-    
-    // タイマーをリセット
-    stopTimer();
-    
     gameState.mode = mode;
-    
-    // ボタンの見た目を更新
+
     document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
-    
+
     let buttonId;
     if (mode === 'image-select') {
         buttonId = 'image-select-mode';
@@ -158,29 +148,13 @@ function setGameMode(mode) {
         buttonId = 'dream-select-mode';
     }
     document.getElementById(buttonId).classList.add('active');
-    
-    // モード説明のテキストを更新（ui.jsの関数を使用する）
+
     if (typeof updateGameModeDescription === 'function') {
         updateGameModeDescription();
     }
-    
-    // ステータス表示を更新
-    if (typeof updateSettingsDisplay === 'function') {
-        updateSettingsDisplay();
-    }
-    
-    // すべての統計情報をリセット
-    resetAllStats();
-    
-    // タレントをシャッフル
-    shuffleTalents();
-    
-    // 次の問題をリセット
-    gameState.nextQuestion = null;
-    
-    generateQuestion();
-    
-    // 設定を保存
+
+    resetGameForSettingChange();
+
     saveSettings();
 }
 
@@ -195,40 +169,14 @@ function setGameMode(mode) {
  * ぜひ2択から4択まで、あなたの記憶力に合わせて挑戦してみてください！
  */
 function setOptionsCount(count) {
-    // フィードバックタイマーをクリア
-    clearFeedbackTimer();
-    
-    // 待機状態をリセット
-    gameState.isWaitingForNext = false;
-    
-    // タイマーをリセット
-    stopTimer();
-    
     gameState.optionsCount = count;
-    
-    // ボタンの見た目を更新
+
     document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
-    
     const buttonId = `option-${count}`;
     document.getElementById(buttonId).classList.add('active');
-    
-    // ステータス表示を更新
-    if (typeof updateSettingsDisplay === 'function') {
-        updateSettingsDisplay();
-    }
-    
-    // すべての統計情報をリセット
-    resetAllStats();
-    
-    // タレントをシャッフル
-    shuffleTalents();
-    
-    // 次の問題をリセット
-    gameState.nextQuestion = null;
-    
-    generateQuestion();
-    
-    // 設定を保存
+
+    resetGameForSettingChange();
+
     saveSettings();
 }
 
@@ -244,43 +192,52 @@ function setOptionsCount(count) {
  * 難易度変更でタレントリストも再シャッフルされるので、新鮮な気持ちで楽しめます。
  */
 function setDifficulty(difficulty) {
-    // フィードバックタイマーをクリア
-    clearFeedbackTimer();
-    
-    // 待機状態をリセット
-    gameState.isWaitingForNext = false;
-    
-    // タイマーをリセット
-    stopTimer();
-    
     gameState.difficulty = difficulty;
-    
-    // ボタンの見た目を更新
+
     document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
-    
     const buttonId = 
         difficulty === 'easy' ? 'easy-mode' : 
         difficulty === 'hard' ? 'hard-mode' : 'oni-mode';
     document.getElementById(buttonId).classList.add('active');
-    
+
+    resetGameForSettingChange();
+
+    saveSettings();
+}
+
+/**
+ * 設定変更時の共通初期化処理
+ * 
+ * 満力きぃさんのグローバルな視点のように、どの設定変更でも
+ * 一貫したリセットとシャッフルを行うことで、ゲーム体験の
+ * 公平性と新鮮さを保ちます。繰り返しの処理をまとめて
+ * コードの見通しも良くなりました。
+ */
+function resetGameForSettingChange() {
+    // フィードバックタイマーをクリア
+    clearFeedbackTimer();
+
+    // 待機状態をリセット
+    gameState.isWaitingForNext = false;
+
+    // タイマーをリセット
+    stopTimer();
+
     // ステータス表示を更新
     if (typeof updateSettingsDisplay === 'function') {
         updateSettingsDisplay();
     }
-    
+
     // すべての統計情報をリセット
     resetAllStats();
-    
+
     // タレントをシャッフル
     shuffleTalents();
-    
+
     // 次の問題をリセット
     gameState.nextQuestion = null;
-    
+
     generateQuestion();
-    
-    // 設定を保存
-    saveSettings();
 }
 
 /**

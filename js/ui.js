@@ -114,7 +114,19 @@ function setupSettingsModal() {
     }
     
     // ヘルプモーダルのセットアップを呼び出し
-    setupHelpModal();
+    if (typeof window.setupHelpModal === 'function') {
+        window.setupHelpModal();
+    } else {
+        console.warn('setupHelpModal関数がまだ利用できません。スクリプトの読み込み順序を確認してください。');
+        // DOMContentLoadedイベントで再試行
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof window.setupHelpModal === 'function') {
+                window.setupHelpModal();
+            } else {
+                console.error('setupHelpModal関数が見つかりません。help-modal.jsが正しく読み込まれているか確認してください。');
+            }
+        });
+    }
     
     // ESCキーでモーダルを閉じる
     document.addEventListener('keydown', function(e) {

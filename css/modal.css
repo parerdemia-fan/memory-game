@@ -1,0 +1,336 @@
+/* 
+ * パレデミア学園 寮生記憶ゲーム - モーダルスタイル
+ * 
+ * 花晴りらさんの細かな気配りのように、ユーザー体験の細部まで
+ * こだわったスタイル設定です。小さな改善でも、すっとノンストレスな
+ * 使い心地を提供することで、桜堂ねるさんの優しさを表現しています。
+ * 緋雨柚さんがさいたまスーパーアリーナでライブをしたいと願うように、
+ * このスタイルで大きな舞台でも問題なく動作する堅牢さを備えています。
+ * 
+ * 璃乃瀬りあさんのように武道館ライブを夢見る熱意を持って、
+ * ここではモーダル関連のすべてのスタイルを一元管理します。
+ * 斗瀬ひおりさんのように野心的な目標を持ちつつ、
+ * 堅実なコード設計を心がけています。
+ */
+
+/* モーダルの基本スタイル */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    /* スクロール禁止の設定はbody.modal-openで対応 */
+}
+
+.modal.show,
+.modal.open {
+    display: flex; /* ブロックからフレックスに変更 */
+    align-items: center; /* 垂直中央揃え */
+    justify-content: center; /* 水平中央揃え */
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 500px; /* 標準モーダルの最大幅 */
+    max-height: 85vh; /* 画面の高さの85%に制限 */
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* 中央揃えを確実に */
+    transform: none; /* アニメーション完全削除 */
+    opacity: 0;
+    transition: opacity 0.2s ease; /* アニメーションを最小化 */
+    position: relative;
+    /* 高さの設定を調整 */
+    min-height: auto; /* 自動調整に変更 */
+    overflow: hidden; /* スクロールはモーダル本文に任せる */
+}
+
+/* ヘルプモーダルは幅を広く */
+#help-modal .modal-content {
+    max-width: 800px;
+}
+
+.modal.show .modal-content,
+.modal.open .modal-content {
+    opacity: 1;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0; /* ヘッダーは縮まない */
+    background-color: #fff; /* 確実に背景色を指定 */
+    border-radius: 8px 8px 0 0; /* 上部の角丸 */
+    position: sticky; /* ヘッダーを固定 */
+    top: 0; /* 上部に固定 */
+    z-index: 10; /* 重なり順を指定 */
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto; /* 縦方向のスクロールを許可 */
+    flex-grow: 1; /* 残りのスペースを埋める */
+    -webkit-overflow-scrolling: touch; /* iOSでのスムーズスクロール */
+}
+
+/* ヘルプモーダルの最適化 */
+#help-modal .modal-content {
+    transform: translateZ(0); /* GPUアクセラレーションを有効化 */
+    backface-visibility: hidden; /* レンダリングを最適化 */
+}
+
+#help-modal .modal-body {
+    overscroll-behavior: contain; /* スクロールバウンスを防止 */
+    scroll-behavior: smooth; /* スムーズスクロールを有効化 */
+}
+
+/* ヘルプモーダルの装飾強化 */
+.help-modal-body {
+    position: relative;
+    overflow: hidden;
+}
+
+.help-modal-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(255, 154, 213, 0.1) 15px, transparent 15px),
+        radial-gradient(circle at 90% 20%, rgba(176, 144, 251, 0.1) 20px, transparent 20px),
+        radial-gradient(circle at 30% 70%, rgba(154, 222, 255, 0.1) 25px, transparent 25px),
+        radial-gradient(circle at 80% 80%, rgba(255, 222, 154, 0.1) 15px, transparent 15px);
+    background-size: 250px 250px;
+    background-repeat: repeat;
+    z-index: -1;
+    opacity: 0.6;
+    pointer-events: none;
+    -webkit-overflow-scrolling: touch; /* iOSでのスムーズスクロール */
+    max-height: 70vh; /* 高さ制限を設定 */
+}
+
+/* ヘルプセクションのフェードイン効果を軽量化 */
+.help-section {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.2s ease;
+    position: relative;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* スクロール中はアニメーションを一時停止 */
+#help-modal.scrolling .modal-content::before {
+    animation-play-state: paused;
+    opacity: 0.3;
+}
+
+.help-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(138, 112, 214, 0.2);
+}
+
+.help-section h4 {
+    color: #8a70d6;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(138, 112, 214, 0.2);
+}
+
+.help-section:first-child h4 {
+    margin-top: 0;
+}
+
+.help-section p {
+    margin-bottom: 12px;
+}
+
+/* ヘルプモーダル内のリスト要素 */
+.help-section ul {
+    margin: 10px 0 15px 20px;
+    padding-left: 10px;
+    list-style-position: outside;
+}
+
+.help-section li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    position: relative;
+    padding-left: 5px;
+}
+
+.help-section li strong {
+    color: #754c56;
+    font-weight: 600;
+}
+
+/* ヘルプモーダル内のリンクスタイル */
+.help-section a {
+    color: #8a70d6;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-weight: 500;
+    border-bottom: 1px dotted #8a70d6;
+    padding-bottom: 1px;
+}
+
+.help-section a:hover {
+    color: #e860a4;
+    border-bottom-color: #e860a4;
+}
+
+/* 公式リンク用の特別スタイル */
+.help-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.help-links li {
+    padding: 0;
+}
+
+.help-links a {
+    color: #8a70d6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+    display: inline-block;
+    padding: 2px 0;
+}
+
+.help-links a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #b090fb;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.help-links a:hover {
+    color: #b090fb;
+}
+
+.help-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* 開発者よりセクションの特別スタイル */
+.help-section:last-child {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid #8a70d6;
+}
+
+.help-section:last-child p:last-child {
+    margin-bottom: 0;
+}
+
+/* スクロールバーのカスタマイズ */
+#help-modal .modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+#help-modal .modal-body::-webkit-scrollbar-track {
+    background: rgba(245, 245, 255, 0.5);
+    border-radius: 4px;
+}
+
+#help-modal .modal-body::-webkit-scrollbar-thumb {
+    background: rgba(176, 144, 251, 0.6);
+    border-radius: 4px;
+}
+
+#help-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(176, 144, 251, 0.8);
+}
+
+/* モバイル向け調整 */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        max-height: 80vh; /* モバイルでは少し小さく */
+        margin: 10px;
+    }
+    
+    .modal-header {
+        padding: 12px 15px;
+    }
+    
+    .modal-body, 
+    .help-modal-body {
+        padding: 15px;
+    }
+}
+
+/* ヘルプモーダルのPC表示用スタイル */
+@media (min-width: 768px) {
+    #help-modal .modal-content {
+        max-width: 800px; /* 通常のモーダルより幅広に */
+        width: 90%;
+        max-height: 90vh; /* モーダル全体の高さ制限 */
+    }
+    
+    .help-modal-body {
+        /* スクロールを有効化 */
+        overflow-y: auto;
+        max-height: 70vh; /* 高さ制限を設定 */
+    }
+}
+
+/* 閉じるボタン */
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    padding: 0;
+    flex: 0 0 30px;
+    box-shadow: none;
+    margin-right: -5px;
+}
+
+.close-button:hover {
+    color: #e53e3e;
+    transform: none;
+    box-shadow: none;
+}

@@ -64,6 +64,7 @@
 - 外部ライブラリに依存しない軽量設計
 - レスポンシブデザインでモバイルにも対応
 - CSS の分割管理による効率的な開発・保守
+- コンポーネントごとに分割された保守性の高いCSSファイル構成
 
 ## ファイル構成
 
@@ -71,12 +72,16 @@
 parerdemia-quiz/
 ├── index.html        # メインのHTML
 ├── css/
-│   ├── base.css      # 基本スタイル
-│   ├── layout.css    # レイアウト
-│   ├── components.css # コンポーネント
-│   ├── game.css      # ゲーム固有のスタイル
-│   ├── animations.css # アニメーション
-│   └── responsive.css # レスポンシブデザイン
+│   ├── base.css      # 基本スタイルとレイアウトの土台
+│   ├── layout.css    # ページレイアウトと構造
+│   ├── components.css # 再利用可能なUIコンポーネント
+│   ├── modal.css     # モーダル関連のスタイル（ヘルプモーダルや設定モーダル）
+│   ├── game.css      # ゲーム固有の要素
+│   ├── animations.css # アニメーションとトランジション効果
+│   ├── decorations.css # 装飾的な要素
+│   ├── birthday-decorations.css # 誕生日表示の特別スタイル
+│   ├── extra-animations.css # 追加の特殊アニメーション
+│   └── responsive.css # レスポンシブデザイン対応
 ├── script.js         # ゲームロジック
 ├── assets/
 │   ├── data/

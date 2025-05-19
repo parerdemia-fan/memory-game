@@ -248,8 +248,9 @@ function updateStreakDisplay() {
     // アイコンの設定（ストリークレベルに応じて変更）
     const streakIcon = document.getElementById('streak-icon');
     
-    // 最大目標値（タレントの総数）
-    const maxStreak = gameState.talents.length;
+    // 現在の出題範囲のタレント数を取得
+    const filteredIndices = getFilteredTalentIndices();
+    const maxStreak = filteredIndices.length;
     
     // 達成率の計算
     const achievementRate = gameState.streakCount / maxStreak;
@@ -262,8 +263,8 @@ function updateStreakDisplay() {
     const isMobile = window.innerWidth <= 768;
     
     // 現在の連続正解数/最大目標値を表示
-    // PC表示で61以上の場合は分母を表示しない
-    if (!isMobile && gameState.streakCount >= 61) {
+    // PC表示で最大目標値+1以上の場合は分母を表示しない
+    if (!isMobile && gameState.streakCount >= maxStreak + 1) {
         streakElement.textContent = `${gameState.streakCount}`;
     } else if (isMobile) {
         // モバイルは従来通り数字のみ
@@ -273,8 +274,8 @@ function updateStreakDisplay() {
         streakElement.textContent = `${gameState.streakCount}/${maxStreak}`;
     }
     
-    // 60以上なら紙吹雪を開始、未満なら停止
-    if (gameState.streakCount >= 60) {
+    // 最大目標値以上なら紙吹雪を開始、未満なら停止
+    if (gameState.streakCount >= maxStreak) {
         startConfetti();
     } else {
         stopConfetti();

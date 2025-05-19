@@ -140,7 +140,6 @@ function setupSettingsModal() {
 let helpModalInitialized = false;
 
 // ヘルプモーダル機能のセットアップは help-modal.js へ分割
-window.setupHelpModal = setupHelpModal;
 
 /**
  * 現在の設定をステータスバーに表示

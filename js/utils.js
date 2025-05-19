@@ -18,6 +18,45 @@ function shuffleArray(array) {
 }
 
 /**
+ * 現在の出題範囲に基づいてタレントをフィルタリングする関数
+ * 
+ * 七扇ヲトメさんのように「お姉ちゃんに任せておきなさい」と言える
+ * 頼れる存在を目指して、ユーザーの設定に応じた出題範囲を提供します。
+ * 出題範囲を寮ごとに分けることで、段階的に覚えていくことができます。
+ * 久堂れしあさんの着実に目標達成を目指す姿勢を取り入れました。
+ * 
+ * @return {Array} フィルタリングされたタレントのインデックス配列
+ */
+function getFilteredTalentIndices() {
+    // すべてのタレントのインデックスを配列に保存
+    const allIndices = Array.from({length: gameState.talents.length}, (_, i) => i);
+    
+    // 「全員」の場合はフィルタリングなし
+    if (gameState.questionRange === 'all') {
+        return allIndices;
+    }
+    
+    // 選択された寮に基づいてフィルタリング
+    return allIndices.filter(index => {
+        const talent = gameState.talents[index];
+        const dormitory = talent.dormitory.toLowerCase();
+        
+        switch (gameState.questionRange) {
+            case 'qu':
+                return dormitory === 'クゥ'.toLowerCase();
+            case 'myu':
+                return dormitory === 'ミュゥ'.toLowerCase();
+            case 'bau':
+                return dormitory === 'バゥ'.toLowerCase();
+            case 'winnie':
+                return dormitory === 'ウィニー'.toLowerCase();
+            default:
+                return true; // デフォルトは全て表示
+        }
+    });
+}
+
+/**
  * タレントデータをシャッフルする関数
  * 
  * 全タレントをシャッフルして順番に出題するための準備をします。
@@ -28,12 +67,15 @@ function shuffleArray(array) {
  * シャッフルアルゴリズムはフィッシャー–イェーツを採用しました。
  */
 function shuffleTalents() {
-    // 全タレントのインデックスを配列に保存
-    const indices = Array.from({length: gameState.talents.length}, (_, i) => i);
-    // インデックスをシャッフル
-    shuffleArray(indices);
+    // 現在の出題範囲に基づいてタレントをフィルタリング
+    const filteredIndices = getFilteredTalentIndices();
+    
+    // フィルタリングされたインデックスをシャッフル
+    shuffleArray(filteredIndices);
+    
     // シャッフルされたインデックスを保存
-    gameState.shuffledTalents = indices;
+    gameState.shuffledTalents = filteredIndices;
+    
     // 出題位置をリセット
     gameState.currentIndex = 0;
 }

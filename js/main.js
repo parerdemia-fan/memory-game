@@ -65,6 +65,7 @@ function initialize() {
     let foundActiveMode = false;
     let foundActiveOption = false;
     let foundActiveDifficulty = false;
+    let foundActiveRange = false;
     
     if (savedSettings) {
         console.log('保存された設定を読み込みました:', savedSettings);
@@ -104,6 +105,22 @@ function initialize() {
                 if ((savedSettings.difficulty === 'easy' && btn.id === 'easy-mode') ||
                     (savedSettings.difficulty === 'hard' && btn.id === 'hard-mode') ||
                     (savedSettings.difficulty === 'oni' && btn.id === 'oni-mode')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        // 出題範囲設定を適用
+        if (savedSettings.questionRange) {
+            gameState.questionRange = savedSettings.questionRange;
+            foundActiveRange = true;
+            document.querySelectorAll('.range-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if ((savedSettings.questionRange === 'all' && btn.id === 'range-all') ||
+                    (savedSettings.questionRange === 'qu' && btn.id === 'range-qu') ||
+                    (savedSettings.questionRange === 'myu' && btn.id === 'range-myu') ||
+                    (savedSettings.questionRange === 'bau' && btn.id === 'range-bau') ||
+                    (savedSettings.questionRange === 'winnie' && btn.id === 'range-winnie')) {
                     btn.classList.add('active');
                 }
             });
@@ -219,8 +236,12 @@ function setupEventListeners() {
     document.getElementById('range-winnie').addEventListener('click', () => setQuestionRange('winnie'));
 }
 
-// 出題範囲の状態管理（現状はUIのみ、動作は未実装）
+// 出題範囲の状態管理と機能実装
 function setQuestionRange(range) {
+    // 前の状態を保存
+    const previousRange = gameState.questionRange;
+    
+    // UIを更新
     document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
     if (range === 'all') {
         document.getElementById('range-all').classList.add('active');
@@ -233,5 +254,40 @@ function setQuestionRange(range) {
     } else if (range === 'winnie') {
         document.getElementById('range-winnie').classList.add('active');
     }
-    // 今後ここでgameStateへの反映や出題範囲の切り替えを実装予定
+    
+    // gameStateに反映
+    gameState.questionRange = range;
+    
+    // 出題範囲が変更された場合のみゲームをリセット
+    if (previousRange !== range) {
+        resetGameForSettingChange();
+    }
+    
+    // 設定を保存
+    saveSettings();
+}
+
+/**
+ * 設定をLocalStorageに保存する関数
+ * 
+ * 花晴りらさんのように着実に目標を達成するために、
+ * ユーザーの設定を記憶する機能です。次回訪問時にも
+ * 同じ環境で遊べるよう、各設定をブラウザに保存します。
+ * 七音うらさんのファンに感謝する気持ちのように、
+ * ユーザーの好みを大切にする機能といえるでしょう。
+ */
+function saveSettings() {
+    try {
+        const settings = {
+            mode: gameState.mode,
+            difficulty: gameState.difficulty,
+            optionsCount: gameState.optionsCount,
+            questionRange: gameState.questionRange,
+            lastUpdated: new Date().toISOString()
+        };
+        localStorage.setItem('parerdemia_settings', JSON.stringify(settings));
+        console.log('設定を保存しました:', settings);
+    } catch (error) {
+        console.error('設定の保存に失敗しました:', error);
+    }
 }

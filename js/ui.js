@@ -146,6 +146,7 @@ function updateSettingsDisplay() {
     const currentMode = document.getElementById('current-mode');
     const currentDifficulty = document.getElementById('current-difficulty');
     const currentOptions = document.getElementById('current-options');
+    const currentRange = document.getElementById('current-range');
     
     if (currentMode) {
         if (gameState.mode === 'image-select') {
@@ -165,6 +166,15 @@ function updateSettingsDisplay() {
     
     if (currentOptions) {
         currentOptions.textContent = gameState.optionsCount;
+    }
+    
+    // 出題範囲の表示を更新
+    if (currentRange) {
+        currentRange.textContent = 
+            gameState.questionRange === 'all' ? '全員' : 
+            gameState.questionRange === 'qu' ? 'クゥ寮' : 
+            gameState.questionRange === 'myu' ? 'ミュゥ寮' : 
+            gameState.questionRange === 'bau' ? 'バゥ寮' : 'ウィニー寮';
     }
     
     // 設定変更後に次の問題の画像をプリロード

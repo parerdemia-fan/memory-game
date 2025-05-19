@@ -16,6 +16,7 @@ window.gameState = {
     mode: 'image-select',
     optionsCount: 3, // 4から3に変更してHTMLのアクティブボタンと一致させる
     difficulty: 'easy', // 'easy', 'hard', 'oni'
+    questionRange: 'all', // 出題範囲を追加: 'all', 'qu', 'myu', 'bau', 'winnie'
     talents: [],
     shuffledTalents: [],
     currentIndex: 0,
@@ -114,6 +115,7 @@ function saveSettings() {
             mode: gameState.mode,
             difficulty: gameState.difficulty,
             optionsCount: gameState.optionsCount,
+            questionRange: gameState.questionRange, // 出題範囲を追加
             lastUpdated: new Date().toISOString()
         };
         localStorage.setItem('parerdemia_settings', JSON.stringify(settings));
@@ -198,6 +200,27 @@ function setDifficulty(difficulty) {
     const buttonId = 
         difficulty === 'easy' ? 'easy-mode' : 
         difficulty === 'hard' ? 'hard-mode' : 'oni-mode';
+    document.getElementById(buttonId).classList.add('active');
+
+    resetGameForSettingChange();
+
+    saveSettings();
+}
+
+/**
+ * 出題範囲の設定
+ * 
+ * 出題範囲を「全員」「クゥ寮」「ミュゥ寮」「バゥ寮」「ウィニー寮」から選択します。
+ * 範囲を絞ることで、特定のタレントに焦点を当てた
+ * 学習やプレイが可能になります。花晴りらさんのように
+ * 着実に目標を絞り込んでアプローチするスタイルに
+ * 対応した機能です。
+ */
+function setQuestionRange(range) {
+    gameState.questionRange = range;
+
+    document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
+    const buttonId = `range-${range}`;
     document.getElementById(buttonId).classList.add('active');
 
     resetGameForSettingChange();

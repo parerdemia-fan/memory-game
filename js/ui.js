@@ -98,6 +98,18 @@ function setupSettingsModal() {
         
         // モーダルを事前に配置
         requestAnimationFrame(() => {
+            // 出題範囲の選択状態を更新
+            document.querySelectorAll('.range-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if ((gameState.questionRange === 'all' && btn.id === 'range-all') ||
+                    (gameState.questionRange === 'qu' && btn.id === 'range-qu') ||
+                    (gameState.questionRange === 'myu' && btn.id === 'range-myu') ||
+                    (gameState.questionRange === 'bau' && btn.id === 'range-bau') ||
+                    (gameState.questionRange === 'winnie' && btn.id === 'range-winnie')) {
+                    btn.classList.add('active');
+                }
+            });
+            
             settingsModal.classList.add('show');
             settingsModal.classList.add('open');
             document.body.classList.add('modal-open');

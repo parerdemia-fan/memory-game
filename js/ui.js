@@ -139,8 +139,6 @@ function setupSettingsModal() {
 // グローバル変数として宣言して重複を防ぐ
 let helpModalInitialized = false;
 
-// ヘルプモーダル機能のセットアップは help-modal.js へ分割
-
 /**
  * 現在の設定をステータスバーに表示
  */

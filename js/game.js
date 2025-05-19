@@ -302,24 +302,28 @@ function prepareNextQuestion() {
     const otherOptions = [];
     const usedIndices = new Set([nextTalentIndex]);
     
+    // 現在の出題範囲に基づいてフィルタリングされたタレントのインデックスを取得
+    const filteredIndices = getFilteredTalentIndices();
+    
     if (gameState.difficulty === 'easy') {
-        // 難易度低: 完全ランダムな選択肢生成
+        // 難易度低: 同じ出題範囲内からランダムな選択肢生成
         while (otherOptions.length < gameState.optionsCount - 1) {
-            const randomIndex = Math.floor(Math.random() * gameState.talents.length);
+            const randomIndexPosition = Math.floor(Math.random() * filteredIndices.length);
+            const randomIndex = filteredIndices[randomIndexPosition];
             if (!usedIndices.has(randomIndex)) {
                 usedIndices.add(randomIndex);
                 otherOptions.push(gameState.talents[randomIndex]);
             }
         }
     } else {
-        // 難易度高: 同じ髪色のタレントを優先的に選択肢に含める
+        // 難易度高: 同じ髪色のタレントを優先的に選択肢に含める（同じ出題範囲内から）
         const correctHairColor = nextCorrectTalent.hairColor;
         
-        // 同じ髪色のタレントをフィルタリング
+        // 同じ髪色のタレントをフィルタリング（同じ出題範囲内から）
         const sameHairColorTalents = [];
-        gameState.talents.forEach((talent, index) => {
-            if (index !== nextTalentIndex && talent.hairColor === correctHairColor) {
-                sameHairColorTalents.push({talent, index});
+        filteredIndices.forEach(index => {
+            if (index !== nextTalentIndex && gameState.talents[index].hairColor === correctHairColor) {
+                sameHairColorTalents.push({talent: gameState.talents[index], index});
             }
         });
         
@@ -336,9 +340,10 @@ function prepareNextQuestion() {
             }
         }
         
-        // 足りない場合は他の髪色から追加
+        // 足りない場合は他の髪色から追加（同じ出題範囲内から）
         while (otherOptions.length < gameState.optionsCount - 1) {
-            const randomIndex = Math.floor(Math.random() * gameState.talents.length);
+            const randomIndexPosition = Math.floor(Math.random() * filteredIndices.length);
+            const randomIndex = filteredIndices[randomIndexPosition];
             if (!usedIndices.has(randomIndex)) {
                 usedIndices.add(randomIndex);
                 otherOptions.push(gameState.talents[randomIndex]);
@@ -406,24 +411,28 @@ function generateQuestion() {
         const otherOptions = [];
         const usedIndices = new Set([correctIndex]);
         
+        // 現在の出題範囲に基づいてフィルタリングされたタレントのインデックスを取得
+        const filteredIndices = getFilteredTalentIndices();
+        
         if (gameState.difficulty === 'easy') {
-            // 難易度低: 完全ランダムな選択肢生成
+            // 難易度低: 同じ出題範囲内からランダムな選択肢生成
             while (otherOptions.length < gameState.optionsCount - 1) {
-                const randomIndex = Math.floor(Math.random() * gameState.talents.length);
+                const randomIndexPosition = Math.floor(Math.random() * filteredIndices.length);
+                const randomIndex = filteredIndices[randomIndexPosition];
                 if (!usedIndices.has(randomIndex)) {
                     usedIndices.add(randomIndex);
                     otherOptions.push(gameState.talents[randomIndex]);
                 }
             }
         } else {
-            // 難易度高: 同じ髪色のタレントを優先的に選択肢に含める
+            // 難易度高: 同じ髪色のタレントを優先的に選択肢に含める（同じ出題範囲内から）
             const correctHairColor = correctTalent.hairColor;
             
-            // 同じ髪色のタレントをフィルタリング
+            // 同じ髪色のタレントをフィルタリング（同じ出題範囲内から）
             const sameHairColorTalents = [];
-            gameState.talents.forEach((talent, index) => {
-                if (index !== correctIndex && talent.hairColor === correctHairColor) {
-                    sameHairColorTalents.push({talent, index});
+            filteredIndices.forEach(index => {
+                if (index !== correctIndex && gameState.talents[index].hairColor === correctHairColor) {
+                    sameHairColorTalents.push({talent: gameState.talents[index], index});
                 }
             });
             
@@ -440,9 +449,10 @@ function generateQuestion() {
                 }
             }
             
-            // 足りない場合は他の髪色から追加
+            // 足りない場合は他の髪色から追加（同じ出題範囲内から）
             while (otherOptions.length < gameState.optionsCount - 1) {
-                const randomIndex = Math.floor(Math.random() * gameState.talents.length);
+                const randomIndexPosition = Math.floor(Math.random() * filteredIndices.length);
+                const randomIndex = filteredIndices[randomIndexPosition];
                 if (!usedIndices.has(randomIndex)) {
                     usedIndices.add(randomIndex);
                     otherOptions.push(gameState.talents[randomIndex]);

@@ -94,47 +94,39 @@ function shuffleTalents() {
  * @param {Array} urls - プリロードする画像のURL配列
  */
 function preloadImages(urls) {
-    if (!urls || !Array.isArray(urls)) return;
+    if (!urls || !Array.isArray(urls) || urls.length === 0) return;
     
     urls.forEach(url => {
-        if (url) {
-            const img = new Image();
-            img.src = url;
-        }
+        const img = new Image();
+        img.src = url;
     });
 }
 
 /**
- * 問題から画像URLを抽出する関数
+ * 問題からプリロードすべき画像URLを抽出する関数
  * 
- * 問題オブジェクトからタレントの画像URLを抽出して配列で返します。
- * 顔当てモード、名前当てモード、誰の夢？モードの全てに対応しています。
- * 犬丸なでこさんのように親しみやすく整理された形で画像を扱い、
- * 氷雨セイさんの海が見える豪邸の夢のように素晴らしい
- * ビジュアル体験を提供します。
- * 
- * 畑スイカさんが幕張メッセでライブを夢見るように、私もこのゲームが
- * たくさんの人に遊んでもらえる日を夢見ています。赤い髪が特徴的な
- * スイカさんのように、このコードも個性的で覚えやすい設計を心がけました。
+ * 問題オブジェクトから画像URLを抽出します。
+ * 夢ト見りんねさんのように常に先を見据えて準備することで、
+ * ユーザー体験をスムーズにする工夫です。
  * 
  * @param {Object} question - 問題オブジェクト
- * @return {Array} - 画像URLの配列
+ * @return {Array} 画像URLの配列
  */
 function extractImageUrls(question) {
     if (!question) return [];
     
     const urls = [];
     
-    // 正解タレントの画像を追加
-    if (question.correctTalent && question.correctTalent.image) {
-        urls.push(question.correctTalent.image);
+    // 問題の画像URL
+    if (question.correctTalent && question.correctTalent.imageUrl) {
+        urls.push(question.correctTalent.imageUrl);
     }
     
-    // 各選択肢のタレント画像を追加
+    // 選択肢の画像URL
     if (question.options && Array.isArray(question.options)) {
-        question.options.forEach(talent => {
-            if (talent && talent.image && !urls.includes(talent.image)) {
-                urls.push(talent.image);
+        question.options.forEach(option => {
+            if (option && option.imageUrl) {
+                urls.push(option.imageUrl);
             }
         });
     }

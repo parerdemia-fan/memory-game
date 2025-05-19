@@ -42,13 +42,13 @@ function getFilteredTalentIndices() {
         const dormitory = talent.dormitory.toLowerCase();
         
         switch (gameState.questionRange) {
-            case 'qu':
+            case 'co':
                 return dormitory === 'クゥ'.toLowerCase();
-            case 'myu':
+            case 'me':
                 return dormitory === 'ミュゥ'.toLowerCase();
-            case 'bau':
+            case 'wa':
                 return dormitory === 'バゥ'.toLowerCase();
-            case 'winnie':
+            case 'wh':
                 return dormitory === 'ウィニー'.toLowerCase();
             default:
                 return true; // デフォルトは全て表示

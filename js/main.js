@@ -117,10 +117,10 @@ function initialize() {
             document.querySelectorAll('.range-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if ((savedSettings.questionRange === 'all' && btn.id === 'range-all') ||
-                    (savedSettings.questionRange === 'qu' && btn.id === 'range-qu') ||
-                    (savedSettings.questionRange === 'myu' && btn.id === 'range-myu') ||
-                    (savedSettings.questionRange === 'bau' && btn.id === 'range-bau') ||
-                    (savedSettings.questionRange === 'winnie' && btn.id === 'range-winnie')) {
+                    (savedSettings.questionRange === 'co' && btn.id === 'range-co') ||
+                    (savedSettings.questionRange === 'me' && btn.id === 'range-me') ||
+                    (savedSettings.questionRange === 'wa' && btn.id === 'range-wa') ||
+                    (savedSettings.questionRange === 'wh' && btn.id === 'range-wh')) {
                     btn.classList.add('active');
                 }
             });
@@ -228,12 +228,12 @@ function setupEventListeners() {
     document.getElementById('hard-mode').addEventListener('click', () => setDifficulty('hard'));
     document.getElementById('oni-mode').addEventListener('click', () => setDifficulty('oni'));
     
-    // 出題範囲切り替え（現状はUIのみ、動作は未実装）
+    // 出題範囲切り替え
     document.getElementById('range-all').addEventListener('click', () => setQuestionRange('all'));
-    document.getElementById('range-qu').addEventListener('click', () => setQuestionRange('qu'));
-    document.getElementById('range-myu').addEventListener('click', () => setQuestionRange('myu'));
-    document.getElementById('range-bau').addEventListener('click', () => setQuestionRange('bau'));
-    document.getElementById('range-winnie').addEventListener('click', () => setQuestionRange('winnie'));
+    document.getElementById('range-co').addEventListener('click', () => setQuestionRange('co'));
+    document.getElementById('range-me').addEventListener('click', () => setQuestionRange('me'));
+    document.getElementById('range-wa').addEventListener('click', () => setQuestionRange('wa'));
+    document.getElementById('range-wh').addEventListener('click', () => setQuestionRange('wh'));
 }
 
 // 出題範囲の状態管理と機能実装
@@ -245,14 +245,14 @@ function setQuestionRange(range) {
     document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
     if (range === 'all') {
         document.getElementById('range-all').classList.add('active');
-    } else if (range === 'qu') {
-        document.getElementById('range-qu').classList.add('active');
-    } else if (range === 'myu') {
-        document.getElementById('range-myu').classList.add('active');
-    } else if (range === 'bau') {
-        document.getElementById('range-bau').classList.add('active');
-    } else if (range === 'winnie') {
-        document.getElementById('range-winnie').classList.add('active');
+    } else if (range === 'co') {
+        document.getElementById('range-co').classList.add('active');
+    } else if (range === 'me') {
+        document.getElementById('range-me').classList.add('active');
+    } else if (range === 'wa') {
+        document.getElementById('range-wa').classList.add('active');
+    } else if (range === 'wh') {
+        document.getElementById('range-wh').classList.add('active');
     }
     
     // gameStateに反映

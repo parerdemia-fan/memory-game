@@ -16,7 +16,7 @@ window.gameState = {
     mode: 'image-select',
     optionsCount: 3, // 4から3に変更してHTMLのアクティブボタンと一致させる
     difficulty: 'easy', // 'easy', 'hard', 'oni'
-    questionRange: 'all', // 出題範囲を追加: 'all', 'qu', 'myu', 'bau', 'winnie'
+    questionRange: 'all', // 出題範囲を追加: 'all', 'co', 'me', 'wa', 'wh'
     talents: [],
     shuffledTalents: [],
     currentIndex: 0,

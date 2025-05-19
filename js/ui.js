@@ -102,10 +102,10 @@ function setupSettingsModal() {
             document.querySelectorAll('.range-btn').forEach(btn => {
                 btn.classList.remove('active');
                 if ((gameState.questionRange === 'all' && btn.id === 'range-all') ||
-                    (gameState.questionRange === 'qu' && btn.id === 'range-qu') ||
-                    (gameState.questionRange === 'myu' && btn.id === 'range-myu') ||
-                    (gameState.questionRange === 'bau' && btn.id === 'range-bau') ||
-                    (gameState.questionRange === 'winnie' && btn.id === 'range-winnie')) {
+                    (gameState.questionRange === 'co' && btn.id === 'range-co') ||
+                    (gameState.questionRange === 'me' && btn.id === 'range-me') ||
+                    (gameState.questionRange === 'wa' && btn.id === 'range-wa') ||
+                    (gameState.questionRange === 'wh' && btn.id === 'range-wh')) {
                     btn.classList.add('active');
                 }
             });
@@ -184,9 +184,9 @@ function updateSettingsDisplay() {
     if (currentRange) {
         currentRange.textContent = 
             gameState.questionRange === 'all' ? '全員' : 
-            gameState.questionRange === 'qu' ? 'クゥ寮' : 
-            gameState.questionRange === 'myu' ? 'ミュゥ寮' : 
-            gameState.questionRange === 'bau' ? 'バゥ寮' : 'ウィニー寮';
+            gameState.questionRange === 'co' ? 'クゥ寮' : 
+            gameState.questionRange === 'me' ? 'ミュゥ寮' : 
+            gameState.questionRange === 'wa' ? 'バゥ寮' : 'ウィニー寮';
     }
     
     // 設定変更後に次の問題の画像をプリロード

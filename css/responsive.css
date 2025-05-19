@@ -943,3 +943,20 @@
         padding: 6px 14px !important; /* 左右のパディングを10pxから14pxに増加 */
     }
 }
+
+/* 出題範囲セレクタのモバイル調整 */
+.range-selector h3 {
+    font-size: 16px;
+    margin: 5px 0;
+}
+.range-btn {
+    padding: 8px 10px;
+    font-size: 13px;
+    min-width: 60px;
+    margin: 2px;
+    flex: 1 1 auto;
+}
+.button-group {
+    flex-wrap: wrap;
+    gap: 6px;
+}

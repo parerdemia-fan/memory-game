@@ -518,3 +518,39 @@ button:hover {
     color: #97aec0;
     border-color: #ccc;
 }
+
+/* 出題範囲セレクタ */
+.range-selector h3 {
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.range-btn {
+    white-space: nowrap;
+    padding: 8px 18px;
+    margin: 0 3px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e6e0ff, #c0c8ff);
+    color: #6a5acd;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 70px;
+    max-width: 120px;
+}
+
+.range-btn.active {
+    background: linear-gradient(135deg, #a090fb, #8a70d6);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(138, 112, 214, 0.4);
+}
+
+.range-btn:hover {
+    background: linear-gradient(135deg, #d6d0ff, #b0b8ff);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+}

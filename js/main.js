@@ -179,6 +179,10 @@ function initialize() {
         gameState.difficulty = 'easy';
     }
     
+    // 出題範囲の初期化（デフォルト: 全員）
+    document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('range-all').classList.add('active');
+    
     // 初期化完了後に再度設定表示を更新
     if (typeof updateSettingsDisplay === 'function') {
         updateSettingsDisplay();
@@ -206,4 +210,28 @@ function setupEventListeners() {
     document.getElementById('easy-mode').addEventListener('click', () => setDifficulty('easy'));
     document.getElementById('hard-mode').addEventListener('click', () => setDifficulty('hard'));
     document.getElementById('oni-mode').addEventListener('click', () => setDifficulty('oni'));
+    
+    // 出題範囲切り替え（現状はUIのみ、動作は未実装）
+    document.getElementById('range-all').addEventListener('click', () => setQuestionRange('all'));
+    document.getElementById('range-qu').addEventListener('click', () => setQuestionRange('qu'));
+    document.getElementById('range-myu').addEventListener('click', () => setQuestionRange('myu'));
+    document.getElementById('range-bau').addEventListener('click', () => setQuestionRange('bau'));
+    document.getElementById('range-winnie').addEventListener('click', () => setQuestionRange('winnie'));
+}
+
+// 出題範囲の状態管理（現状はUIのみ、動作は未実装）
+function setQuestionRange(range) {
+    document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
+    if (range === 'all') {
+        document.getElementById('range-all').classList.add('active');
+    } else if (range === 'qu') {
+        document.getElementById('range-qu').classList.add('active');
+    } else if (range === 'myu') {
+        document.getElementById('range-myu').classList.add('active');
+    } else if (range === 'bau') {
+        document.getElementById('range-bau').classList.add('active');
+    } else if (range === 'winnie') {
+        document.getElementById('range-winnie').classList.add('active');
+    }
+    // 今後ここでgameStateへの反映や出題範囲の切り替えを実装予定
 }

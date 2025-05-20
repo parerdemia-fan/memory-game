@@ -123,6 +123,14 @@ function setupSettingsModal() {
         settingsModal.classList.remove('open');
         document.body.classList.remove('modal-open');
         document.body.style.paddingRight = '0';
+        
+        // ゲーム完了状態だった場合、設定変更後にリセットする
+        if (gameState.gameCompleted) {
+            gameState.gameCompleted = false;
+            resetAllStats();
+            shuffleTalents();
+            generateQuestion();
+        }
     }
     
     // ヘルプモーダルのセットアップを呼び出し

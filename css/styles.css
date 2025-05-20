@@ -1,0 +1,65 @@
+/* ゲーム完了表示のスタイル */
+.complete-message {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    color: #ff6d92;
+    padding: 15px;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.clear-time {
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #6c757d;
+}
+
+#retry-button {
+    margin-top: 15px;
+    padding: 8px 20px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    background-color: #ff6d92;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+#retry-button:hover {
+    transform: scale(1.05);
+    background-color: #ff5483;
+}
+
+/* 完了エフェクトスタイル */
+.completion-effect-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    top: -10px;
+    border-radius: 50%;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}

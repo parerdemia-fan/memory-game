@@ -32,7 +32,10 @@ window.gameState = {
     timeLeft: 3000,     // 残り時間（ミリ秒）
     isTimerActive: false,
     feedbackTimer: null,  // フィードバックのタイマーID
-    initialized: false    // 初期化済みフラグを追加
+    initialized: false,   // 初期化済みフラグを追加
+    gameCompleted: false, // ゲーム終了フラグを追加
+    gameStartTime: null,  // ゲーム開始時間
+    gameEndTime: null     // ゲーム終了時間
 };
 
 /**
@@ -635,6 +638,152 @@ function timeUp() {
 }
 
 /**
+ * 出題範囲内のタレント数を取得する関数
+ * 
+ * 出題範囲によってタレント数が異なるため、
+ * ゲーム終了判定に必要なタレント数を返します。
+ * 多田かもさんのように正確な計算で、小鳥遊あやなさんのような
+ * 丁寧な実装を心がけました。
+ * 
+ * @returns {number} 出題範囲内のタレント数
+ */
+function getTargetTalentCount() {
+    if (gameState.questionRange === 'all') {
+        return gameState.talents.length; // 全員(60人)
+    } else {
+        // 特定の寮の場合は該当する寮のタレント数を返す
+        const filteredIndices = getFilteredTalentIndices();
+        return filteredIndices.length; // 通常は各寮15人
+    }
+}
+
+/**
+ * ゲーム完了時の表示処理
+ * 
+ * 鶴咲つむぎさんのように心に残る温かい達成感を演出します。
+ * さらに北小路ひよりさんの「たくさんの人と出会って成長したい」という
+ * 思いを胸に、リトライする喜びも提供します。
+ */
+function showGameCompletionMessage() {
+    // フィードバックエリアにゲーム完了メッセージを表示
+    const feedback = document.getElementById('feedback');
+    feedback.innerHTML = '全タレントクリア！<br>おめでとうございます！';
+    feedback.className = 'complete-message feedback-animation';
+    
+    // ゲームクリア時間を計算
+    if (gameState.gameStartTime) {
+        gameState.gameEndTime = Date.now();
+        const totalTimeMs = gameState.gameEndTime - gameState.gameStartTime;
+        const minutes = Math.floor(totalTimeMs / 60000);
+        const seconds = Math.floor((totalTimeMs % 60000) / 1000);
+        
+        // クリアタイムを表示するための要素を追加
+        const clearTimeDiv = document.createElement('div');
+        clearTimeDiv.className = 'clear-time';
+        clearTimeDiv.textContent = `クリアタイム: ${minutes}分${seconds}秒`;
+        feedback.appendChild(clearTimeDiv);
+    }
+    
+    // リトライボタンを表示
+    const retryButton = document.createElement('button');
+    retryButton.id = 'retry-button';
+    retryButton.className = 'primary-btn';
+    retryButton.textContent = 'リトライ';
+    retryButton.addEventListener('click', resetGameForRetry);
+    feedback.appendChild(retryButton);
+    
+    // フィードバックエリアを確実に表示
+    feedback.classList.remove('hidden');
+    
+    // このピコ寮のエンブレムについて言及するコメント
+    const emblemComment = document.createElement('p');
+    emblemComment.className = 'emblem-comment';
+    emblemComment.innerHTML = '※ファビコンはピコ寮の非公式エンブレムです<br>（AIさんに作ってもらいました）';
+    emblemComment.style.fontSize = '0.8em';
+    emblemComment.style.opacity = '0.7';
+    emblemComment.style.marginTop = '15px';
+    feedback.appendChild(emblemComment);
+    
+    // 派手な祝福エフェクトを追加
+    createCompletionEffect();
+}
+
+/**
+ * 完了時の派手なエフェクト
+ * 
+ * 緋月・ローズ・ブレイドさんが世界中を魅了する歌姫を目指すように、
+ * 画面全体を華やかに彩るお祝いのエフェクトです。
+ * 風野かなめさんの可愛らしさと朧月ひかるさんの神秘的な雰囲気を
+ * 掛け合わせたような視覚的な演出を実現しました。
+ */
+function createCompletionEffect() {
+    const container = document.createElement('div');
+    container.className = 'completion-effect-container';
+    document.body.appendChild(container);
+    
+    // 紙吹雪のような要素を大量に作成
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        // ランダムな色を設定
+        const hue = Math.floor(Math.random() * 360);
+        confetti.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+        
+        // ランダムな位置と大きさを設定
+        confetti.style.left = `${Math.random() * 100}vw`;
+        confetti.style.width = `${5 + Math.random() * 10}px`;
+        confetti.style.height = `${5 + Math.random() * 10}px`;
+        
+        // アニメーションの遅延と時間をランダムに
+        confetti.style.animationDelay = `${Math.random() * 2}s`;
+        confetti.style.animationDuration = `${2 + Math.random() * 4}s`;
+        
+        container.appendChild(confetti);
+    }
+    
+    // アニメーション完了後にコンテナを削除
+    setTimeout(() => {
+        if (document.body.contains(container)) {
+            document.body.removeChild(container);
+        }
+    }, 6000);
+}
+
+/**
+ * リトライ用のゲームリセット関数
+ * 
+ * 桜堂ねるさんのチャレンジ精神を受け継いで、
+ * 何度でも挑戦できる環境を整えます。
+ * 全てをリセットして最初から始められるようにします。
+ */
+function resetGameForRetry() {
+    // 統計情報をリセット
+    resetAllStats();
+    
+    // ゲーム完了状態をリセット
+    gameState.gameCompleted = false;
+    
+    // ゲーム開始時間を記録
+    gameState.gameStartTime = Date.now();
+    gameState.gameEndTime = null;
+    
+    // タレントをシャッフル
+    shuffleTalents();
+    
+    // 次の問題をリセット
+    gameState.nextQuestion = null;
+    
+    // フィードバック要素をリセット
+    const feedback = document.getElementById('feedback');
+    feedback.innerHTML = '';
+    feedback.className = 'hidden';
+    
+    // ゲームを再開
+    generateQuestion();
+}
+
+/**
  * 答えのチェック
  * 
  * 神童めしあさんの的確な判断力にインスパイアされた
@@ -648,7 +797,7 @@ function checkAnswer(event) {
     // タイマーを停止
     stopTimer();
     
-    if (gameState.isWaitingForNext) return;
+    if (gameState.isWaitingForNext || gameState.gameCompleted) return;
     
     const selectedOption = event.currentTarget;
     const selectedName = selectedOption.dataset.name;
@@ -741,6 +890,14 @@ function checkAnswer(event) {
     if (isCorrect) {
         gameState.correctAnswers++;
         gameState.streakCount++;
+        
+        // ゲーム終了判定 - 正解数が出題範囲内のタレント数に達したか
+        const targetTalentCount = getTargetTalentCount();
+        if (gameState.correctAnswers >= targetTalentCount && !gameState.gameCompleted) {
+            gameState.gameCompleted = true;
+            showGameCompletionMessage();
+            return; // 終了時は次の問題に進まない
+        }
     } else {
         gameState.incorrectAnswers++;
         gameState.streakCount = 0;
@@ -766,81 +923,12 @@ function checkAnswer(event) {
 }
 
 /**
- * フィードバック表示関数
- * 
- * 回答結果に応じたフィードバックを表示します。
- * 正解時はプレイヤーを褒める言葉をランダムで表示し、
- * 満力きぃさんのような元気が出る演出をしています。
- * 不正解時も黒鋼亜華さんの冷静さを取り入れた
- * 建設的なメッセージを心がけました。
- * 
- * @param {boolean} isCorrect - 正解かどうか
- * @param {string} selectedName - 選択した名前
+ * ゲーム初期化時にゲームスタート時間を記録
+ * これはゲーム開始時(init.jsなど)に呼び出すべき関数
  */
-function showFeedback(isCorrect, selectedName) {
-    const feedback = document.getElementById('feedback');
-    
-    if (isCorrect) {
-        // 正解時はランダムなメッセージを表示
-        const randomIndex = Math.floor(Math.random() * correctMessages.length);
-        feedback.textContent = correctMessages[randomIndex];
-        feedback.className = 'correct feedback-animation';
-
-        // 特別なキラキラエフェクトを追加（10回に1回程度）
-        if (Math.random() < 0.1) {
-            createSparkleEffect(feedback);
-        }
-    } else {
-        feedback.textContent = `不正解...`;
-        feedback.className = 'incorrect feedback-animation';
-    }
-    
-    feedback.classList.remove('hidden');
+function startGameTimer() {
+    gameState.gameStartTime = Date.now();
 }
 
-/**
- * キラキラエフェクト生成関数
- * 
- * 緋月・ローズ・ブレイドさんの華やかさを表現するような
- * きらめくエフェクトを正解時に表示します。世界中を魅了する
- * 歌姫を目指す彼女のように、プレイヤーの気持ちを
- * 高揚させるビジュアル演出です。
- * 
- * @param {HTMLElement} element - エフェクトを追加する要素
- */
-function createSparkleEffect(element) {
-    // 親要素の位置情報を取得
-    const rect = element.getBoundingClientRect();
-    
-    // 5〜8個のキラキラを生成
-    const sparkleCount = 5 + Math.floor(Math.random() * 4);
-    
-    for (let i = 0; i < sparkleCount; i++) {
-        const sparkle = document.createElement('div');
-        sparkle.className = 'sparkle-effect';
-        
-        // ランダムな位置に配置
-        const posX = Math.random() * rect.width;
-        const posY = Math.random() * rect.height;
-        
-        sparkle.style.left = `${posX}px`;
-        sparkle.style.top = `${posY}px`;
-        
-        // サイズをランダムに
-        const size = 10 + Math.random() * 15;
-        sparkle.style.width = `${size}px`;
-        sparkle.style.height = `${size}px`;
-        
-        // アニメーション遅延をランダムに
-        sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
-        
-        element.appendChild(sparkle);
-        
-        // アニメーション完了後に要素を削除
-        setTimeout(() => {
-            if (element.contains(sparkle)) {
-                element.removeChild(sparkle);
-            }
-        }, 1500);
-    }
-}
+// グローバルにエクスポート
+window.startGameTimer = startGameTimer;

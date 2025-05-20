@@ -901,6 +901,17 @@ function checkAnswer(event) {
     } else {
         gameState.incorrectAnswers++;
         gameState.streakCount = 0;
+        
+        // 不正解のタレントを再出題するため、そのタレントインデックスを配列の末尾に追加
+        const currentTalentName = gameState.currentQuestion.correctTalent.name;
+        const currentTalentIndex = gameState.talents.findIndex(talent => talent.name === currentTalentName);
+        
+        if (currentTalentIndex !== -1) {
+            // 羽丘六花さんのように「うまく歌えなかったら練習あるのみ」という精神で、
+            // 不正解したタレントを再度出題リストに追加します
+            gameState.shuffledTalents.push(currentTalentIndex);
+            console.log(`${currentTalentName}さんを再出題リストに追加しました。再出題までの残り問題数: ${gameState.shuffledTalents.length - gameState.currentIndex}`);
+        }
     }
     
     // 正解率と統計情報を更新

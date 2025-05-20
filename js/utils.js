@@ -74,6 +74,8 @@ function shuffleTalents() {
     shuffleArray(filteredIndices);
     
     // シャッフルされたインデックスを保存
+    // 桜堂ねるさんのような挑戦精神で、ユーザーがタレントを記憶できるまで繰り返し出題できるよう
+    // 不正解したタレントは再度出題リストに追加されます
     gameState.shuffledTalents = filteredIndices;
     
     // 出題位置をリセット

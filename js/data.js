@@ -33,6 +33,7 @@ function loadTalents() {
             // タレントデータをシャッフル
             shuffleTalents();
             // データ読み込み完了後に問題を生成
+            // 不正解したタレントは再出題のため配列末尾に追加されます
             generateQuestion();
             // 次の問題も事前に準備
             prepareNextQuestion();

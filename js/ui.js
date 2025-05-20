@@ -348,11 +348,7 @@ function displayQuestion() {
         
         const correctTalent = gameState.currentQuestion.correctTalent;
         
-        // タレント情報の構造化表示（夢を表示）
-        const talentInfoDiv = document.createElement('div');
-        talentInfoDiv.className = 'talent-info';
-        
-        // 夢を表示
+        // 夢を直接表示（talent-infoクラスのdivを削除）
         const dreamElement = document.createElement('div');
         dreamElement.className = 'talent-dream';
         dreamElement.textContent = correctTalent.dream;
@@ -360,9 +356,8 @@ function displayQuestion() {
         // 夢の文字数に応じてフォントサイズを調整
         adjustDreamFontSize(dreamElement, correctTalent.dream);
         
-        talentInfoDiv.appendChild(dreamElement);
-        
-        questionText.appendChild(talentInfoDiv);
+        // 夢を直接questionTextに追加
+        questionText.appendChild(dreamElement);
         questionText.classList.remove('hidden');
         questionImage.classList.add('hidden');
         

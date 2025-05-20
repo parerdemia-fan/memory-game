@@ -317,12 +317,6 @@
         margin-bottom: 0 !important;
     }
     
-    /* 誰の夢？モードでの.talent-infoのパディングを削除（セレクタを修正） */
-    #options-container.dream-select-mode ~ #question-container .talent-info,
-    .game-area:has(#options-container.dream-select-mode) #question-container .talent-info {
-        padding: 0;
-    }
-    
     /* 名前当てモード用の質問画像調整 */
     #question-image {
         padding: 2px 0; /* 上下のパディングを小さく */
@@ -378,7 +372,22 @@
     
     /* タレント情報の上マージンを削除 */
     .talent-info {
-        margin-top: 0 !important; /* 上マージンを0に設定 */
+        margin-top: 5px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border-left-width: 2px;
+        box-shadow: 0 3px 10px rgba(138, 112, 214, 0.1);
+        background: linear-gradient(135deg, #f9f7ff, #f3f0ff); /* やや明るめ */
+    }
+    
+    /* ホバーエフェクトはタッチデバイスでは不要なので削除 */
+    .talent-info:hover {
+        box-shadow: 0 3px 10px rgba(138, 112, 214, 0.1);
+        transform: none;
+    }
+    
+    .talent-info::before {
+        display: none; /* モバイルではきらめきエフェクトを無効化 */
     }
     
     /* 名前選択モード用 */

@@ -1,37 +1,102 @@
 /* ゲーム完了表示のスタイル */
 .complete-message {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
     text-align: center;
-    color: #ff6d92;
-    padding: 15px;
+    background: linear-gradient(135deg, #ffe8f5, #f5e1ff, #e1e8ff);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-shadow: 0px 2px 5px rgba(255, 109, 146, 0.3);
+    padding: 20px;
     line-height: 1.5;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(138, 112, 214, 0.25);
+    border: 2px solid #f5e1ff;
+    position: relative;
+    overflow: hidden;
+    animation: messageGlow 2s infinite alternate;
+}
+
+.complete-message::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    animation: rotateShine 5s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes rotateShine {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes messageGlow {
+    0% { box-shadow: 0 0 10px rgba(255, 109, 146, 0.4), 0 0 20px rgba(138, 112, 214, 0.2); }
+    100% { box-shadow: 0 0 20px rgba(255, 109, 146, 0.6), 0 0 40px rgba(138, 112, 214, 0.4); }
 }
 
 .clear-time {
-    font-size: 1.2em;
-    margin-top: 10px;
-    margin-bottom: 15px;
-    color: #6c757d;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    color: #8a70d6;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px 15px;
+    border-radius: 30px;
+    display: inline-block;
+    animation: pulseTime 2s infinite alternate;
+}
+
+@keyframes pulseTime {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+.stats-message {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 #retry-button {
-    margin-top: 15px;
-    padding: 8px 20px;
-    font-size: 1.2em;
-    border-radius: 10px;
-    background-color: #ff6d92;
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 1.3em;
+    font-weight: bold;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff6d92, #b090fb);
     color: white;
     border: none;
     cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(176, 144, 251, 0.4);
+    animation: buttonPulse 1.5s infinite alternate;
+}
+
+@keyframes buttonPulse {
+    0% { transform: scale(1); box-shadow: 0 5px 15px rgba(176, 144, 251, 0.4); }
+    100% { transform: scale(1.08); box-shadow: 0 8px 20px rgba(255, 109, 146, 0.6); }
 }
 
 #retry-button:hover {
-    transform: scale(1.05);
-    background-color: #ff5483;
+    transform: scale(1.1) translateY(-3px);
+    background: linear-gradient(135deg, #ff5483, #a080eb);
+    box-shadow: 0 8px 25px rgba(176, 144, 251, 0.6);
 }
 
 /* 完了エフェクトスタイル */
@@ -49,17 +114,23 @@
 .confetti {
     position: absolute;
     top: -10px;
-    border-radius: 50%;
-    animation: fall 3s linear forwards;
+    width: 15px;
+    height: 15px;
+    border-radius: 0;
+    animation: fall 5s linear forwards;
+    opacity: 0.9;
 }
 
 @keyframes fall {
     0% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 1;
+    }
+    85% {
         opacity: 1;
     }
     100% {
-        transform: translateY(100vh) rotate(720deg);
+        transform: translateY(100vh) rotate(720deg) scale(0.4);
         opacity: 0;
     }
 }

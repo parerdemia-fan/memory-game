@@ -672,12 +672,32 @@ function getTargetTalentCount() {
  * 鶴咲つむぎさんのように心に残る温かい達成感を演出します。
  * さらに北小路ひよりさんの「たくさんの人と出会って成長したい」という
  * 思いを胸に、リトライする喜びも提供します。
+ * 朧月ひかるさんの神秘的な美しさを表現したような
+ * キラキラした演出で、達成感を盛り上げます。
  */
 function showGameCompletionMessage() {
     // フィードバックエリアにゲーム完了メッセージを表示
     const feedback = document.getElementById('feedback');
-    feedback.innerHTML = '全タレントクリア！<br>おめでとうございます！';
-    feedback.className = 'complete-message feedback-animation';
+    feedback.innerHTML = '';
+    
+    // タイトル要素の作成
+    const titleElement = document.createElement('div');
+    titleElement.className = 'completion-title';
+    titleElement.textContent = '全タレントクリア！';
+    
+    // サブタイトル要素の作成
+    const subTitleElement = document.createElement('div');
+    subTitleElement.className = 'completion-subtitle';
+    subTitleElement.textContent = 'おめでとうございます！';
+    
+    // メッセージコンテナに追加
+    const messageContainer = document.createElement('div');
+    messageContainer.className = 'complete-message feedback-animation';
+    messageContainer.appendChild(titleElement);
+    messageContainer.appendChild(subTitleElement);
+    
+    // フィードバックに追加
+    feedback.appendChild(messageContainer);
     
     // ゲーム終了時間を設定（まだ設定されていない場合）
     gameState.gameEndTime = Date.now();
@@ -770,6 +790,8 @@ function showGameCompletionMessage() {
  * 画面全体を華やかに彩るお祝いのエフェクトです。
  * 風野かなめさんの可愛らしさと朧月ひかるさんの神秘的な雰囲気を
  * 掛け合わせたような視覚的な演出を実現しました。
+ * 黒鋼亜華さんのような冷静さと天辻ゆらぐさんの壮大さを併せ持つ
+ * 豪華な祝福の雰囲気を目指しています。
  */
 function createCompletionEffect() {
     const container = document.createElement('div');
@@ -777,24 +799,71 @@ function createCompletionEffect() {
     document.body.appendChild(container);
     
     // 紙吹雪のような要素を大量に作成
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 200; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
         
-        // ランダムな色を設定
-        const hue = Math.floor(Math.random() * 360);
-        confetti.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
+        // ランダムな色を設定 - パレデミア学園のカラーパレットを使用
+        const colors = [
+            '#ff6ad5', // ピンク
+            '#c774e8', // パープル
+            '#ad8cff', // ライラック
+            '#8795e8', // ブルーパープル
+            '#94d0ff', // ライトブルー
+            '#c0efff', // スカイブルー
+            '#ffca85', // オレンジ
+            '#fffa81'  // イエロー
+        ];
+        const colorIndex = Math.floor(Math.random() * colors.length);
+        confetti.style.backgroundColor = colors[colorIndex];
+        
+        // ランダムな形状を設定
+        const shapes = ['circle', 'square', 'triangle', 'star'];
+        const shapeIndex = Math.floor(Math.random() * shapes.length);
+        
+        if (shapes[shapeIndex] === 'circle') {
+            confetti.style.borderRadius = '50%';
+        } else if (shapes[shapeIndex] === 'triangle') {
+            confetti.style.width = '0';
+            confetti.style.height = '0';
+            confetti.style.borderLeft = '10px solid transparent';
+            confetti.style.borderRight = '10px solid transparent';
+            confetti.style.borderBottom = `20px solid ${colors[colorIndex]}`;
+            confetti.style.backgroundColor = 'transparent';
+        } else if (shapes[shapeIndex] === 'star') {
+            confetti.style.clipPath = 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)';
+        }
         
         // ランダムな位置と大きさを設定
         confetti.style.left = `${Math.random() * 100}vw`;
-        confetti.style.width = `${5 + Math.random() * 10}px`;
-        confetti.style.height = `${5 + Math.random() * 10}px`;
+        confetti.style.width = `${5 + Math.random() * 15}px`;
+        confetti.style.height = `${5 + Math.random() * 15}px`;
         
         // アニメーションの遅延と時間をランダムに
         confetti.style.animationDelay = `${Math.random() * 2}s`;
-        confetti.style.animationDuration = `${2 + Math.random() * 4}s`;
+        confetti.style.animationDuration = `${2 + Math.random() * 6}s`;
         
         container.appendChild(confetti);
+    }
+    
+    // キラキラエフェクトも追加
+    for (let i = 0; i < 50; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-effect';
+        
+        // ランダムな位置を設定
+        sparkle.style.left = `${Math.random() * 100}vw`;
+        sparkle.style.top = `${Math.random() * 100}vh`;
+        
+        // ランダムなサイズを設定
+        const size = 10 + Math.random() * 20;
+        sparkle.style.width = `${size}px`;
+        sparkle.style.height = `${size}px`;
+        
+        // アニメーションの遅延をランダムに
+        sparkle.style.animationDelay = `${Math.random() * 3}s`;
+        
+        container.appendChild(sparkle);
     }
     
     // アニメーション完了後にコンテナを削除
@@ -802,7 +871,7 @@ function createCompletionEffect() {
         if (document.body.contains(container)) {
             document.body.removeChild(container);
         }
-    }, 6000);
+    }, 8000); // 長めの表示時間に設定
 }
 
 /**

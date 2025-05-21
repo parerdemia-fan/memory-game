@@ -262,6 +262,10 @@ function resetGameForSettingChange() {
 
     // 次の問題をリセット
     gameState.nextQuestion = null;
+    
+    // ゲーム開始時間を記録（設定変更時に再設定）
+    gameState.gameStartTime = Date.now();
+    gameState.gameEndTime = null;
 
     generateQuestion();
 }
@@ -675,19 +679,70 @@ function showGameCompletionMessage() {
     feedback.innerHTML = '全タレントクリア！<br>おめでとうございます！';
     feedback.className = 'complete-message feedback-animation';
     
-    // ゲームクリア時間を計算
-    if (gameState.gameStartTime) {
-        gameState.gameEndTime = Date.now();
-        const totalTimeMs = gameState.gameEndTime - gameState.gameStartTime;
-        const minutes = Math.floor(totalTimeMs / 60000);
-        const seconds = Math.floor((totalTimeMs % 60000) / 1000);
-        
-        // クリアタイムを表示するための要素を追加
-        const clearTimeDiv = document.createElement('div');
-        clearTimeDiv.className = 'clear-time';
-        clearTimeDiv.textContent = `クリアタイム: ${minutes}分${seconds}秒`;
-        feedback.appendChild(clearTimeDiv);
+    // ゲーム終了時間を設定（まだ設定されていない場合）
+    gameState.gameEndTime = Date.now();
+    
+    // ゲームスタート時間が設定されていない場合は設定（ゲーム開始時に設定忘れの場合に対応）
+    if (!gameState.gameStartTime) {
+        console.warn('ゲーム開始時間が設定されていませんでした。フォールバック処理を実行します。');
+        // 推定開始時間として、全問正解だと仮定して平均1.5秒/問で計算
+        const estimatedDuration = getTargetTalentCount() * 1500; // 1問1.5秒と仮定
+        gameState.gameStartTime = gameState.gameEndTime - estimatedDuration;
     }
+    
+    // ゲームクリア時間を計算
+    const totalTimeMs = gameState.gameEndTime - gameState.gameStartTime;
+    const minutes = Math.floor(totalTimeMs / 60000);
+    const seconds = Math.floor((totalTimeMs % 60000) / 1000);
+    
+    // クリアタイムを表示するための要素を追加
+    const clearTimeDiv = document.createElement('div');
+    clearTimeDiv.className = 'clear-time';
+    clearTimeDiv.textContent = `クリアタイム: ${minutes}分${seconds}秒`;
+    feedback.appendChild(clearTimeDiv);
+    
+    // 設定や統計情報を含むお祝いメッセージを表示
+    const statsMessage = document.createElement('p');
+    statsMessage.className = 'stats-message';
+    
+    // ゲーム情報を文章に組み込む
+    let message = '';
+    
+    // ゲームモードに関する文章
+    if (gameState.mode === 'image-select') {
+        message += '顔当てモードで';
+    } else if (gameState.mode === 'name-select') {
+        message += '名前当てモードで';
+    } else {
+        message += '「誰の夢？」モードで';
+    }
+    
+    // 出題範囲に関する文章
+    if (gameState.questionRange === 'all') {
+        message += 'パレデミア学園の全タレントを';
+    } else if (gameState.questionRange === 'co') {
+        message += 'クゥ寮のタレントを';
+    } else if (gameState.questionRange === 'me') {
+        message += 'ミュゥ寮のタレントを';
+    } else if (gameState.questionRange === 'wa') {
+        message += 'バゥ寮のタレントを';
+    } else if (gameState.questionRange === 'wh') {
+        message += 'ウィニー寮のタレントを';
+    }
+    
+    // 難易度に関する文章
+    if (gameState.difficulty === 'oni') {
+        message += '鬼難易度で制覇するなんて、すごい記憶力です！';
+    } else if (gameState.difficulty === 'hard') {
+        message += '難易度高で覚えられました！素晴らしい！';
+    } else {
+        message += '見事に覚えることができました！';
+    }
+    
+    statsMessage.innerHTML = message;
+    statsMessage.style.fontSize = '0.9em';
+    statsMessage.style.marginTop = '15px';
+    feedback.appendChild(statsMessage);
     
     // リトライボタンを表示
     const retryButton = document.createElement('button');
@@ -699,15 +754,6 @@ function showGameCompletionMessage() {
     
     // フィードバックエリアを確実に表示
     feedback.classList.remove('hidden');
-    
-    // このピコ寮のエンブレムについて言及するコメント
-    const emblemComment = document.createElement('p');
-    emblemComment.className = 'emblem-comment';
-    emblemComment.innerHTML = '※ファビコンはピコ寮の非公式エンブレムです<br>（AIさんに作ってもらいました）';
-    emblemComment.style.fontSize = '0.8em';
-    emblemComment.style.opacity = '0.7';
-    emblemComment.style.marginTop = '15px';
-    feedback.appendChild(emblemComment);
     
     // 派手な祝福エフェクトを追加
     createCompletionEffect();

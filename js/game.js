@@ -301,9 +301,6 @@ function prepareNextQuestion() {
     const nextTalentIndex = gameState.shuffledTalents[gameState.currentIndex];
     const nextCorrectTalent = gameState.talents[nextTalentIndex];
     
-    // デバッグ用：次の問題の準備情報を表示
-    console.log(`次の問題の準備: ${nextCorrectTalent.name} (インデックス: ${nextTalentIndex})`);
-    
     // 他の選択肢を生成（重複なし）
     const otherOptions = [];
     const usedIndices = new Set([nextTalentIndex]);
@@ -391,24 +388,6 @@ function generateQuestion() {
     
     if (gameState.isWaitingForNext) return;
     
-    // デバッグ用：出題前の詳細情報
-    console.log(`---------- 問題生成開始 ----------`);
-    console.log(`現在のインデックス (問題生成前): ${gameState.currentIndex}`);
-    console.log(`問題 #${gameState.currentIndex + 1}/${gameState.shuffledTalents.length} 出題準備中:`);
-    
-    if (gameState.currentIndex < gameState.shuffledTalents.length) {
-        const currentTalentIndex = gameState.shuffledTalents[gameState.currentIndex];
-        console.log(`出題予定タレント: ${gameState.talents[currentTalentIndex].name} (インデックス: ${currentTalentIndex})`);
-        
-        // 既出タレントを確認（重複チェック用）
-        const askedTalents = [];
-        for (let i = 0; i < gameState.currentIndex; i++) {
-            const talentIndex = gameState.shuffledTalents[i];
-            askedTalents.push(`${gameState.talents[talentIndex].name} (インデックス: ${talentIndex})`);
-        }
-        console.log("既出タレント:", askedTalents);
-    }
-    
     // 前の問題の回答表示をクリア
     document.getElementById('options-container').classList.remove('show-answer');
     
@@ -426,9 +405,6 @@ function generateQuestion() {
     if (gameState.nextQuestion) {
         gameState.currentQuestion = gameState.nextQuestion;
         gameState.nextQuestion = null;
-        
-        // デバッグ用：次の問題から取得したタレント名を表示
-        console.log(`実際に表示する問題のタレント: ${gameState.currentQuestion.correctTalent.name}`);
     } else {
         // シャッフルされたリストから現在の位置のタレントを選択
         const correctIndex = gameState.shuffledTalents[gameState.currentIndex];
@@ -513,25 +489,16 @@ function generateQuestion() {
         startTimer();
     }
     
-    // デバッグ用：インデックス更新前の情報
-    console.log(`インデックス更新前のcurrentIndex: ${gameState.currentIndex}`);
-    
     // 次のインデックスに進む
     gameState.currentIndex = (gameState.currentIndex + 1) % gameState.shuffledTalents.length;
-    
-    // デバッグ用：インデックス更新後の情報
-    console.log(`インデックス更新後のcurrentIndex: ${gameState.currentIndex}`);
     
     // 次の問題で出題予定のタレント（ここでprepareNextQuestionを呼ぶ前に表示）
     if (gameState.currentIndex < gameState.shuffledTalents.length) {
         const nextTalentIndex = gameState.shuffledTalents[gameState.currentIndex];
-        console.log(`次の問題で出題予定のタレント: ${gameState.talents[nextTalentIndex].name}`);
     }
     
     // 次の問題を準備してプリロード - インデックス更新後に呼ぶので正しい次の問題を準備できる
     prepareNextQuestion();
-    
-    console.log(`---------- 問題生成完了 ----------`);
 }
 
 /**
@@ -948,7 +915,6 @@ function checkAnswer(event) {
             // 羽丘六花さんのように「うまく歌えなかったら練習あるのみ」という精神で、
             // 不正解したタレントを再度出題リストに追加します
             gameState.shuffledTalents.push(currentTalentIndex);
-            console.log(`${currentTalentName}さんを再出題リストに追加しました。再出題までの残り問題数: ${gameState.shuffledTalents.length - gameState.currentIndex}`);
         }
     }
     

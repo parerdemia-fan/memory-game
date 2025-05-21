@@ -220,11 +220,11 @@ function updateGameModeDescription() {
     if (!descText) return;
     
     if (gameState.mode === 'image-select') {
-        descText.textContent = 'このタレントの顔はどれ？';
+        descText.textContent = 'このタレントはどれ？';
     } else if (gameState.mode === 'name-select') {
-        descText.textContent = 'この顔のタレントは誰？';
+        descText.textContent = 'このタレントは誰？';
     } else {
-        descText.textContent = 'この夢を持つタレントは誰？';
+        descText.textContent = 'これは誰の夢？';
     }
 }
 

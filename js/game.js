@@ -949,6 +949,12 @@ function checkAnswer(event) {
         gameState.correctAnswers++;
         gameState.streakCount++;
         
+        // 統計情報を先に更新して画面に反映させる
+        updateAccuracy();
+        
+        // フィードバックを表示（ゲームクリア前に確実に表示）
+        showFeedback(isCorrect, selectedName);
+        
         // ゲーム終了判定 - 正解数が出題範囲内のタレント数に達したか
         const targetTalentCount = getTargetTalentCount();
         if (gameState.correctAnswers >= targetTalentCount && !gameState.gameCompleted) {
@@ -969,13 +975,13 @@ function checkAnswer(event) {
             // 不正解したタレントを再度出題リストに追加します
             gameState.shuffledTalents.push(currentTalentIndex);
         }
+        
+        // 統計情報を更新
+        updateAccuracy();
+        
+        // フィードバックを表示
+        showFeedback(isCorrect, selectedName);
     }
-    
-    // 正解率と統計情報を更新
-    updateAccuracy();
-    
-    // フィードバックを表示
-    showFeedback(isCorrect, selectedName);
     
     // 次の問題への移行タイマーをセット
     gameState.isWaitingForNext = true;

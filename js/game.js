@@ -815,8 +815,8 @@ function resetGameForRetry() {
     // ゲーム完了状態をリセット
     gameState.gameCompleted = false;
     
-    // ゲーム開始時間を記録
-    gameState.gameStartTime = Date.now();
+    // ゲーム開始時間をnullにリセット（最初の回答時に再設定される）
+    gameState.gameStartTime = null;
     gameState.gameEndTime = null;
     
     // タレントをシャッフル
@@ -849,6 +849,13 @@ function checkAnswer(event) {
     stopTimer();
     
     if (gameState.isWaitingForNext || gameState.gameCompleted) return;
+    
+    // 初回回答時にゲーム開始時間を設定
+    // これにより実際のプレイ開始時間からクリアタイムが計測されます
+    if (!gameState.gameStartTime) {
+        gameState.gameStartTime = Date.now();
+        console.log('初回回答時にゲーム開始時間を記録しました');
+    }
     
     const selectedOption = event.currentTarget;
     const selectedName = selectedOption.dataset.name;

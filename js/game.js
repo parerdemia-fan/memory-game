@@ -732,9 +732,9 @@ function showGameCompletionMessage() {
     
     // 難易度に関する文章
     if (gameState.difficulty === 'oni') {
-        message += '鬼難易度で制覇するなんて、すごい記憶力です！';
+        message += '鬼難易度で完全制覇！驚異的な記憶力と瞬発力です！パレデミア学園の伝説になるでしょう！';
     } else if (gameState.difficulty === 'hard') {
-        message += '難易度高で覚えられました！素晴らしい！';
+        message += '難易度高での完全制覇、鋭い観察眼の持ち主ですね！';
     } else {
         message += '見事に覚えることができました！';
     }

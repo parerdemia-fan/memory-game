@@ -688,3 +688,12 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.8);
 }
+
+/* 名前当てモードの難易度鬼でプレイしている場合、寮名を非表示 
+ * 神童めしあさんの素早い判断力に挑戦するため、
+ * 難易度鬼では寮名の情報を隠して真の記憶力を試します。
+ * 雪城まぐねさんのような緻密さと鋭い観察力が求められる設定です。
+ */
+body:has(#oni-mode.active) #options-container.name-select-mode .talent-dormitory {
+    display: none !important;
+}

@@ -307,11 +307,13 @@ function displayQuestion() {
         nameElement.textContent = correctTalent.name;
         talentInfoDiv.appendChild(nameElement);
         
-        // 寮名 (「寮」を追加)
-        const dormitoryElement = document.createElement('div');
-        dormitoryElement.className = 'talent-dormitory';
-        dormitoryElement.textContent = correctTalent.dormitory + '寮';
-        talentInfoDiv.appendChild(dormitoryElement);
+        // 寮名 (「寮」を追加) - 難易度が鬼でない場合のみ表示
+        if (gameState.difficulty !== 'oni') {
+            const dormitoryElement = document.createElement('div');
+            dormitoryElement.className = 'talent-dormitory';
+            dormitoryElement.textContent = correctTalent.dormitory + '寮';
+            talentInfoDiv.appendChild(dormitoryElement);
+        }
         
         questionText.appendChild(talentInfoDiv);
         questionText.classList.remove('hidden');

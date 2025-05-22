@@ -96,6 +96,9 @@ function setupSettingsModal() {
         const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
         document.body.style.paddingRight = scrollbarWidth + 'px';
         
+        // 設定モーダルが開いているフラグをセット
+        gameState.isSettingsModalOpen = true;
+        
         // モーダルを事前に配置
         requestAnimationFrame(() => {
             // 出題範囲の選択状態を更新
@@ -124,12 +127,21 @@ function setupSettingsModal() {
         document.body.classList.remove('modal-open');
         document.body.style.paddingRight = '0';
         
+        // 設定モーダルが閉じたフラグをセット
+        gameState.isSettingsModalOpen = false;
+        
         // ゲーム完了状態だった場合、設定変更後にリセットする
         if (gameState.gameCompleted) {
             gameState.gameCompleted = false;
             resetAllStats();
             shuffleTalents();
             generateQuestion();
+        }
+        
+        // 難易度が「鬼」の場合、モーダルを閉じた時点でタイマーを明示的に開始
+        // これにより設定変更中はタイマーが動かず、閉じた後に開始される
+        if (gameState.difficulty === 'oni' && !gameState.isWaitingForNext) {
+            startTimer();
         }
     }
     

@@ -35,7 +35,8 @@ window.gameState = {
     initialized: false,   // 初期化済みフラグを追加
     gameCompleted: false, // ゲーム終了フラグを追加
     gameStartTime: null,  // ゲーム開始時間
-    gameEndTime: null     // ゲーム終了時間
+    gameEndTime: null,     // ゲーム終了時間
+    isSettingsModalOpen: false  // 設定モーダルが開いているかを追跡するフラグ
 };
 
 /**
@@ -521,8 +522,8 @@ function generateQuestion() {
     // 問題を表示
     displayQuestion();
     
-    // 難易度が「鬼」の場合、タイマーを開始
-    if (gameState.difficulty === 'oni') {
+    // 難易度が「鬼」の場合かつ設定モーダルが開いていない場合のみタイマーを開始
+    if (gameState.difficulty === 'oni' && !gameState.isSettingsModalOpen) {
         startTimer();
     }
     

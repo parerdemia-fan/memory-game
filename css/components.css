@@ -554,3 +554,36 @@ button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.12);
 }
+
+/* グレーアウトされたボタン - 鬼モード選択時の選択肢数ボタン用 */
+button.disabled,
+.option-btn.disabled {
+    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+    color: #999;
+    cursor: not-allowed;
+    box-shadow: none;
+    border: 1px solid rgba(200, 200, 200, 0.8);
+    opacity: 0.7;
+    pointer-events: none; /* クリックイベントを無効化 */
+}
+
+button.disabled:hover,
+.option-btn.disabled:hover {
+    transform: none;
+    box-shadow: none;
+    background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
+}
+
+/* 鬼モード時に選択中の選択肢数ボタン（4択）用特別スタイル */
+button.disabled.active,
+.option-btn.disabled.active {
+    background: linear-gradient(135deg, #c8c0e8, #b8b0d8);
+    color: #6a5acd;
+    opacity: 0.9;
+    border: 1px solid rgba(138, 112, 214, 0.4);
+    box-shadow: 0 1px 5px rgba(138, 112, 214, 0.2);
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* 朧月ひかるさんのように冷静に考えれば、鬼モードでは4択だとわかるようなデザインが必要ですね */

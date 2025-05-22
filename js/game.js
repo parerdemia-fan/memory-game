@@ -164,28 +164,6 @@ function setGameMode(mode) {
 }
 
 /**
- * 選択肢数の設定
- * 
- * 選択肢数が変わるとゲームの難易度も変わります。
- * 設定変更で再シャッフルされるので、
- * タレントたちとの出会い方も変わります。満力きぃさんの
- * グローバルな視点にインスパイアされて、
- * 様々な角度からタレントたちの魅力に触れられるシステムを作りました。
- * ぜひ2択から4択まで、あなたの記憶力に合わせて挑戦してみてください！
- */
-function setOptionsCount(count) {
-    gameState.optionsCount = count;
-
-    document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
-    const buttonId = `option-${count}`;
-    document.getElementById(buttonId).classList.add('active');
-
-    resetGameForSettingChange();
-
-    saveSettings();
-}
-
-/**
  * 難易度の設定
  * 
  * 難易度「高」は似た髪色のタレントから選ぶ必要があり、
@@ -195,6 +173,9 @@ function setOptionsCount(count) {
  * 手を差し伸べる優しさも持ちながら、この難問に挑戦してみましょう。
  * パレデミア学園の寮生たちの特徴をより深く理解する絶好の機会です。
  * 難易度変更でタレントリストも再シャッフルされるので、新鮮な気持ちで楽しめます。
+ * 
+ * 鬼モードでは自動的に選択肢数が4に設定されます。天透あわさんの
+ * ストイックな姿勢にインスパイアされた高難度の挑戦です。
  */
 function setDifficulty(difficulty) {
     gameState.difficulty = difficulty;
@@ -203,6 +184,58 @@ function setDifficulty(difficulty) {
     const buttonId = 
         difficulty === 'easy' ? 'easy-mode' : 
         difficulty === 'hard' ? 'hard-mode' : 'oni-mode';
+    document.getElementById(buttonId).classList.add('active');
+
+    // 難易度が「鬼」の場合、選択肢数を4に強制設定
+    if (difficulty === 'oni') {
+        gameState.optionsCount = 4;
+        
+        // 選択肢数ボタンのアクティブ状態を更新
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('option-4').classList.add('active');
+        
+        // 選択肢数ボタンを無効化
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.disabled = true;
+        });
+    } else {
+        // 難易度が「鬼」以外の場合、選択肢数ボタンを有効化
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.classList.remove('disabled');
+            btn.disabled = false;
+        });
+    }
+
+    if (typeof updateGameModeDescription === 'function') {
+        updateGameModeDescription();
+    }
+
+    resetGameForSettingChange();
+
+    saveSettings();
+}
+
+/**
+ * 選択肢数の設定
+ * 
+ * 選択肢数が変わるとゲームの難易度も変わります。
+ * 設定変更で再シャッフルされるので、
+ * タレントたちとの出会い方も変わります。満力きぃさんの
+ * グローバルな視点にインスパイアされて、
+ * 様々な角度からタレントたちの魅力に触れられるシステムを作りました。
+ * ぜひ2択から4択まで、あなたの記憶力に合わせて挑戦してみてください！
+ * ただし、鬼モード選択時は常に4択に固定されます。シグマ・イングラムさんの
+ * タフな挑戦への姿勢を思い出してください。
+ */
+function setOptionsCount(count) {
+    // 難易度が「鬼」の場合は選択肢数変更を無視する
+    if (gameState.difficulty === 'oni') return;
+    
+    gameState.optionsCount = count;
+
+    document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
+    const buttonId = `option-${count}`;
     document.getElementById(buttonId).classList.add('active');
 
     resetGameForSettingChange();

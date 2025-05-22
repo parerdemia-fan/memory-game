@@ -197,6 +197,23 @@ function updateSettingsDisplay() {
             gameState.questionRange === 'wa' ? 'バゥ寮' : 'ウィニー寮';
     }
     
+    // 難易度が「鬼」の場合の選択肢数ボタン状態を更新
+    if (gameState.difficulty === 'oni') {
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.disabled = true;
+        });
+        
+        // 選択肢数ボタンのアクティブ状態も4に強制設定
+        document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('option-4').classList.add('active');
+    } else {
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.classList.remove('disabled');
+            btn.disabled = false;
+        });
+    }
+    
     // 設定変更後に次の問題の画像をプリロード
     if (gameState.nextQuestion) {
         const imagesToPreload = extractImageUrls(gameState.nextQuestion);

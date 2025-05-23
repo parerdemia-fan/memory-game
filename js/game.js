@@ -200,9 +200,28 @@ function setDifficulty(difficulty) {
             btn.classList.add('disabled');
             btn.disabled = true;
         });
+
+        // 出題範囲を「全員」に強制設定
+        gameState.questionRange = 'all';
+        
+        // 出題範囲ボタンのアクティブ状態を更新
+        document.querySelectorAll('.range-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('range-all').classList.add('active');
+        
+        // 出題範囲ボタンを無効化
+        document.querySelectorAll('.range-btn').forEach(btn => {
+            btn.classList.add('disabled');
+            btn.disabled = true;
+        });
     } else {
         // 難易度が「鬼」以外の場合、選択肢数ボタンを有効化
         document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.classList.remove('disabled');
+            btn.disabled = false;
+        });
+
+        // 出題範囲ボタンを有効化
+        document.querySelectorAll('.range-btn').forEach(btn => {
             btn.classList.remove('disabled');
             btn.disabled = false;
         });

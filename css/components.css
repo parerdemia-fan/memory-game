@@ -555,9 +555,10 @@ button:hover {
     box-shadow: 0 5px 15px rgba(0,0,0,0.12);
 }
 
-/* グレーアウトされたボタン - 鬼モード選択時の選択肢数ボタン用 */
+/* グレーアウトされたボタン - 鬼モード選択時の選択肢数・出題範囲ボタン用 */
 button.disabled,
-.option-btn.disabled {
+.option-btn.disabled,
+.range-btn.disabled {
     background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
     color: #999;
     cursor: not-allowed;
@@ -568,15 +569,17 @@ button.disabled,
 }
 
 button.disabled:hover,
-.option-btn.disabled:hover {
+.option-btn.disabled:hover,
+.range-btn.disabled:hover {
     transform: none;
     box-shadow: none;
     background: linear-gradient(135deg, #e0e0e0, #d0d0d0);
 }
 
-/* 鬼モード時に選択中の選択肢数ボタン（4択）用特別スタイル */
+/* 鬼モード時に選択中のボタン（4択・全員）用特別スタイル */
 button.disabled.active,
-.option-btn.disabled.active {
+.option-btn.disabled.active,
+.range-btn.disabled.active {
     background: linear-gradient(135deg, #c8c0e8, #b8b0d8);
     color: #6a5acd;
     opacity: 0.9;
@@ -586,4 +589,4 @@ button.disabled.active,
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-/* 朧月ひかるさんのように冷静に考えれば、鬼モードでは4択だとわかるようなデザインが必要ですね */
+/* 天透あわさんのようにストイックに挑戦するため、鬼モードでは全設定が固定されます */

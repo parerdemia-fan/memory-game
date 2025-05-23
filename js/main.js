@@ -84,18 +84,6 @@ function initialize() {
             });
         }
         
-        // 選択肢数設定を適用
-        if (savedSettings.optionsCount) {
-            gameState.optionsCount = savedSettings.optionsCount;
-            foundActiveOption = true;
-            document.querySelectorAll('.option-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.id === `option-${savedSettings.optionsCount}`) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-        
         // 難易度設定を適用
         if (savedSettings.difficulty) {
             gameState.difficulty = savedSettings.difficulty;
@@ -108,10 +96,31 @@ function initialize() {
                     btn.classList.add('active');
                 }
             });
+
+            // 鬼モードの場合、選択肢数と出題範囲の制約を適用
+            if (savedSettings.difficulty === 'oni') {
+                // 選択肢数を4に強制
+                gameState.optionsCount = 4;
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.add('disabled');
+                    btn.disabled = true;
+                });
+                document.getElementById('option-4').classList.add('active');
+
+                // 出題範囲を全員に強制
+                gameState.questionRange = 'all';
+                document.querySelectorAll('.range-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.add('disabled');
+                    btn.disabled = true;
+                });
+                document.getElementById('range-all').classList.add('active');
+            }
         }
         
-        // 出題範囲設定を適用
-        if (savedSettings.questionRange) {
+        // 出題範囲設定を適用（鬼モード以外の場合のみ）
+        if (savedSettings.questionRange && gameState.difficulty !== 'oni') {
             gameState.questionRange = savedSettings.questionRange;
             foundActiveRange = true;
             document.querySelectorAll('.range-btn').forEach(btn => {
@@ -121,6 +130,18 @@ function initialize() {
                     (savedSettings.questionRange === 'me' && btn.id === 'range-me') ||
                     (savedSettings.questionRange === 'wa' && btn.id === 'range-wa') ||
                     (savedSettings.questionRange === 'wh' && btn.id === 'range-wh')) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        
+        // 選択肢数設定を適用（鬼モード以外の場合のみ）
+        if (savedSettings.optionsCount && gameState.difficulty !== 'oni') {
+            gameState.optionsCount = savedSettings.optionsCount;
+            foundActiveOption = true;
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.id === `option-${savedSettings.optionsCount}`) {
                     btn.classList.add('active');
                 }
             });

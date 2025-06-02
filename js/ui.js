@@ -364,9 +364,9 @@ function displayQuestion() {
                 option.classList.add('talent-birthday');
             }
             
-            // 画像を追加
+            // 画像を追加 - studentIdから画像パスを生成
             const img = document.createElement('img');
-            img.src = talent.image;
+            img.src = getImagePath(talent.studentId);
             img.alt = talent.name;
             option.appendChild(img);
             
@@ -416,9 +416,9 @@ function displayQuestion() {
                 option.classList.add('talent-birthday');
             }
             
-            // 画像を追加
+            // 画像を追加 - studentIdから画像パスを生成
             const img = document.createElement('img');
-            img.src = talent.image;
+            img.src = getImagePath(talent.studentId);
             img.alt = talent.name;
             option.appendChild(img);
             
@@ -440,7 +440,7 @@ function displayQuestion() {
     } else {
         // 名前選択モード: 画像を表示し、複数の名前から選ばせる
         const img = document.createElement('img');
-        img.src = gameState.currentQuestion.correctTalent.image;
+        img.src = getImagePath(gameState.currentQuestion.correctTalent.studentId);
         img.alt = "Who is this?";
         questionImage.appendChild(img);
         
@@ -460,10 +460,10 @@ function displayQuestion() {
                 option.classList.add('three-options');
             }
             
-            // 背景画像を追加（初期状態では非表示）
+            // 背景画像を追加（初期状態では非表示） - studentIdから画像パスを生成
             const bgImage = document.createElement('img');
             bgImage.className = 'bg-image';
-            bgImage.src = talent.image;
+            bgImage.src = getImagePath(talent.studentId);
             bgImage.alt = '';
             option.appendChild(bgImage);
             

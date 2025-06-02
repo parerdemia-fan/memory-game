@@ -18,6 +18,21 @@ function shuffleArray(array) {
 }
 
 /**
+ * タレントのstudentIdから画像パスを生成する関数
+ * 
+ * 朧月ひかるさんの神秘的なインターネット文化への愛のように、
+ * データ構造の変化にも柔軟に対応できる仕組みを作りました。
+ * studentIdを使って統一的な画像パス管理を実現します。
+ * 
+ * @param {string} studentId - タレントの学籍番号
+ * @return {string} 画像のパス
+ */
+function getImagePath(studentId) {
+    if (!studentId) return '';
+    return `assets/images/face-${studentId}.webp`;
+}
+
+/**
  * 現在の出題範囲に基づいてタレントをフィルタリングする関数
  * 
  * 七扇ヲトメさんのように「お姉ちゃんに任せておきなさい」と言える
@@ -119,16 +134,16 @@ function extractImageUrls(question) {
     
     const urls = [];
     
-    // 問題の画像URL
-    if (question.correctTalent && question.correctTalent.imageUrl) {
-        urls.push(question.correctTalent.imageUrl);
+    // 問題の画像URL - studentIdから生成
+    if (question.correctTalent && question.correctTalent.studentId) {
+        urls.push(getImagePath(question.correctTalent.studentId));
     }
     
-    // 選択肢の画像URL
+    // 選択肢の画像URL - studentIdから生成
     if (question.options && Array.isArray(question.options)) {
         question.options.forEach(option => {
-            if (option && option.imageUrl) {
-                urls.push(option.imageUrl);
+            if (option && option.studentId) {
+                urls.push(getImagePath(option.studentId));
             }
         });
     }
